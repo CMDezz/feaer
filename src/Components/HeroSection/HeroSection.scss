@@ -1,0 +1,36 @@
+.HeroSection{
+    max-height: 80vh;
+    position: relative;
+    img{
+        max-height: 80vh;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    &Promo{
+        z-index: 1;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        min-height: 50px;
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+    }
+    &PromoItem{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 23px;
+        gap: 10px;
+        color: white;
+        svg{
+            color: white;
+            font-size: 40px;
+        }
+    }
+
+}

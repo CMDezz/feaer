@@ -1,0 +1,101 @@
+.Header{
+    display: flex;
+    align-items: center;
+    padding: 20px 20px;
+    position: relative;
+    &Menu,&Navigate{
+        width: 45%;
+        display: flex;
+        gap: 30px;
+    }
+    &MenuItem,&NavigateItem,&MenuItemSubItem{
+        min-width: 30px;
+        
+        &Link{
+            display: block;
+            width: 100%;
+        }
+    }
+
+    &MenuItem::after,&NavigateItem::after,&MenuItemSubItem::after{
+        content: '';
+        width: 0%;
+        height: 2px;
+        display: block;
+        background-color: transparent;
+    }
+    &MenuItem:hover,&NavigateItem:hover,&MenuItemSubItem:hover{
+        // underline effect
+        cursor: pointer;
+        &:not(.HeaderSearch){
+            &::after{
+                transition: width .3s, background-color .3s;
+                width: 100%;
+                background-color: black;
+            }
+        }
+      
+        //show subitem
+        .HeaderMenuItemSubMenu{
+            display: flex;
+        }
+    }
+    &MenuItem.active:hover,&NavigateItem.active:hover{
+        &::after{
+            transition: width .3s, background-color .3s;
+            width: 100%;
+            background-color: #be2c15;
+        }
+    }
+    &MenuItemLink, &NavigateItemLink{
+        color: black;
+        text-transform: uppercase;
+    }
+  
+    &MenuItem.active >a{
+        color:#be2c15;
+    }
+    &Navigate{
+        justify-content: flex-end;
+    }
+    &Logo{
+        width: 10%;
+        img{
+            height: 60px;
+        }
+    }
+
+    //for sub item 
+    &MenuItemSubMenu{
+        position: absolute;
+        left: 0;
+        padding: 0 20px;
+        padding-top: 20px;
+        width: 100%;
+        display: flex;
+        gap: 30px;
+        min-height: 110px;
+        display: none;
+        a{
+            text-transform: uppercase;
+            color: black;
+        }
+    }
+    //search input
+    &Search{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        input{
+            border: none;
+            border-bottom: 1.5px solid black;
+            &:focus{
+                border-bottom: 1.5px solid black;
+                outline: none;
+            }
+        }
+        svg:hover{
+            cursor: pointer;
+        }
+    }
+}

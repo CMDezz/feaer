@@ -2,16 +2,14 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "./HeroSection.scss";
-import HeroSectionData from "./HeroSectionData";
 
 import { MdOutlineLocalShipping } from "react-icons/md";
 import { FiPackage } from "react-icons/fi";
 import { TbBackhoe } from "react-icons/tb";
 
-const HeroSection = () => {
-  console.log(HeroSectionData);
+const HeroSection = (props) => {
   let renderSwiper = () => {
-    return HeroSectionData.map((i, key) => {
+    return props.dataHeroSection.map((i, key) => {
       return (
         <SwiperSlide>
           <img src={i} alt="" key={key} />

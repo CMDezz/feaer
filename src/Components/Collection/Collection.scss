@@ -1,0 +1,50 @@
+.Collection{
+    width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    &Item{
+        width: 50%;
+        display: flex;
+        &Img{
+            width: 50%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        &Info{
+            background-color: #1D284A;
+            padding: 10px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        &Title{
+            font-weight: 500;
+            color: white;
+            font-size: 20px;
+            padding: 0;
+        }
+        &Desc{
+            color: white;
+        }
+        &BtnViewDetail{
+            color: white;
+            border: 1px solid white;
+            margin-top: auto;
+            margin-bottom: 0;
+            align-self: flex-end;
+            font-size: 14px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            &:hover{
+                color: black;
+                background: white;
+                cursor: pointer;
+                transform: scale(1.05);
+                transition: all .3s;
+            }
+        }
+    }
+}

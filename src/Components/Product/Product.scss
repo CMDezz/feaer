@@ -1,0 +1,56 @@
+.Product{
+    width: calc(25% - 15px);
+    &Slide{
+        position: relative;
+        img{
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+    }
+    &Name,&Price{
+        font-weight: 500;
+    }
+    &Price{
+        display: inline-block;
+        margin-top: 0;
+    }
+    &PriceBox{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    &SalePrice{
+        margin-top: 0;
+        display: inline-block;
+        font-weight: 500;
+        color: #3924d7;
+        font-size: 18px;
+        margin-right: 20px;
+        font-weight: 500;
+    }
+    &SalePrice ~ &Price{
+        display: inline-block;
+        font-weight: 400;
+        color: #7A7A7A;
+        text-decoration: line-through;
+        font-size: 14px;
+        font-weight: 300;
+    }
+    &SalePercent{
+        color: white;
+        background-color: #3924d7;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        z-index: 1;
+        margin: 0;
+        padding: 5px 10px;
+        font-size: 12px;
+        font-weight: 500;
+        border-radius: 5px;
+    }
+
+}

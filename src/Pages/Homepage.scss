@@ -1,0 +1,44 @@
+.Homepage{
+    &Tab{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &Item{
+        flex-basis: 15%;
+        text-align: center;
+           font-size: 22px;
+           padding: 10px 30px;
+           border-bottom: 3px solid #F1F1F1;
+           font-weight: 600;
+
+           &:hover{
+               cursor: pointer;
+           }
+        }
+        &Item.active{
+            color: #3924d7;
+            border-bottom: 3px solid #3924d7;
+        }
+        
+    }
+    .btnViewAll{
+        padding: 5px 20px;
+        border: 1px solid black;
+        color: black;
+        border-radius: 30px;
+        display: block;
+        width: fit-content;
+        margin: 0 auto;
+        margin-bottom: 40px;
+        
+        &:hover{
+            background-color: black;
+            color: white;
+            transform: scale(1.05);
+            transition: all .3s;
+        }
+    }
+    .Collection{
+        margin-bottom: 40px;
+    }
+}

@@ -14,6 +14,7 @@
         &Link{
             display: block;
             width: 100%;
+            font-weight: 600;
         }
     }
 
@@ -76,9 +77,13 @@
         gap: 30px;
         min-height: 110px;
         display: none;
+        background-color: white;
+        z-index: 2; //above the herosection
         a{
             text-transform: uppercase;
             color: black;
+            font-weight: 600;
+
         }
     }
     //search input

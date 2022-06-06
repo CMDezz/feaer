@@ -1,6 +1,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
+import { Link } from "react-router-dom";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -12,8 +13,9 @@ const Product = (props) => {
     return productData.img.map((i, k) => {
       return (
         <SwiperSlide>
-          {" "}
-          <img src={i} alt="" />{" "}
+          <Link to={props.productData.urlPath}>
+            <img src={i} alt="" />{" "}
+          </Link>
         </SwiperSlide>
       );
     });
@@ -45,7 +47,9 @@ const Product = (props) => {
         )}
       </div>
       <div className="ProductInfo">
-        <p className="ProductName">{productData.name}</p>
+        <Link to={props.productData.urlPath} className="ProductName">
+          {productData.name}
+        </Link>
         <div className="ProductPriceBox">
           {productData.salePrice && productData.salePrice > 0 ? (
             <p className="ProductSalePrice">

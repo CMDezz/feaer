@@ -1,6 +1,7 @@
 import React from "react";
 import "./Header.scss";
 import { AiOutlineSearch } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -97,7 +98,9 @@ const Header = () => {
         </li>
       </ul>
       <div className="HeaderLogo">
-        <img src="/assets/img/logo.svg" alt="" />
+        <Link to="/">
+          <img src="/assets/img/logo.svg" alt="" />
+        </Link>
       </div>
       <ul className="HeaderNavigate">
         <li className="HeaderNavigateItem HeaderSearch">

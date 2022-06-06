@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import HomepageData from "./HomepageData";
 import "./Homepage.scss";
 //components
-import Banner from "./../Components/Banner/Banner";
-import Header from "./../Components/Header/Header";
-import HeroSection from "./../Components/HeroSection/HeroSection";
-import ProductList from "./../Components/ProductList/ProductList";
-import Collection from "../Components/Collection/Collection";
+import HeroSection from "../../Components/HeroSection/HeroSection";
+import ProductList from "../../Components/ProductList/ProductList";
+import Collection from "../../Components/Collection/Collection";
+import Features from "../../Components/Features/Features";
+import CategoryList from "../../Components/CategoryList/CategoryList";
 
 const Homepage = () => {
   const [activatedTab, setActivatedTab] = useState(1);
   const [newProducts, setNewProducts] = useState(HomepageData.newProducts);
+  const Features1 = HomepageData.features[0];
+  const Features2 = HomepageData.features[1];
   const [topSellerProducts, setTopSellerProducts] = useState(
     HomepageData.topSellerProducts
   );
@@ -32,8 +34,6 @@ const Homepage = () => {
 
   return (
     <div className="Homepage">
-      <Banner dataBanner={HomepageData.banner}></Banner>
-      <Header></Header>
       <HeroSection dataHeroSection={HomepageData.heroSection}></HeroSection>
       <div className="HomepageProductList">
         <ul className="HomepageTab">
@@ -68,6 +68,13 @@ const Homepage = () => {
         </a>
       </div>
       <Collection dataCollection={HomepageData.collection}></Collection>
+      <Features dataFeatures={Features1}></Features>
+      <Features dataFeatures={Features2}></Features>
+      <CategoryList dataCategory={HomepageData.category}></CategoryList>
+      <div className="Maybe">
+        <h4 className="MaybeTitle">Có Thể Bạn Sẽ Thích</h4>
+        <ProductList dataProductList={HomepageData.maybe}></ProductList>
+      </div>
     </div>
   );
 };

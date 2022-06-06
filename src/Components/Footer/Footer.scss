@@ -1,0 +1,50 @@
+.Footer{
+    background-color: #131313;
+    &Container{
+        width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 50px;
+    }
+    a,p{
+        color: white;
+        text-decoration: none;
+    }
+    &Logo{
+        width: 70px;
+        height: 70px;
+        display: block;
+    }
+    &Desc{
+        padding: 40px 0; 
+        margin: 0;
+        font-size: 13px;
+    }
+    &Info{
+        display: flex;
+        flex-direction: column;
+    }
+    &Navigation{
+        margin: 0;
+        display: flex;
+        gap: 50px;
+        padding-bottom: 40px;
+        justify-content: space-between;
+        &ItemTitle{
+            font-size: 16px;
+            font-weight: 500;
+        }
+        &ItemLink {
+            padding: 5px 0;
+            a{
+                display: flex;
+                align-items: center;
+                font-size: 13px;
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}

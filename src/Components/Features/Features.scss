@@ -1,0 +1,41 @@
+.Features{
+    margin-bottom: 20px;
+    width: 1400px;
+    margin: 0 auto;
+    background-color: #f1f1f1;
+    display: flex;
+    &Media{
+        width: 50%;
+        height: 500px;
+        img{
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+    }
+    &Info{
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    &Title{
+        padding: 20px 20px;
+        font-size: 30px;
+        color: black;
+        font-weight: 500;
+        margin: 0;
+    }
+    &Desc{
+        max-width: 580px;
+        margin: 0;
+        padding: 0px 20px;
+        white-space: pre-line;
+    }
+
+}
+.Features.reverse{
+    flex-direction: row-reverse;   
+}

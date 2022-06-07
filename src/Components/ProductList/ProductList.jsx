@@ -3,8 +3,8 @@ import Product from "./../Product/Product";
 import "./ProductList.scss";
 
 const ProductList = (props) => {
-  console.log(props.dataProductList);
   let renderProductList = () => {
+    console.log(props.dataProductList);
     return props.dataProductList.map((i, k) => {
       return <Product productData={i} key={k}></Product>;
     });

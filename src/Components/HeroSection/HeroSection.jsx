@@ -19,12 +19,7 @@ const HeroSection = (props) => {
   };
   return (
     <div className="HeroSection">
-      <Swiper
-        spaceBetween={50}
-        slidesPerView={1}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
-      >
+      <Swiper spaceBetween={50} slidesPerView={1}>
         {renderSwiper()}
       </Swiper>
       <ul className="HeroSectionPromo">

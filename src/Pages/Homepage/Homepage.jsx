@@ -9,29 +9,44 @@ import Features from "../../Components/Features/Features";
 import CategoryList from "../../Components/CategoryList/CategoryList";
 
 const Homepage = () => {
+  const baseApiUrl = "http://localhost:5000/api";
+  const [newestProduct, setNewestProduct] = useState([]);
+  const [topSellerProducts, setTopSellerProducts] = useState([]);
+  const [trendingProducts, setTrendingProducts] = useState([]);
+
   const [activatedTab, setActivatedTab] = useState(1);
-  const [newProducts, setNewProducts] = useState(HomepageData.newProducts);
   const Features1 = HomepageData.features[0];
   const Features2 = HomepageData.features[1];
-  const [topSellerProducts, setTopSellerProducts] = useState(
-    HomepageData.topSellerProducts
-  );
-  const [trendingProductss, setTrendingProducts] = useState(
-    HomepageData.trendingProducts
-  );
+
+  useEffect(() => {
+    const fetchUrl = [
+      baseApiUrl + "/product/getNewestProducts",
+      baseApiUrl + "/product/getTopSellerProducts",
+      baseApiUrl + "/product/getProductsBytag?tag=Xu%20Hướng",
+    ];
+    Promise.all(
+      fetchUrl.map((url) => {
+        return fetch(url).then((res) => res.json());
+      })
+    ).then(([newestProduct, topSellerProducts, trendingProducts]) => {
+      console.log(topSellerProducts);
+      setNewestProduct(newestProduct);
+      setTopSellerProducts(topSellerProducts);
+      setTrendingProducts(trendingProducts);
+    });
+  }, []);
 
   let renderProductTabItems = () => {
     let dataProductList = [];
     if (activatedTab == 0) {
-      dataProductList = newProducts;
+      dataProductList = newestProduct;
     } else if (activatedTab == 1) {
       dataProductList = topSellerProducts;
     } else if (activatedTab == 2) {
-      dataProductList = trendingProductss;
+      dataProductList = trendingProducts;
     }
     return <ProductList dataProductList={dataProductList}></ProductList>;
   };
-
   return (
     <div className="Homepage">
       <HeroSection dataHeroSection={HomepageData.heroSection}></HeroSection>
@@ -73,7 +88,7 @@ const Homepage = () => {
       <CategoryList dataCategory={HomepageData.category}></CategoryList>
       <div className="Maybe">
         <h4 className="MaybeTitle">Có Thể Bạn Sẽ Thích</h4>
-        <ProductList dataProductList={HomepageData.maybe}></ProductList>
+        {/* <ProductList dataProductList={HomepageData.maybe}></ProductList> */}
       </div>
     </div>
   );

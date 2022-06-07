@@ -10,10 +10,10 @@ import "./Product.scss";
 const Product = (props) => {
   let productData = props.productData;
   let renderProduct = () => {
-    return productData.img.map((i, k) => {
+    return productData.Image.map((i, k) => {
       return (
         <SwiperSlide>
-          <Link to={props.productData.urlPath}>
+          <Link to={props.productData.Name}>
             <img src={i} alt="" />{" "}
           </Link>
         </SwiperSlide>
@@ -24,8 +24,8 @@ const Product = (props) => {
     x = x.toLocaleString("it-IT", { style: "currency", currency: "VND" });
     return x;
   };
-  let salePercent = (salePrice, Price) => {
-    return Math.round(100 - (salePrice * 100) / Price);
+  let salePercent = (SalePrice, Price) => {
+    return Math.round(100 - (SalePrice * 100) / Price);
   };
   return (
     <div className="Product">
@@ -38,27 +38,27 @@ const Product = (props) => {
         >
           {renderProduct()}
         </Swiper>
-        {productData.salePrice && productData.salePrice > 0 ? (
+        {productData.SalePrice && productData.SalePrice > 0 ? (
           <p className="ProductSalePercent">
-            Giảm {salePercent(productData.salePrice, productData.price)}%
+            Giảm {salePercent(productData.SalePrice, productData.Price)}%
           </p>
         ) : (
           ""
         )}
       </div>
       <div className="ProductInfo">
-        <Link to={props.productData.urlPath} className="ProductName">
-          {productData.name}
+        <Link to={props.productData.Name} className="ProductName">
+          {productData.Name}
         </Link>
         <div className="ProductPriceBox">
-          {productData.salePrice && productData.salePrice > 0 ? (
+          {productData.SalePrice && productData.SalePrice > 0 ? (
             <p className="ProductSalePrice">
-              {numberToCurr(productData.salePrice)}
+              {numberToCurr(productData.SalePrice)}
             </p>
           ) : (
             ""
           )}
-          <p className="ProductPrice">{numberToCurr(productData.price)}</p>
+          <p className="ProductPrice">{numberToCurr(productData.Price)}</p>
         </div>
       </div>
     </div>

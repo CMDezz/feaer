@@ -13,7 +13,7 @@ const Product = (props) => {
     return productData.Image.map((i, k) => {
       return (
         <SwiperSlide>
-          <Link to={props.productData.Name}>
+          <Link to={"/product/product-detail/" + props.productData._id}>
             <img src={i} alt="" />{" "}
           </Link>
         </SwiperSlide>
@@ -47,7 +47,10 @@ const Product = (props) => {
         )}
       </div>
       <div className="ProductInfo">
-        <Link to={props.productData.Name} className="ProductName">
+        <Link
+          to={"/product/product-detail/" + props.productData._id}
+          className="ProductName"
+        >
           {productData.Name}
         </Link>
         <div className="ProductPriceBox">

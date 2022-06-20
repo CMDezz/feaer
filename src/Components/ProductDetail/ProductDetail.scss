@@ -1,7 +1,6 @@
 .ProductDetail{
     .ProductDetailSlider{
         width: 30vw;
-        height: 60vh;
         overflow: hidden;
     }
     img{
@@ -11,4 +10,41 @@
         object-fit: cover;
         // max-height: 400px;
     }
+
+    // .swiper-pagination-customs {
+    //     background-image: url('./../../../public/assets/img/p1_3.jpeg');
+    //     display: inline-block;
+    //     background-repeat: no-repeat;
+    //     background-size: contain;
+    //     width: 1.4vw;
+    //     height: 1.4vw;
+    //     margin-left: 2vw;
+    // }
+    // .swiper-pagination-customs-active {
+    //     background-image: url('./../../../public/assets/img/p1_2.jpeg');
+    // }
+    // .swiper-pagination {
+    //     position: absolute;
+    //     top: 10px;
+    //     right: 10px;
+    //     width: auto !important;
+    //     left: auto !important;
+    //     margin: 0;
+    // }
+    // .swiper-pagination-bullet {
+    //     padding: 5px 10px;
+    //     border-radius: 0;
+    //     width: auto;
+    //     height: 30px;
+    //     text-align: center;
+    //     line-height: 30px;
+    //     font-size: 12px;
+    //     color:#000;
+    //     opacity: 1;
+    //     background: rgba(0,0,0,0.2);
+    // }
+    // .swiper-pagination-bullet-active {
+    //     color:#fff;
+    //     background: #007aff;
+    // }
 }

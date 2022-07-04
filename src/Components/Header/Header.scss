@@ -1,73 +1,84 @@
-.Header{
+.Header {
     display: flex;
     align-items: center;
     padding: 20px 20px;
     position: relative;
-    &Menu,&Navigate{
+    max-width: 1980px;
+    margin: 0 auto;
+    &Menu,
+    &Navigate {
         width: 45%;
         display: flex;
         gap: 30px;
     }
-    &MenuItem,&NavigateItem,&MenuItemSubItem{
+    &MenuItem,
+    &NavigateItem,
+    &MenuItemSubItem {
         min-width: 30px;
-        
-        &Link{
+
+        &Link {
             display: block;
             width: 100%;
             font-weight: 600;
         }
     }
 
-    &MenuItem::after,&NavigateItem::after,&MenuItemSubItem::after{
-        content: '';
+    &MenuItem::after,
+    &NavigateItem::after,
+    &MenuItemSubItem::after {
+        content: "";
         width: 0%;
         height: 2px;
         display: block;
         background-color: transparent;
     }
-    &MenuItem:hover,&NavigateItem:hover,&MenuItemSubItem:hover{
+    &MenuItem:hover,
+    &NavigateItem:hover,
+    &MenuItemSubItem:hover {
         // underline effect
         cursor: pointer;
-        &:not(.HeaderSearch){
-            &::after{
-                transition: width .3s, background-color .3s;
+        &:not(.HeaderSearch) {
+            &::after {
+                transition: width 0.3s, background-color 0.3s;
                 width: 100%;
                 background-color: black;
             }
         }
-      
+
         //show subitem
-        .HeaderMenuItemSubMenu{
+        .HeaderMenuItemSubMenu {
             display: flex;
         }
     }
-    &MenuItem.active:hover,&NavigateItem.active:hover{
-        &::after{
-            transition: width .3s, background-color .3s;
+    &MenuItem.active:hover,
+    &NavigateItem.active:hover {
+        &::after {
+            transition: width 0.3s, background-color 0.3s;
             width: 100%;
             background-color: #be2c15;
         }
     }
-    &MenuItemLink, &NavigateItemLink{
+    &MenuItemLink,
+    &NavigateItemLink {
         color: black;
         text-transform: uppercase;
     }
-  
-    &MenuItem.active >a{
-        color:#be2c15;
+
+    &MenuItem.active > a {
+        color: #be2c15;
     }
-    &Navigate{
+    &Navigate {
         justify-content: flex-end;
     }
-    &Logo{
+    &Logo {
         width: 10%;
-        img{
+        img {
             height: 60px;
         }
     }
 
-    //for sub item 
-    &MenuItemSubMenu{
+    //for sub item
+    &MenuItemSubMenu {
         position: absolute;
         left: 0;
         padding: 0 20px;
@@ -79,27 +90,26 @@
         display: none;
         background-color: white;
         z-index: 2; //above the herosection
-        a{
+        a {
             text-transform: uppercase;
             color: black;
             font-weight: 600;
-
         }
     }
     //search input
-    &Search{
+    &Search {
         display: flex;
         justify-content: center;
         align-items: center;
-        input{
+        input {
             border: none;
             border-bottom: 1.5px solid black;
-            &:focus{
+            &:focus {
                 border-bottom: 1.5px solid black;
                 outline: none;
             }
         }
-        svg:hover{
+        svg:hover {
             cursor: pointer;
         }
     }

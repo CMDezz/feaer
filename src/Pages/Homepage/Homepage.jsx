@@ -7,8 +7,11 @@ import ProductList from "../../Components/ProductList/ProductList";
 import Collection from "../../Components/Collection/Collection";
 import Features from "../../Components/Features/Features";
 import CategoryList from "../../Components/CategoryList/CategoryList";
+import SameProducts from "../../Components/SameProducts/SameProducts";
 
 const Homepage = () => {
+  window.scrollTo({ top: 0 });
+
   const baseApiUrl = "http://localhost:5000/api";
   const [newestProduct, setNewestProduct] = useState([]);
   const [topSellerProducts, setTopSellerProducts] = useState([]);
@@ -29,7 +32,6 @@ const Homepage = () => {
         return fetch(url).then((res) => res.json());
       })
     ).then(([newestProduct, topSellerProducts, trendingProducts]) => {
-      console.log(topSellerProducts);
       setNewestProduct(newestProduct);
       setTopSellerProducts(topSellerProducts);
       setTrendingProducts(trendingProducts);

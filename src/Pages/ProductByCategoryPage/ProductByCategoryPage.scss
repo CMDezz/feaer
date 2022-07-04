@@ -1,0 +1,48 @@
+.ProductByCategoryPage {
+    max-width: 1980px;
+    .BackgroundBanner {
+        background-image: url("../../../public/assets/img/background-banner-ve.jpeg");
+        height: 380px;
+        max-width: 1980px;
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin: 0 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &Title {
+            font-size: 76px;
+            color: white;
+            font-weight: 400;
+            text-align: center;
+        }
+    }
+    &Actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        margin: 20px auto;
+
+        .navigateLinks {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            a {
+                color: black;
+                font-size: 18px;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+        .FilterAndSort {
+            .Sort {
+                #SortProduct {
+                    padding: 5px 10px;
+                }
+            }
+        }
+    }
+}

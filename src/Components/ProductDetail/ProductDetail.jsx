@@ -1,38 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
+import ProductDetailSwiper from "../ProductDetailSwiper/ProductDetailSwiper";
+import ProductDetailInfo from "../ProductDetailInfo/ProductDetailInfo";
 import "./ProductDetail.scss";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Pagination } from "swiper";
-
 const ProductDetail = (props) => {
-  let renderProductDetailSlider = () => {
-    if (props.dataProductDetail.ImageDetail != undefined) {
-      return props.dataProductDetail.ImageDetail.map((i) => {
-        return (
-          <SwiperSlide>
-            <img src={i} alt="" />
-          </SwiperSlide>
-        );
-      });
-    }
-  };
   return (
     <div className="ProductDetail">
       <div className="ProductDetailSlider">
-        <Swiper
-          direction={"vertical"}
-          pagination={{
-            clickable: true,
-          }}
-          height={"600"}
-          modules={[Pagination]}
-          className="mySwiper"
-        >
-          {renderProductDetailSlider()}
-        </Swiper>
+        <ProductDetailSwiper
+          data={props.dataProductDetail.ImageDetail}
+        ></ProductDetailSwiper>
       </div>
-      <div className="ProductDetailInfo"></div>
+      <div className="ProductDetailInfomation">
+        <ProductDetailInfo data={props.dataProductDetail}></ProductDetailInfo>
+      </div>
     </div>
   );
 };

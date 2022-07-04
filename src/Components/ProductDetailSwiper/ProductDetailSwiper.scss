@@ -1,0 +1,31 @@
+.ProductDetailSwiper {
+    .ProductDetailSwiperSlider {
+        width: 90%;
+        height: 630px;
+        display: flex;
+        flex-direction: row-reverse;
+        .mySwiper2 {
+            width: 80%;
+            height: 100%;
+        }
+        .mySwiper {
+            width: 13%;
+            height: 100%;
+            .swiper-slide {
+                opacity: 0.4;
+                max-height: 90px;
+            }
+            .swiper-slide-thumb-active {
+                opacity: 1;
+            }
+        }
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        // max-height: 400px;
+    }
+}

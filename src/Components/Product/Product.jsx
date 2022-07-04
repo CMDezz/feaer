@@ -12,7 +12,7 @@ const Product = (props) => {
   let renderProduct = () => {
     return productData.Image.map((i, k) => {
       return (
-        <SwiperSlide>
+        <SwiperSlide key={k}>
           <Link to={"/product/product-detail/" + props.productData._id}>
             <img src={i} alt="" />{" "}
           </Link>
@@ -37,11 +37,10 @@ const Product = (props) => {
           pagination={{ clickable: true }}
         >
           {renderProduct()}
+          <div className="ProductShowMore"></div>
         </Swiper>
         {productData.SalePrice && productData.SalePrice > 0 ? (
-          <p className="ProductSalePercent">
-            Giảm {salePercent(productData.SalePrice, productData.Price)}%
-          </p>
+          <p className="ProductSaleTitle">{productData.Discount.Name}</p>
         ) : (
           ""
         )}

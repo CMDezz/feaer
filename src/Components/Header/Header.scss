@@ -5,6 +5,11 @@
     position: relative;
     max-width: 1980px;
     margin: 0 auto;
+    .CartLink {
+        .numOfCart {
+            font-weight: 400;
+        }
+    }
     &Menu,
     &Navigate {
         width: 45%;

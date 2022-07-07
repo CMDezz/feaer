@@ -1,0 +1,12 @@
+.Checkout {
+    max-width: 1090px;
+    margin: 0 auto;
+    &Box {
+        display: flex;
+        gap: 30px;
+    }
+    &Title {
+        font-size: 18px;
+        font-weight: 500;
+    }
+}

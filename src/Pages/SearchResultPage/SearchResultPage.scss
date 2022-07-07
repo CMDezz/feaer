@@ -1,0 +1,25 @@
+.SearchResultPage {
+    max-width: 1980px;
+    margin: 0 auto;
+    padding: 0 20px;
+    min-height: 700px;
+    &Title {
+        font-size: 23px;
+        text-align: center;
+        margin: 20px 0;
+    }
+    &Top {
+        padding: 0 20px;
+        max-width: 1980px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .tempBox {
+            width: 10px;
+        }
+    }
+    .ProductList {
+        padding: 0;
+    }
+}

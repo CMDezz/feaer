@@ -20,6 +20,8 @@ const CartProduct = (props) => {
     } else if (action == "-") {
       if (qty - 1 > 0) setQty(qty - 1);
     }
+
+    props.callBackReload(p);
   };
   useEffect(() => {
     p.qty = qty;
@@ -38,6 +40,7 @@ const CartProduct = (props) => {
     }).then((result) => {
       if (result.isConfirmed) {
         props.deleteFromCart(p);
+        props.callBackDeleted(p);
         Swal.fire({
           title: "Đã xóa!",
           text: "Đã xóa sản phẩm khỏi giỏ hàng.",
@@ -63,8 +66,8 @@ const CartProduct = (props) => {
         </p>
         <p className="CartProductSize">Kích cỡ: {p.sizePicked}</p>
         <p className="CartProductPrice">
-          Giá:{" "}
-          {numToPrice(p.SalePrice && p.SalePrice > 0 ? p.SalePrice : p.Price)}
+          Giá:
+          {numToPrice(p.FinalPrice)}
         </p>
         <div className="CartProductQuantityBox">
           <span className="DecreaseQty" onClick={(e) => handleQty(e)}>

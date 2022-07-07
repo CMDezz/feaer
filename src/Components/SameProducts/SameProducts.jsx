@@ -11,11 +11,14 @@ import { Navigation, Pagination } from "swiper";
 // import ProductList from "../ProductList/ProductList";
 
 const SameProducts = (props) => {
+  let products = props.dataSameProduct || [];
   let numToPrice = (x) => {
     return x.toLocaleString("it-IT", { style: "currency", currency: "VND" });
   };
 
   let renderSameProducts = (products) => {
+    console.log(products);
+
     return products.map((p, key) => {
       return (
         <SwiperSlide key={"pSlide" + key}>
@@ -40,7 +43,7 @@ const SameProducts = (props) => {
               );
             })}
           </Swiper>
-          {p.SalePrice && p.SalePrice > 0 ? (
+          {p.Discount & (p.Discount != "") ? (
             <p className="SameProductsSaleTitle">{p.Discount.Name}</p>
           ) : (
             ""
@@ -50,9 +53,9 @@ const SameProducts = (props) => {
               {p.Name}
             </Link>
             <div className="SameProductsPriceBox">
-              {p.SalePrice && p.SalePrice > 0 ? (
+              {p.Discount & (p.Discount != "") ? (
                 <p className="SameProductsSalePrice">
-                  {numToPrice(p.SalePrice)}
+                  {numToPrice(p.FinalPrice)}
                 </p>
               ) : (
                 ""
@@ -82,7 +85,7 @@ const SameProducts = (props) => {
           }}
           noSwipingClass="SameProductSwiper"
         >
-          {renderSameProducts(props.dataSameProduct)}
+          {renderSameProducts(products)}
           {/* <ProductList dataProductList={props.dataSameProduct}></ProductList> */}
         </Swiper>
         <div className="swiper-button-prev  SameProduct-button-prev"></div>

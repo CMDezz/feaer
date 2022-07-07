@@ -1,41 +1,83 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, connect } from "react-redux";
 import CartProduct from "../CartProduct/CartProduct";
+import { setCartInfo } from "../../Redux/Shop/ShopActions";
+import { Link } from "react-router-dom";
 import "./Cart.scss";
 
 const Cart = (props) => {
   let CartFromRedux = useSelector((state) => state.shop.cart);
+  let [sCart, setCart] = useState(CartFromRedux);
+
+  let [reload, setReload] = useState(false);
+
+  let callBackDeleted = (p) => {
+    let newArr = sCart;
+    let index = newArr.findIndex(
+      (item) => item._id == p._id && item.sizePicked == p.sizePicked
+    );
+    newArr.splice(index, 1);
+    setCart([...newArr]);
+    console.log("deleted");
+  };
+  let callBackReload = (p) => {
+    let newArr = sCart;
+    let index = newArr.findIndex(
+      (item) => item._id == p._id && item.sizePicked == p.sizePicked
+    );
+    newArr[index] = p;
+    setCart([...newArr]);
+  };
   let [shippingMethod, setShippingMethod] = useState("Standard");
+
   let numToPrice = (x) => {
     return (x = x.toLocaleString("it-IT", {
       style: "currency",
       currency: "VND",
     }));
   };
-  let handleTempPrice = () => {
+
+  let handleToCheckout = (e) => {
+    let shippingType = shippingMethod;
+    let shippingFee = handleShippingFee();
+    let cartTotal = handleTotalPrice();
+    props.setCartInfo(shippingType, shippingFee, cartTotal);
+  };
+  let handleTempPrice = (cart) => {
     let tempPrice = 0;
-    CartFromRedux.map((p) => {
-      if (p.SalePrice && p.SalePrice > 0) {
-        tempPrice += p.SalePrice * p.qty;
-      } else {
-        tempPrice += p.Price * p.qty;
-      }
+    cart.map((p) => {
+      tempPrice += p.FinalPrice * p.qty;
     });
     return tempPrice;
   };
+  let [tempPrice, setTempPrice] = useState(handleTempPrice(sCart));
+  useEffect(() => {
+    setTempPrice(handleTempPrice(sCart));
+  }, [sCart]);
+  let callbackPrice = (cart) => {
+    setTempPrice(cart);
+  };
+
   let handleShippingFee = () => {
     if (shippingMethod == "Standard") return 0;
     if (shippingMethod == "Fast") return 15000;
   };
   let handleTotalPrice = () => {
-    return handleTempPrice() + handleShippingFee();
+    return tempPrice + handleShippingFee();
   };
   useEffect(() => {}, [shippingMethod]);
 
   let handleCartProducts = (Cart) => {
     if (Cart.length > 0) {
       return Cart.map((p, k) => {
-        return <CartProduct data={p} key={k}></CartProduct>;
+        return (
+          <CartProduct
+            data={p}
+            callBackReload={callBackReload}
+            callBackDeleted={callBackDeleted}
+            key={k}
+          ></CartProduct>
+        );
       });
     } else {
       return (
@@ -50,9 +92,9 @@ const Cart = (props) => {
   return (
     <div className="Cart">
       <h3 className="CartTitle">Giỏ Hàng</h3>
-      <p className="CartNumOfProducts">{CartFromRedux.length} sản phẩm</p>
+      <p className="CartNumOfProducts">{sCart.length} sản phẩm</p>
       <div className="CartInfo">
-        <div className="CartProducts">{handleCartProducts(CartFromRedux)}</div>
+        <div className="CartProducts">{handleCartProducts(sCart)}</div>
         <div className="CartTotals">
           <div className="CartTotalsContent">
             <p className="CartTotalsNote">
@@ -102,7 +144,7 @@ const Cart = (props) => {
               </div>
             </div>
             <p className="CartTotalsTempPrice">
-              Tạm tính: <span>{numToPrice(handleTempPrice())}</span>
+              Tạm tính: <span>{numToPrice(tempPrice)}</span>
             </p>
             <p className="CartTotalsShippingFee">
               Phí vận chuyển: <span>{numToPrice(handleShippingFee())}</span>
@@ -112,12 +154,16 @@ const Cart = (props) => {
             </p>
           </div>
           <div className="CartTotalsActions">
-            <a href="#" className="CartTotalsCheckout">
+            <Link
+              to="/checkout/shipping"
+              className="CartTotalsCheckout"
+              onClick={(e) => handleToCheckout(e)}
+            >
               TIẾN HÀNH THANH TOÁN
-            </a>
-            <a href="#" className="CartTotalsContinue">
+            </Link>
+            <Link to="/" className="CartTotalsContinue">
               TIẾP TỤC MUA SẮM
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -125,4 +171,12 @@ const Cart = (props) => {
   );
 };
 
-export default Cart;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCartInfo: (shippingType, shippingFee, cartTotal) => {
+      return dispatch(setCartInfo(shippingType, shippingFee, cartTotal));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Cart);

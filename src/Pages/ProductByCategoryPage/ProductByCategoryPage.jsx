@@ -35,9 +35,13 @@ const ProductByCategoryPage = () => {
           ...pList.sort((a, b) => b.Name.localeCompare(a.Name)),
         ]);
       case "increase":
-        return setProductList([...pList.sort((a, b) => a.Price - b.Price)]);
+        return setProductList([
+          ...pList.sort((a, b) => a.FinalPrice - b.FinalPrice),
+        ]);
       case "decrease":
-        return setProductList([...pList.sort((a, b) => b.Price - a.Price)]);
+        return setProductList([
+          ...pList.sort((a, b) => b.FinalPrice - a.FinalPrice),
+        ]);
 
       default:
         break;

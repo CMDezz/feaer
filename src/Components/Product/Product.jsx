@@ -24,8 +24,8 @@ const Product = (props) => {
     x = x.toLocaleString("it-IT", { style: "currency", currency: "VND" });
     return x;
   };
-  let salePercent = (SalePrice, Price) => {
-    return Math.round(100 - (SalePrice * 100) / Price);
+  let salePercent = (FinalPrice, Price) => {
+    return Math.round(100 - (FinalPrice * 100) / Price);
   };
   return (
     <div className="Product">
@@ -39,7 +39,7 @@ const Product = (props) => {
           {renderProduct()}
           <div className="ProductShowMore"></div>
         </Swiper>
-        {productData.SalePrice && productData.SalePrice > 0 ? (
+        {productData.Discount && productData.Discount != "" ? (
           <p className="ProductSaleTitle">{productData.Discount.Name}</p>
         ) : (
           ""
@@ -53,9 +53,9 @@ const Product = (props) => {
           {productData.Name}
         </Link>
         <div className="ProductPriceBox">
-          {productData.SalePrice && productData.SalePrice > 0 ? (
+          {productData.Discount && productData.Discount != "" ? (
             <p className="ProductSalePrice">
-              {numberToCurr(productData.SalePrice)}
+              {numberToCurr(productData.FinalPrice)}
             </p>
           ) : (
             ""

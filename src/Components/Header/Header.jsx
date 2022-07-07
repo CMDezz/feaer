@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.scss";
 import { AiOutlineSearch } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const cart = useSelector((state) => state.shop.cart);
+  const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
+
+  let handleKeypress = (e) => {
+    if (e.key === "Enter") {
+      navigate("/search/" + keyword, { replace: true });
+    }
+  };
   return (
     <div className="Header">
       <ul className="HeaderMenu">
@@ -124,8 +134,16 @@ const Header = () => {
       </div>
       <ul className="HeaderNavigate">
         <li className="HeaderNavigateItem HeaderSearch">
-          <input type="text" placeholder="TÌM KIẾM" />
-          <AiOutlineSearch />
+          <input
+            type="text"
+            placeholder="TÌM KIẾM"
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+            onKeyPress={handleKeypress}
+          />
+          <Link to={"/search/" + keyword}>
+            <AiOutlineSearch />
+          </Link>
         </li>
         <li className="HeaderNavigateItem">
           <Link to="/product/product-list/" className="HeaderNavigateItemLink">
@@ -138,8 +156,8 @@ const Header = () => {
           </Link>
         </li>
         <li className="HeaderNavigateItem ">
-          <Link to="/cart" className="HeaderNavigateItemLink">
-            Giỏ hàng
+          <Link to="/cart" className="HeaderNavigateItemLink CartLink">
+            Giỏ hàng <span className="numOfCart">({cart.length})</span>
           </Link>
         </li>
       </ul>

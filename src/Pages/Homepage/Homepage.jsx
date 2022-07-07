@@ -8,6 +8,7 @@ import Collection from "../../Components/Collection/Collection";
 import Features from "../../Components/Features/Features";
 import CategoryList from "../../Components/CategoryList/CategoryList";
 import SameProducts from "../../Components/SameProducts/SameProducts";
+import TabProductList from "../../Components/TabProductList/TabProductList";
 
 const Homepage = () => {
   window.scrollTo({ top: 0 });
@@ -17,7 +18,6 @@ const Homepage = () => {
   const [topSellerProducts, setTopSellerProducts] = useState([]);
   const [trendingProducts, setTrendingProducts] = useState([]);
 
-  const [activatedTab, setActivatedTab] = useState(1);
   const Features1 = HomepageData.features[0];
   const Features2 = HomepageData.features[1];
 
@@ -38,52 +38,14 @@ const Homepage = () => {
     });
   }, []);
 
-  let renderProductTabItems = () => {
-    let dataProductList = [];
-    if (activatedTab == 0) {
-      dataProductList = newestProduct;
-    } else if (activatedTab == 1) {
-      dataProductList = topSellerProducts;
-    } else if (activatedTab == 2) {
-      dataProductList = trendingProducts;
-    }
-    return <ProductList dataProductList={dataProductList}></ProductList>;
-  };
   return (
     <div className="Homepage">
       <HeroSection dataHeroSection={HomepageData.heroSection}></HeroSection>
-      <div className="HomepageProductList">
-        <ul className="HomepageTab">
-          <li
-            className={
-              "HomepageTabItem " + (activatedTab === 0 ? "active" : "")
-            }
-            onClick={() => setActivatedTab(0)}
-          >
-            Sản Phẩm Mới
-          </li>
-          <li
-            className={
-              "HomepageTabItem " + (activatedTab === 1 ? "active" : "")
-            }
-            onClick={() => setActivatedTab(1)}
-          >
-            Bán Chạy Nhất
-          </li>
-          <li
-            className={
-              "HomepageTabItem " + (activatedTab === 2 ? "active" : "")
-            }
-            onClick={() => setActivatedTab(2)}
-          >
-            Xu Hướng
-          </li>
-        </ul>
-        <div className="HomepageTabProducts">{renderProductTabItems()}</div>
-        <a href="#" className="btnViewAll">
-          Xem Tất Cả
-        </a>
-      </div>
+      <TabProductList
+        tab1={{ name: "Sản Phẩm Mới", data: newestProduct }}
+        tab2={{ name: "Bán Chạy Nhất", data: topSellerProducts }}
+        tab3={{ name: "Xu Hướng", data: trendingProducts }}
+      ></TabProductList>
       <Collection dataCollection={HomepageData.collection}></Collection>
       <Features dataFeatures={Features1}></Features>
       <Features dataFeatures={Features2}></Features>

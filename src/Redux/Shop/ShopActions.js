@@ -20,3 +20,20 @@ export const adjustQty = (product) => {
     payload: product,
   };
 };
+
+export const setCartInfo = (shippingType, shippingFee, cartTotal) => {
+  return {
+    type: actionTypes.SET_CART_INFO,
+    payload: {
+      shippingType,
+      shippingFee,
+      cartTotal,
+    },
+  };
+};
+
+export const emptyCart = () => {
+  return {
+    type: actionTypes.EMPTY_CART,
+  };
+};

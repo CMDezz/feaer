@@ -1,8 +1,9 @@
-.ProductList{
-    max-width: 1400px;
+.ProductList {
+    max-width: 1980px;
     margin: 20px auto;
+    padding: 0 20px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: stretch;
     gap: 20px;
-    
 }

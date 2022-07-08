@@ -5,7 +5,7 @@ const Collection = (props) => {
   let renderCollection = () => {
     return props.dataCollection.map((i, k) => {
       return (
-        <div className="CollectionItem">
+        <div className="CollectionItem" key={k}>
           <img src={i.img} alt="" className="CollectionItemImg" />
           <div className="CollectionItemInfo">
             <h4 className="CollectionItemTitle">{i.title}</h4>

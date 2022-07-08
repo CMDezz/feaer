@@ -4,7 +4,6 @@ import "./ProductList.scss";
 
 const ProductList = (props) => {
   let renderProductList = () => {
-    console.log(props.dataProductList);
     return props.dataProductList.map((i, k) => {
       return <Product productData={i} key={k}></Product>;
     });

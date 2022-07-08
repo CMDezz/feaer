@@ -46,3 +46,15 @@ li{
 a{
   text-decoration: none;
 }
+h3,
+p,ul {
+    margin: 0;
+}
+input{
+  font-family: "Montserrat",sans-serif;
+
+}
+html.swal2-shown,
+body.swal2-shown {
+  overflow-y: auto !important;
+}

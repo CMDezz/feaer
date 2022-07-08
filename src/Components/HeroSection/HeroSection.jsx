@@ -11,8 +11,8 @@ const HeroSection = (props) => {
   let renderSwiper = () => {
     return props.dataHeroSection.map((i, key) => {
       return (
-        <SwiperSlide>
-          <img src={i} alt="" key={key} />
+        <SwiperSlide key={key}>
+          <img src={i} alt="" />
         </SwiperSlide>
       );
     });

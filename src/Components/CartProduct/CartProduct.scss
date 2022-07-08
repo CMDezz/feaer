@@ -1,0 +1,77 @@
+.CartProduct {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ebebeb;
+    &Info {
+        width: 100%;
+    }
+    img {
+        width: 150px;
+        height: 150px;
+        display: block;
+        object-fit: cover;
+        margin-right: 20px;
+    }
+    &Name {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        &Content {
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .deleteFromCart {
+            padding: 5px 10px;
+            font-weight: 500;
+            background-color: transparent;
+            &:hover {
+                cursor: pointer;
+                background-color: #f5f5f5;
+                transition: background-color 0.3s;
+            }
+        }
+    }
+    &Size {
+        font-size: 18px;
+        font-weight: 400;
+        margin-bottom: 10px;
+    }
+    &Price {
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: #be2c15;
+    }
+    &QuantityBox {
+        .DecreaseQty,
+        .IncreaseQty {
+            background-color: #f5f5f5;
+            padding: 5px 15px;
+            text-align: center;
+            font-size: 16px;
+            &:hover {
+                background-color: #ebebeb;
+                transition: background-color 0.3s;
+                cursor: pointer;
+            }
+        }
+        .QtyContent {
+            border: none;
+            max-width: 60px;
+            text-align: center;
+            background-color: #f5f5f5;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-size: 16px;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}

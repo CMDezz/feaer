@@ -1,0 +1,159 @@
+.ProductDetailInfo {
+    &Basic {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    &Name {
+        color: #292d32;
+        font-size: 24px;
+        line-height: 1.5;
+        margin-bottom: 10px;
+    }
+    &Price {
+        font-size: 23px;
+        color: #be2c15;
+        font-weight: 400;
+        margin-bottom: 10px;
+    }
+    &Sale {
+        font-size: 14px;
+        .status {
+            font-size: 14px;
+            color: #be2c15;
+        }
+    }
+    &Id {
+        font-size: 18px;
+        margin-bottom: 10px;
+        font-weight: 500;
+        span {
+            font-size: 16px;
+            font-weight: 400;
+        }
+    }
+    &Desc {
+        .title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .content {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+    }
+    &Sizes {
+        p {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+    }
+    &Size {
+        display: inline-block;
+        padding: 5px 10px;
+        border: 1px solid #c5c5c5;
+        font-size: 14px;
+        margin-right: 10px;
+        transition: border 0.3s;
+        width: 30px;
+        text-align: center;
+        &:hover {
+            cursor: pointer;
+            border: 1px solid #be2c15;
+            color: #be2c15;
+        }
+    }
+    .SizeClicked {
+        border: 1px solid #be2c15;
+        color: #be2c15;
+        outline: none;
+    }
+    &Add {
+        margin-bottom: 20px;
+    }
+
+    .WeConfirm {
+        &Title {
+            font-weight: 500;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        &Item {
+            svg {
+                margin-right: 10px;
+            }
+            margin-bottom: 10px;
+            display: flex;
+            // justify-content: center;
+            align-items: center;
+            .highLight {
+                font-weight: 500;
+            }
+        }
+    }
+
+    &Quantity {
+        input {
+            display: inline-block;
+            padding: 7px 15px;
+            max-width: 40px;
+            text-align: center;
+            font-size: 18px;
+            border: 1px solid #7f7f7f;
+            border-right: none;
+            border-left: none;
+            &:focus {
+                outline: none;
+            }
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .DecreaseQuantity,
+        .IncreaseQuantity {
+            padding: 7px 15px;
+            width: 10px;
+            display: inline-block;
+            border: 1px solid #7f7f7f;
+            font-size: 18px;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        .DecreaseQuantity {
+            border-right: none;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+        .IncreaseQuantity {
+            border-left: none;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+    }
+    &AddToCart {
+        font-size: 18px;
+        display: inline-block;
+        padding: 7px 25px;
+        // background-color: #cbcbcb;
+        color: #be2c15;
+        border: 1px solid #be2c15;
+        border-radius: 5px;
+        font-weight: 400;
+        transition: all 0.3s;
+        &:hover {
+            background-color: #be2c15;
+            color: white;
+            font-weight: 500px;
+        }
+    }
+    &Action {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+}

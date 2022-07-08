@@ -1,0 +1,46 @@
+.ThankYouPage {
+    max-width: 890px;
+    margin: 0 auto;
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    svg {
+        font-size: 80px;
+    }
+    &Title {
+        font-size: 40px;
+    }
+    &Desc {
+        max-width: 500px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        a {
+            color: black;
+            font-weight: 500;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    &Back {
+        width: 233px;
+        color: white;
+        display: block;
+        padding: 8px 20px;
+        text-align: center;
+        font-weight: 500;
+        border-radius: 4px;
+        background-color: black;
+        border: 1px solid black;
+        font-weight: 400;
+        transition: all 0.3s;
+        &:hover {
+            background-color: white;
+            color: black;
+            font-weight: 500;
+        }
+    }
+}

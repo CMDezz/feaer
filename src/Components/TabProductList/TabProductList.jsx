@@ -24,7 +24,7 @@ const TabProductList = (props) => {
             }
             onClick={() => setActivatedTab(0)}
           >
-            {props.tab1.name}
+            <p>{props.tab1.name}</p>
           </li>
           <li
             className={
@@ -32,7 +32,7 @@ const TabProductList = (props) => {
             }
             onClick={() => setActivatedTab(1)}
           >
-            {props.tab2.name}
+            <p>{props.tab2.name}</p>
           </li>
           <li
             className={
@@ -40,7 +40,7 @@ const TabProductList = (props) => {
             }
             onClick={() => setActivatedTab(2)}
           >
-            {props.tab3.name}
+            <p> {props.tab3.name}</p>
           </li>
         </ul>
         <div className="HomepageTabProducts">{renderProductTabItems()}</div>

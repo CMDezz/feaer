@@ -146,7 +146,7 @@ const Header = () => {
           </Link>
         </li>
         <li className="HeaderNavigateItem">
-          <Link to="/product/product-list/" className="HeaderNavigateItemLink">
+          <Link to="/signin" className="HeaderNavigateItemLink">
             Đăng nhập
           </Link>
         </li>

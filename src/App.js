@@ -11,6 +11,7 @@ import CheckoutPage from "./Pages/CheckoutPage/CheckoutPage";
 import PaymentPage from "./Pages/PaymentPage/PaymentPage";
 import ThankYouPage from "./Pages/ThankYouPage/ThankYouPage";
 import SearchResultPage from "./Pages/SearchResultPage/SearchResultPage";
+import SignInPage from "./Pages/SignInPage/SignInPage";
 
 function App() {
   return (
@@ -50,6 +51,11 @@ function App() {
             exact
             path="/search/:keyword"
             element={<SearchResultPage></SearchResultPage>}
+          ></Route>
+          <Route
+            exact
+            path="/signin"
+            element={<SignInPage></SignInPage>}
           ></Route>
         </Routes>
         <Footer></Footer>

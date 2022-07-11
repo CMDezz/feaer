@@ -17,6 +17,8 @@ const Homepage = () => {
   const [newestProduct, setNewestProduct] = useState([]);
   const [topSellerProducts, setTopSellerProducts] = useState([]);
   const [trendingProducts, setTrendingProducts] = useState([]);
+  const [collection, setCollection] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const Features1 = HomepageData.features[0];
   const Features2 = HomepageData.features[1];
@@ -26,16 +28,23 @@ const Homepage = () => {
       baseApiUrl + "/product/getNewestProducts",
       baseApiUrl + "/product/getTopSellerProducts",
       baseApiUrl + "/product/getProductsBytag?tag=Xu%20Hướng",
+      baseApiUrl + "/collection",
     ];
     Promise.all(
       fetchUrl.map((url) => {
         return fetch(url).then((res) => res.json());
       })
-    ).then(([newestProduct, topSellerProducts, trendingProducts]) => {
-      setNewestProduct(newestProduct);
-      setTopSellerProducts(topSellerProducts);
-      setTrendingProducts(trendingProducts);
-    });
+    ).then(
+      ([newestProduct, topSellerProducts, trendingProducts, collection]) => {
+        setNewestProduct(newestProduct);
+        setTopSellerProducts(topSellerProducts);
+        setTrendingProducts(trendingProducts);
+
+        setCollection(collection.slice(0, 2));
+
+        setIsLoading(false); // Hide loading screen
+      }
+    );
   }, []);
 
   return (
@@ -45,8 +54,9 @@ const Homepage = () => {
         tab1={{ name: "Sản Phẩm Mới", data: newestProduct }}
         tab2={{ name: "Bán Chạy Nhất", data: topSellerProducts }}
         tab3={{ name: "Xu Hướng", data: trendingProducts }}
+        isLoading={isLoading}
       ></TabProductList>
-      <Collection dataCollection={HomepageData.collection}></Collection>
+      <Collection dataCollection={collection}></Collection>
       <Features dataFeatures={Features1}></Features>
       <Features dataFeatures={Features2}></Features>
       <CategoryList dataCategory={HomepageData.category}></CategoryList>

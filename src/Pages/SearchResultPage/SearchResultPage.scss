@@ -23,3 +23,36 @@
         padding: 0;
     }
 }
+
+.SearchResultPageNoResult {
+    max-width: 1980px;
+    padding: 0 20px;
+    min-height: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &Container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+    }
+    .icon {
+        text-align: center;
+        svg {
+            font-size: 80px;
+            // text-align: center;
+        }
+    }
+    .text {
+        h3 {
+            font-size: 23px;
+            text-align: center;
+        }
+        p {
+            font-size: 19px;
+            text-align: center;
+        }
+    }
+}

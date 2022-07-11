@@ -13,27 +13,28 @@ import ThankYouPage from "./Pages/ThankYouPage/ThankYouPage";
 import SearchResultPage from "./Pages/SearchResultPage/SearchResultPage";
 import SignInPage from "./Pages/SignInPage/SignInPage";
 import React, { useState, useEffect } from "react";
+import CollectionPage from "./Pages/CollectionPage/CollectionPage";
 
 function App() {
-  const [isLoading, setLoading] = useState(true);
+  // const [isLoading, setLoading] = useState(true);
 
-  function fakeRequest() {
-    return new Promise((resolve) => setTimeout(() => resolve(), 500));
-  }
+  // function fakeRequest() {
+  //   return new Promise((resolve) => setTimeout(() => resolve(), 500));
+  // }
 
-  useEffect(() => {
-    fakeRequest().then(() => {
-      const el = document.querySelector(".loader-container");
-      if (el) {
-        el.remove();
-        setLoading(!isLoading);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   fakeRequest().then(() => {
+  //     const el = document.querySelector(".loader-container");
+  //     if (el) {
+  //       el.remove();
+  //       setLoading(!isLoading);
+  //     }
+  //   });
+  // }, []);
 
-  if (isLoading) {
-    return null;
-  }
+  // if (isLoading) {
+  //   return null;
+  // }
 
   return (
     <div className="App">
@@ -49,7 +50,12 @@ function App() {
           ></Route>
           <Route
             exact
-            path="/product/product-list/:category"
+            path="/product/product-list-by-cate/:param"
+            element={<ProductByCategoryPage />}
+          ></Route>
+          <Route
+            exact
+            path="/product/product-list-by-tag/:param"
             element={<ProductByCategoryPage />}
           ></Route>
           <Route exact path="/cart" element={<CartPage></CartPage>}></Route>
@@ -77,6 +83,11 @@ function App() {
             exact
             path="/signin"
             element={<SignInPage></SignInPage>}
+          ></Route>
+          <Route
+            exact
+            path="/collection/all-collection"
+            element={<CollectionPage></CollectionPage>}
           ></Route>
         </Routes>
         <Footer></Footer>

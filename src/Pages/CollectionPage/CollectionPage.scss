@@ -1,0 +1,82 @@
+.CollectionPage {
+    max-width: 1980px;
+    padding: 0 20px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    .BackgroundBanner {
+        width: 100%;
+        background-image: url("../../../public/assets/img/background-banner-ve.jpeg");
+        height: 380px;
+        max-width: 1980px;
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin: 0 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &Title {
+            font-size: 76px;
+            color: white;
+            font-weight: 400;
+            text-align: center;
+        }
+    }
+    .CollectionBox {
+        margin-top: 40px;
+        display: flex;
+        width: 70%;
+        flex-direction: column;
+    }
+    .CollectionItem {
+        margin-bottom: 20px;
+        width: 100%;
+        // text-align: center;
+    }
+    .CollectionImage {
+        border-radius: 40px;
+        overflow: hidden;
+        width: 35%;
+        height: 350px;
+        margin-right: 5%;
+        img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+    }
+    .CollectionInfo {
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+    }
+    .CollectionTitle {
+        font-size: 30px;
+        font-weight: 500;
+        margin-bottom: 20px;
+        color: black;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    .CollectionBtn {
+        text-decoration: none;
+        color: #e83e20;
+        margin-top: auto;
+        margin-bottom: 20px;
+        margin-right: 0;
+        margin-left: auto;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    .CollectionDesc {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+}

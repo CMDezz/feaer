@@ -1,20 +1,27 @@
 import React, { useState } from "react";
 import ProductList from "../ProductList/ProductList";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import { Link } from "react-router-dom";
 
 const TabProductList = (props) => {
   const [activatedTab, setActivatedTab] = useState(1);
+  let viewAllUrl = "";
   let renderProductTabItems = () => {
     let dataProductList = [];
     if (activatedTab == 0) {
       dataProductList = props.tab1.data;
+      viewAllUrl = "/product/product-list-by-tag/New%20Arrivals";
     } else if (activatedTab == 1) {
       dataProductList = props.tab2.data;
+      viewAllUrl = "/product/product-list-by-tag/Top%20Sellers";
     } else if (activatedTab == 2) {
       dataProductList = props.tab3.data;
+      console.log(props.tab3.data);
+      viewAllUrl = "/product/product-list-by-tag/Xu%20Hướng";
     }
     return <ProductList dataProductList={dataProductList}></ProductList>;
   };
-  return (
+  return !props.isLoading ? (
     <div className="TabProductList">
       <div className="HomepageProductList">
         <ul className="HomepageTab">
@@ -44,11 +51,14 @@ const TabProductList = (props) => {
           </li>
         </ul>
         <div className="HomepageTabProducts">{renderProductTabItems()}</div>
-        <a href="#" className="btnViewAll">
+        {}
+        <Link to={viewAllUrl} className="btnViewAll">
           Xem Tất Cả
-        </a>
+        </Link>
       </div>
     </div>
+  ) : (
+    <LoadingSpinner></LoadingSpinner>
   );
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import { Link } from "react-router-dom";
@@ -9,6 +9,18 @@ import "swiper/css/pagination";
 import "./Product.scss";
 const Product = (props) => {
   let productData = props.productData;
+  let isTopSeller = false;
+  let isTrending = false;
+
+  checkTag();
+  function checkTag() {
+    if (productData.Tag && productData.Tag.length > 0) {
+      productData.Tag.map((tag) => {
+        if (tag.Name == "Top Sellers") isTopSeller = true;
+        if (tag.Name == "Xu Hướng") isTrending = true;
+      });
+    }
+  }
   let renderProduct = () => {
     return productData.Image.map((i, k) => {
       return (
@@ -39,11 +51,30 @@ const Product = (props) => {
           {renderProduct()}
           <div className="ProductShowMore"></div>
         </Swiper>
-        {productData.Discount && productData.Discount != "" ? (
-          <p className="ProductSaleTitle">{productData.Discount.Name}</p>
-        ) : (
-          ""
-        )}
+        {/* set product tags */}
+        <div className="ProductSaleTitleBox">
+          {productData.Discount && productData.Discount != "" ? (
+            <p className="ProductSaleTitle ProductSaleTitleDiscount">
+              {productData.Discount.Name}
+            </p>
+          ) : (
+            ""
+          )}
+          {isTopSeller ? (
+            <p className="ProductSaleTitle ProductSaleTitleTopSellers">
+              Top Sellers
+            </p>
+          ) : (
+            ""
+          )}
+          {isTopSeller ? (
+            <p className="ProductSaleTitle ProductSaleTitleNewArrivals">
+              New Arrivals
+            </p>
+          ) : (
+            ""
+          )}
+        </div>
       </div>
       <div className="ProductInfo">
         <Link

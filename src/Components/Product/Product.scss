@@ -55,17 +55,29 @@
         font-size: 14px;
         font-weight: 300;
     }
-    &SaleTitle {
+    &SaleTitleBox {
         color: white;
-        background-color: #3924d7;
         position: absolute;
         top: 15px;
         left: 15px;
         z-index: 1;
         margin: 0;
+    }
+    &SaleTitle {
         padding: 5px 10px;
-        font-size: 12px;
-        font-weight: 500;
+        font-size: 10px;
+        font-weight: 400;
         border-radius: 5px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    &SaleTitleDiscount {
+        background-color: #3924d7;
+    }
+    &SaleTitleTopSellers {
+        background-color: #ef863b;
+    }
+    &SaleTitleNewArrivals {
+        background-color: #fb70b8;
     }
 }

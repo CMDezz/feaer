@@ -7,20 +7,27 @@ import ProductList from "../../Components/ProductList/ProductList";
 import "./ProductByCategoryPage.scss";
 
 const ProductByCategoryPage = () => {
-  let { category } = useParams();
+  window.scrollTo({ top: 0 });
+  let { param } = useParams();
+  let url = window.location.pathname;
+  let ApiUrl = "";
+  if (url.includes("product-list-by-cate"))
+    ApiUrl = "/product/getProductsByCategory?category=";
+  if (url.includes("product-list-by-tag"))
+    ApiUrl = "/product/getProductsByTag?tag=";
   const baseUrl = "http://localhost:5000/api";
-  const [productList, setProductList] = useState([]);
 
+  const [productList, setProductList] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    let fetchUrl = [
-      baseUrl + "/product/getProductsByCategory?category=" + category,
-    ];
+    let fetchUrl = [baseUrl + ApiUrl + param];
     Promise.all(
       fetchUrl.map((url) => {
         return fetch(url).then((res) => res.json());
       })
     ).then(([products]) => {
       setProductList(products);
+      setLoading(false);
     });
   }, []);
   let handleFilter = (e) => {
@@ -51,7 +58,7 @@ const ProductByCategoryPage = () => {
   return (
     <div className="ProductByCategoryPage">
       <div className="BackgroundBanner">
-        <h3 className="BackgroundBannerTitle">{category}</h3>
+        <h3 className="BackgroundBannerTitle">{param}</h3>
       </div>
       <div className="ProductByCategoryPageActions">
         <div className="navigateLinks">
@@ -59,7 +66,7 @@ const ProductByCategoryPage = () => {
             <FiHome> </FiHome> Trang Chủ
           </Link>
           <HiArrowNarrowRight></HiArrowNarrowRight>
-          <Link to={"/product/product-list/" + category}>{category}</Link>
+          <Link to={"/product/product-list/" + param}>{param}</Link>
         </div>
         <div className="FilterAndSort">
           <div className="Sort">
@@ -77,7 +84,10 @@ const ProductByCategoryPage = () => {
           </div>
         </div>
       </div>
-      <ProductList dataProductList={productList}></ProductList>
+      <ProductList
+        isLoading={loading}
+        dataProductList={productList}
+      ></ProductList>
     </div>
   );
 };

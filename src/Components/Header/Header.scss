@@ -55,6 +55,11 @@
             display: flex;
         }
     }
+    .HeaderSearch {
+        svg {
+            color: black;
+        }
+    }
     &MenuItem.active:hover,
     &NavigateItem.active:hover {
         &::after {

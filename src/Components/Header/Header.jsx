@@ -146,15 +146,15 @@ const Header = () => {
           </Link>
         </li>
         <li className="HeaderNavigateItem">
-          <Link to="/product/product-list/" className="HeaderNavigateItemLink">
+          <Link to="/signin" className="HeaderNavigateItemLink">
             Đăng nhập
           </Link>
         </li>
-        <li className="HeaderNavigateItem">
+        {/* <li className="HeaderNavigateItem">
           <Link to="/product/product-list/" className="HeaderNavigateItemLink">
             Trợ giúp
           </Link>
-        </li>
+        </li> */}
         <li className="HeaderNavigateItem ">
           <Link to="/cart" className="HeaderNavigateItemLink CartLink">
             Giỏ hàng <span className="numOfCart">({cart.length})</span>

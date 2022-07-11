@@ -44,6 +44,7 @@ const SearchResultPage = () => {
   }, [result]);
   return (
     <div className="SearchResultPage">
+      {console.log(result)}
       <div className="SearchResultPageTop">
         <div className="tempBox"></div>
         <h3 className="SearchResultPageTitle">

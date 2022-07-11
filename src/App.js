@@ -12,8 +12,29 @@ import PaymentPage from "./Pages/PaymentPage/PaymentPage";
 import ThankYouPage from "./Pages/ThankYouPage/ThankYouPage";
 import SearchResultPage from "./Pages/SearchResultPage/SearchResultPage";
 import SignInPage from "./Pages/SignInPage/SignInPage";
+import React, { useState, useEffect } from "react";
 
 function App() {
+  const [isLoading, setLoading] = useState(true);
+
+  function fakeRequest() {
+    return new Promise((resolve) => setTimeout(() => resolve(), 500));
+  }
+
+  useEffect(() => {
+    fakeRequest().then(() => {
+      const el = document.querySelector(".loader-container");
+      if (el) {
+        el.remove();
+        setLoading(!isLoading);
+      }
+    });
+  }, []);
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <div className="App">
       <Router>

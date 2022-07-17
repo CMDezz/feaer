@@ -65,10 +65,15 @@ const CartProduct = (props) => {
           </span>
         </p>
         <p className="CartProductSize">Kích cỡ: {p.sizePicked}</p>
-        <p className="CartProductPrice">
-          Giá:
-          {numToPrice(p.FinalPrice)}
-        </p>
+        <div className="CartProductPrice">
+          <span>Giá: </span>
+          {p.Discount && p.Discount != "" ? (
+            <p className="CartProductPriceSale">{numToPrice(p.FinalPrice)}</p>
+          ) : (
+            ""
+          )}
+          <p className="CartProductPriceBase">{numToPrice(p.Price)}</p>
+        </div>
         <div className="CartProductQuantityBox">
           <span className="DecreaseQty" onClick={(e) => handleQty(e)}>
             -

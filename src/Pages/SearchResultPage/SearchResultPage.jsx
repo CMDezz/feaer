@@ -7,7 +7,8 @@ import { TbMoodEmpty } from "react-icons/tb";
 const SearchResultPage = () => {
   const { keyword } = useParams();
   const [result, setResult] = useState([]);
-  const baseApiUrl = "http://localhost:5000/api";
+  const baseApiUrl = process.env.REACT_APP_API_URL;
+
   const [loading, setLoading] = useState(true);
 
   const apiUrl = [baseApiUrl + "/product/getProductsByName?keyword=" + keyword];

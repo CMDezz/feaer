@@ -9,14 +9,13 @@ const TabProductList = (props) => {
   let renderProductTabItems = () => {
     let dataProductList = [];
     if (activatedTab == 0) {
-      dataProductList = props.tab1.data;
+      dataProductList = props.tab1.data.slice(0, 8);
       viewAllUrl = "/product/product-list-by-tag/New%20Arrivals";
     } else if (activatedTab == 1) {
-      dataProductList = props.tab2.data;
+      dataProductList = props.tab2.data.slice(0, 8);
       viewAllUrl = "/product/product-list-by-tag/Top%20Sellers";
     } else if (activatedTab == 2) {
-      dataProductList = props.tab3.data;
-      console.log(props.tab3.data);
+      dataProductList = props.tab3.data.slice(0, 8);
       viewAllUrl = "/product/product-list-by-tag/Xu%20Hướng";
     }
     return <ProductList dataProductList={dataProductList}></ProductList>;

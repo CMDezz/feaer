@@ -14,6 +14,8 @@ import SearchResultPage from "./Pages/SearchResultPage/SearchResultPage";
 import SignInPage from "./Pages/SignInPage/SignInPage";
 import React, { useState, useEffect } from "react";
 import CollectionPage from "./Pages/CollectionPage/CollectionPage";
+import AdminPage from "./AdminPage/AdminPage";
+import NotFound from "./Components/NotFound/NotFound";
 
 function App() {
   // const [isLoading, setLoading] = useState(true);
@@ -58,6 +60,26 @@ function App() {
             path="/product/product-list-by-tag/:param"
             element={<ProductByCategoryPage />}
           ></Route>
+          <Route
+            exact
+            path="/product/product-list-by-collection/:param"
+            element={<ProductByCategoryPage />}
+          ></Route>
+          <Route
+            exact
+            path="/product/product-list-by-sex/:param"
+            element={<ProductByCategoryPage />}
+          ></Route>
+          <Route
+            exact
+            path="/product/product-list-by-collection/:param"
+            element={<ProductByCategoryPage />}
+          ></Route>
+          <Route
+            exact
+            path="/product/product-list-by-discount/:param"
+            element={<ProductByCategoryPage />}
+          ></Route>
           <Route exact path="/cart" element={<CartPage></CartPage>}></Route>
           <Route
             exact
@@ -89,7 +111,12 @@ function App() {
             path="/collection/all-collection"
             element={<CollectionPage></CollectionPage>}
           ></Route>
+
+          {/* admin Pages  */}
+          <Route exact path="/admin" element={<AdminPage></AdminPage>}></Route>
+          <Route path="*" element={<NotFound></NotFound>} />
         </Routes>
+
         <Footer></Footer>
       </Router>
     </div>

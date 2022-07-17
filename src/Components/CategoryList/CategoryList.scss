@@ -1,14 +1,14 @@
-.CategoryList{
-    &Item{
-    display: flex;
-    width: 1400px;
-    margin: 0 auto;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+.CategoryList {
+    &Item {
+        display: flex;
+        width: 1400px;
+        margin: 0 auto;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
     }
-    &Title{
-        font-size: 22px;
+    &Title {
+        font-size: 28px;
         font-weight: 500;
         text-align: center;
     }

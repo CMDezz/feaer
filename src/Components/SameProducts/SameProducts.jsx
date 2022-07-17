@@ -17,8 +17,6 @@ const SameProducts = (props) => {
   };
 
   let renderSameProducts = (products) => {
-    console.log(products);
-
     return products.map((p, key) => {
       return (
         <SwiperSlide key={"pSlide" + key}>
@@ -53,7 +51,7 @@ const SameProducts = (props) => {
               {p.Name}
             </Link>
             <div className="SameProductsPriceBox">
-              {p.Discount & (p.Discount != "") ? (
+              {p.Discount && p.Discount != "" ? (
                 <p className="SameProductsSalePrice">
                   {numToPrice(p.FinalPrice)}
                 </p>
@@ -68,29 +66,37 @@ const SameProducts = (props) => {
     });
   };
 
+  let renderLayout = () => {
+    return (
+      <div>
+        <h3 className="SameProductsTitle">Sản Phẩm Tương Tự: </h3>
+        <div className="SameProductsSlide">
+          <Swiper
+            spaceBetween={20}
+            slidesPerView={4}
+            className="SameProductSwiper"
+            //   navigation={true}
+            modules={[Navigation]}
+            noSwiping={true}
+            navigation={{
+              nextEl: ".SameProduct-button-next",
+              prevEl: ".SameProduct-button-prev",
+            }}
+            noSwipingClass="SameProductSwiper"
+          >
+            {renderSameProducts(products)}
+            {/* <ProductList dataProductList={props.dataSameProduct}></ProductList> */}
+          </Swiper>
+          <div className="swiper-button-prev  SameProduct-button-prev"></div>
+          <div className="swiper-button-next  SameProduct-button-next"></div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="SameProducts">
-      <h3 className="SameProductsTitle">Sản Phẩm Tương Tự: </h3>
-      <div className="SameProductsSlide">
-        <Swiper
-          spaceBetween={20}
-          slidesPerView={4}
-          className="SameProductSwiper"
-          //   navigation={true}
-          modules={[Navigation]}
-          noSwiping={true}
-          navigation={{
-            nextEl: ".SameProduct-button-next",
-            prevEl: ".SameProduct-button-prev",
-          }}
-          noSwipingClass="SameProductSwiper"
-        >
-          {renderSameProducts(products)}
-          {/* <ProductList dataProductList={props.dataSameProduct}></ProductList> */}
-        </Swiper>
-        <div className="swiper-button-prev  SameProduct-button-prev"></div>
-        <div className="swiper-button-next  SameProduct-button-next"></div>
-      </div>
+      {products.length > 0 ? renderLayout() : ""}
     </div>
   );
 };

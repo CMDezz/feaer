@@ -1,35 +1,35 @@
-.Collection{
+.Collection {
     width: 1400px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: nowrap;
-    &Item{
+    &Item {
         width: 50%;
         display: flex;
-        &Img{
+        &Img {
             width: 50%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
-        &Info{
-            background-color: #1D284A;
+        &Info {
+            background-color: #1d284a;
             padding: 10px 30px;
             display: flex;
             flex-direction: column;
         }
-        &Title{
+        &Title {
             font-weight: 500;
             color: white;
             font-size: 20px;
             padding: 0;
         }
-        &Desc{
+        &Desc {
             color: white;
         }
-        &BtnViewDetail{
+        &BtnViewDetail {
             color: white;
             border: 1px solid white;
             margin-top: auto;
@@ -38,12 +38,12 @@
             font-size: 14px;
             padding: 10px 20px;
             border-radius: 5px;
-            &:hover{
+            &:hover {
                 color: black;
                 background: white;
                 cursor: pointer;
                 transform: scale(1.05);
-                transition: all .3s;
+                transition: all 0.3s;
             }
         }
     }

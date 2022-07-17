@@ -6,7 +6,8 @@ import { Link, useParams } from "react-router-dom";
 
 const CollectionPage = () => {
   window.scrollTo({ top: 0 });
-  const baseApiUrl = "http://localhost:5000/api";
+  const baseApiUrl = process.env.REACT_APP_API_URL;
+
   const [isLoading, setIsLoading] = useState(true);
   const [collection, setCollection] = useState([]);
 
@@ -30,11 +31,17 @@ const CollectionPage = () => {
             <img src={c.Image} alt="" />
           </div>
           <div className="CollectionInfo">
-            <Link to="#" className="CollectionTitle">
+            <Link
+              to={"/product/product-list-by-collection/" + c.Name}
+              className="CollectionTitle"
+            >
               {c.Title}
             </Link>
             <p className="CollectionDesc">{c.Desc}</p>
-            <Link to="#" className="CollectionBtn">
+            <Link
+              to={"/product/product-list-by-collection/" + c.Name}
+              className="CollectionBtn"
+            >
               Xem Sản Phẩm
             </Link>
           </div>

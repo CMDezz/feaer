@@ -13,7 +13,7 @@ import TabProductList from "../../Components/TabProductList/TabProductList";
 const Homepage = () => {
   window.scrollTo({ top: 0 });
 
-  const baseApiUrl = "http://localhost:5000/api";
+  const baseApiUrl = process.env.REACT_APP_API_URL;
   const [newestProduct, setNewestProduct] = useState([]);
   const [topSellerProducts, setTopSellerProducts] = useState([]);
   const [trendingProducts, setTrendingProducts] = useState([]);
@@ -26,7 +26,7 @@ const Homepage = () => {
   useEffect(() => {
     const fetchUrl = [
       baseApiUrl + "/product/getNewestProducts",
-      baseApiUrl + "/product/getTopSellerProducts",
+      baseApiUrl + "/product/getProductsBytag?tag=Top%20Sellers",
       baseApiUrl + "/product/getProductsBytag?tag=Xu%20Hướng",
       baseApiUrl + "/collection",
     ];
@@ -60,10 +60,6 @@ const Homepage = () => {
       <Features dataFeatures={Features1}></Features>
       <Features dataFeatures={Features2}></Features>
       <CategoryList dataCategory={HomepageData.category}></CategoryList>
-      <div className="Maybe">
-        <h4 className="MaybeTitle">Có Thể Bạn Sẽ Thích</h4>
-        {/* <ProductList dataProductList={HomepageData.maybe}></ProductList> */}
-      </div>
     </div>
   );
 };

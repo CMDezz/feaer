@@ -9,6 +9,8 @@ import "./ProductDetailInfo.scss";
 import { connect } from "react-redux";
 
 const ProductDetailInfo = (props) => {
+  let discount = props.data.Discount || "";
+  let finalP = props.data.FinalPrice || "";
   let dataPrice = props.data.Price || 0;
   let dataName = props.data.Name || 0;
   let dataSold = props.data.TotalSold || 0;
@@ -55,7 +57,17 @@ const ProductDetailInfo = (props) => {
       <div className="ProductDetailInfoBasic">
         <div className="toLeft">
           <h3 className="ProductDetailInfoName">{props.data.Name}</h3>
-          <h3 className="ProductDetailInfoPrice">{numToPrice(dataPrice)}</h3>
+          {/* <h3 className="ProductDetailInfoPrice">{numToPrice(dataPrice)}</h3> */}
+          <div className="ProductDetailInfoPrice">
+            {discount && discount != "" ? (
+              <p className="ProductDetailInfoPriceSale">{numToPrice(finalP)}</p>
+            ) : (
+              ""
+            )}
+            <p className="ProductDetailInfoPriceBase">
+              {numToPrice(dataPrice)}
+            </p>
+          </div>
           <p className="ProductDetailInfoId">
             Mã Hàng Hóa: <span>{dataId}</span>
           </p>

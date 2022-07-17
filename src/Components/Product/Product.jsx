@@ -11,6 +11,7 @@ const Product = (props) => {
   let productData = props.productData;
   let isTopSeller = false;
   let isTrending = false;
+  let isNew = false;
 
   checkTag();
   function checkTag() {
@@ -18,6 +19,7 @@ const Product = (props) => {
       productData.Tag.map((tag) => {
         if (tag.Name == "Top Sellers") isTopSeller = true;
         if (tag.Name == "Xu Hướng") isTrending = true;
+        if (tag.Name == "New Arrivals") isNew = true;
       });
     }
   }
@@ -67,7 +69,7 @@ const Product = (props) => {
           ) : (
             ""
           )}
-          {isTopSeller ? (
+          {isNew ? (
             <p className="ProductSaleTitle ProductSaleTitleNewArrivals">
               New Arrivals
             </p>

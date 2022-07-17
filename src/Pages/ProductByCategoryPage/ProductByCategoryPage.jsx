@@ -11,44 +11,51 @@ const ProductByCategoryPage = () => {
   let { param } = useParams();
   let url = window.location.pathname;
   let ApiUrl = "";
+  let back = ""; //use for handle percent (add %25)
+  if (url.includes("product-list-by-sex"))
+    ApiUrl = "/product/getProductsBySex?sex=";
+  if (url.includes("product-list-by-discount")) {
+    ApiUrl = "/product/getProductsByDiscount?discount=";
+    param.includes("%") ? (back = "25") : (back = ""); // them 25 vao sau cho url percent (10% == 10%25)
+  }
   if (url.includes("product-list-by-cate"))
     ApiUrl = "/product/getProductsByCategory?category=";
   if (url.includes("product-list-by-tag"))
     ApiUrl = "/product/getProductsByTag?tag=";
-  const baseUrl = "http://localhost:5000/api";
+  if (url.includes("product-list-by-collection"))
+    ApiUrl = "/product/getProductsByCollection?name=";
+  const baseUrl = process.env.REACT_APP_API_URL;
 
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    let fetchUrl = [baseUrl + ApiUrl + param];
+    let fetchUrl = [baseUrl + ApiUrl + param + back];
+    console.log(fetchUrl);
     Promise.all(
       fetchUrl.map((url) => {
         return fetch(url).then((res) => res.json());
       })
     ).then(([products]) => {
-      setProductList(products);
+      setProductList([...products]);
       setLoading(false);
     });
-  }, []);
+  }, [param]);
   let handleFilter = (e) => {
     let pList = productList;
+    let ar = [];
     switch (e.target.value) {
       case "az":
-        return setProductList([
-          ...pList.sort((a, b) => a.Name.localeCompare(b.Name)),
-        ]);
+        ar = pList.sort((a, b) => a.Name.localeCompare(b.Name));
+        return setProductList([...ar]);
       case "za":
-        return setProductList([
-          ...pList.sort((a, b) => b.Name.localeCompare(a.Name)),
-        ]);
+        ar = pList.sort((a, b) => b.Name.localeCompare(a.Name));
+        return setProductList([...ar]);
       case "increase":
-        return setProductList([
-          ...pList.sort((a, b) => a.FinalPrice - b.FinalPrice),
-        ]);
+        ar = pList.sort((a, b) => a.FinalPrice - b.FinalPrice);
+        return setProductList([...ar]);
       case "decrease":
-        return setProductList([
-          ...pList.sort((a, b) => b.FinalPrice - a.FinalPrice),
-        ]);
+        ar = pList.sort((a, b) => b.FinalPrice - a.FinalPrice);
+        return setProductList([...ar]);
 
       default:
         break;

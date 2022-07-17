@@ -11,10 +11,23 @@
         margin-bottom: 10px;
     }
     &Price {
-        font-size: 23px;
-        color: #be2c15;
-        font-weight: 400;
         margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+
+        &Sale,
+        &Base {
+            font-size: 23px;
+            color: #be2c15;
+            font-weight: 400;
+            margin-right: 10px;
+        }
+        &Sale + &Base {
+            font-size: 20px;
+            color: #7f7f7f;
+            font-weight: 400;
+            text-decoration: line-through;
+        }
     }
     &Sale {
         font-size: 14px;

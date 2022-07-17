@@ -53,9 +53,24 @@
             margin-bottom: 5px;
         }
         &Price {
-            font-size: 14px;
-            color: black;
+            display: flex;
+            align-items: center;
             margin-bottom: 5px;
+            span {
+                font-size: 14px;
+                margin-right: 5px;
+            }
+            &Sale,
+            &Base {
+                font-size: 14px;
+                color: black;
+                margin-right: 5px;
+            }
+            &Sale + &Base {
+                font-size: 12px;
+                color: #7f7f7f;
+                text-decoration: line-through;
+            }
         }
     }
     &TempPrice,

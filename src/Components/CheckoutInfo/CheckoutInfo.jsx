@@ -42,7 +42,17 @@ const CheckoutInfo = (props) => {
             <p className="CheckoutInfoProductName">{p.Name}</p>
             <p className="CheckoutInfoProductSize">Size: {p.sizePicked}</p>
             <p className="CheckoutInfoProductPrice">
-              {numToPrice(p.FinalPrice)}
+              <span>Giá: </span>
+              {p.Discount && p.Discount != "" ? (
+                <p className="CheckoutInfoProductPriceSale">
+                  {numToPrice(p.FinalPrice)}
+                </p>
+              ) : (
+                ""
+              )}
+              <p className="CheckoutInfoProductPriceBase">
+                {numToPrice(p.Price)}
+              </p>
             </p>
           </div>
         </div>

@@ -19,23 +19,27 @@ const Header = () => {
       <ul className="HeaderMenu">
         <li className="HeaderMenuItem">
           <Link
-            to="/product/product-list/Thời%20Trang%20Nam"
+            to="/product/product-list-by-sex/Men"
             className="HeaderMenuItemLink"
           >
             Nam
           </Link>
           <ul className="HeaderMenuItemSubMenu">
             <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/Áo%20Nam">Áo nam</Link>{" "}
+              <Link to="/product/product-list-by-cate/Áo%20Nam">Áo nam</Link>{" "}
             </li>
             <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/Quần%20Nam">Quần nam</Link>
+              <Link to="/product/product-list-by-cate/Quần%20Nam">
+                Quần nam
+              </Link>
             </li>
             <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/Phụ%20Kiện">Phụ kiện</Link>
+              <Link to="/product/product-list-by-cate/Phụ%20Kiện">
+                Phụ kiện
+              </Link>
             </li>
             <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/Sale%20Off%20Nam">
+              <Link to="/product/product-list-by-tag/Sale%20Off%20Nam">
                 Sale off nam
               </Link>
             </li>
@@ -43,23 +47,25 @@ const Header = () => {
         </li>
         <li className="HeaderMenuItem">
           <Link
-            to="/product/product-list/Thời%20Trang%20Nữ"
+            to="/product/product-list-by-sex/Women"
             className="HeaderMenuItemLink"
           >
             Nữ
           </Link>
           <ul className="HeaderMenuItemSubMenu">
             <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/Áo%20Nữ">Áo nữ</Link>
+              <Link to="/product/product-list-by-cate/Áo%20Nữ">Áo nữ</Link>
             </li>
             <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/Quần%20Nữ">Quần nữ</Link>
+              <Link to="/product/product-list-by-cate/Quần%20Nữ">Quần nữ</Link>
             </li>
             <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/Váy%20Nữ">Váy/ đầm nữ</Link>
+              <Link to="/product/product-list-by-cate/Váy%20Nữ">
+                Váy/ đầm nữ
+              </Link>
             </li>
             <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/Sale%20Off%20Nữ">
+              <Link to="/product/product-list-by-tag/Sale%20Off%20Nữ">
                 Sale off nữ
               </Link>
             </li>
@@ -67,62 +73,68 @@ const Header = () => {
         </li>
         <li className="HeaderMenuItem">
           <Link
-            to="/product/product-list/New%20Arrivals"
+            to="/product/product-list-by-tag/New%20Arrivals"
             className="HeaderMenuItemLink"
           >
             New Arrivals
           </Link>
           <ul className="HeaderMenuItemSubMenu">
             <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/New%20Arrivals%20Nam">
+              <Link to="/product/product-list-by-tag/New%20Arrivals%20Nam">
                 New arrivals nam
               </Link>
             </li>
             <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/New%20Arrivals%20Nữ">
+              <Link to="/product/product-list-by-tag/New%20Arrivals%20Nữ">
                 New arrivals nữ
               </Link>
             </li>
           </ul>
         </li>
         <li className="HeaderMenuItem">
-          <Link
-            to="/product/product-list/Collection"
-            className="HeaderMenuItemLink"
-          >
+          <Link to="/collection/all-collection" className="HeaderMenuItemLink">
             Collection
           </Link>
           <ul className="HeaderMenuItemSubMenu">
             <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/">Bộ sưu tập</Link>
+              <Link to="product/product-list-by-collection/Hè%20Thoáng%20Mát">
+                Hè Thoáng Mát
+              </Link>
             </li>
             <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/">Không làm gì</Link>
+              <Link to="product/product-list-by-collection/Sơ%20Mi%20Lịch%20Lãm">
+                Sơ Mi Lịch Lãm
+              </Link>
             </li>
             <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/">Xanh</Link>
-            </li>
-            <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/">Right now</Link>
-            </li>
-            <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/">Polo Preminium</Link>
+              <Link to="product/product-list-by-collection/Set%20Nữ%20Ngày%20Hè">
+                Set Nữ Ngày Hè
+              </Link>
             </li>
           </ul>
         </li>
         <li className="HeaderMenuItem active">
-          <Link to="/product/product-list/" className="HeaderMenuItemLink">
+          <Link
+            to="/product/product-list-by-tag/Sale%20Off"
+            className="HeaderMenuItemLink"
+          >
             Summer Sale
           </Link>
           <ul className="HeaderMenuItemSubMenu">
             <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/">Sale off 30%</Link>
+              <Link to="/product/product-list-by-discount/Giảm%20giá%2010%25">
+                Sale off 10%
+              </Link>
             </li>
             <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/">Sale off 30%</Link>
+              <Link to="/product/product-list-by-discount/Giảm%20giá%2030%25">
+                Sale off 30%
+              </Link>
             </li>
             <li className="HeaderMenuItemSubItem">
-              <Link to="/product/product-list/">Đồng giá 199k</Link>
+              <Link to="/product/product-list-by-discount/Đồng%20giá%20150k">
+                Đồng giá 150k
+              </Link>
             </li>
           </ul>
         </li>
@@ -151,7 +163,7 @@ const Header = () => {
           </Link>
         </li>
         {/* <li className="HeaderNavigateItem">
-          <Link to="/product/product-list/" className="HeaderNavigateItemLink">
+          <Link to="/product/product-list-by-cate/" className="HeaderNavigateItemLink">
             Trợ giúp
           </Link>
         </li> */}

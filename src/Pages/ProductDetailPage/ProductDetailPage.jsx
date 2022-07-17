@@ -8,26 +8,31 @@ import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 const ProductDetailPage = () => {
   window.scrollTo({ top: 0 });
   const { id } = useParams();
-  const baseUrl = "http://localhost:5000/api";
+  const baseUrl = process.env.REACT_APP_API_URL;
+
   const [productDetail, setProductDetail] = useState({});
   const [sameProduct, setSameProduct] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     let fetchUrls = [baseUrl + "/product/getProductById?id=" + id];
-    let fetchSameProductsUrl = baseUrl + "/product/getProductsByTagId?id=";
+    let fetchSameProductsUrl = baseUrl + "/product/getProductsByCategoryId?id=";
     Promise.all(
       fetchUrls.map((url) => {
         return fetch(url).then((res) => res.json());
       })
-    )
-      .then(([product]) => {
-        setProductDetail(product);
-        return fetch(fetchSameProductsUrl + product.Tag[0]);
-      })
-      .then((res) => res.json())
-      .then((product) => {
-        setSameProduct(product);
-      });
+    ).then(([product]) => {
+      setProductDetail(product);
+      if (product.Category.length > 0) {
+        return fetch(fetchSameProductsUrl + product.Category[0])
+          .then((res) => res.json())
+          .then((products) => {
+            let pos = products.map((p) => p._id).indexOf(id);
+            products.splice(pos, 1);
+            setSameProduct([...products]);
+          });
+      }
+    });
+
     setLoading(false);
   }, [id]);
   return loading ? (

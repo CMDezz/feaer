@@ -21,7 +21,8 @@
     "sass": "^1.52.2",
     "sweetalert2": "^11.4.19",
     "swiper": "^8.2.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "serve":"^14.0.1"
   },
   "scripts": {
     "start": "serve -s build",

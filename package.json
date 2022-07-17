@@ -19,10 +19,10 @@
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
     "sass": "^1.52.2",
+    "serve": "^14.0.1",
     "sweetalert2": "^11.4.19",
     "swiper": "^8.2.2",
-    "web-vitals": "^2.1.4",
-    "serve":"^14.0.1"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "serve -s build",

@@ -17,7 +17,10 @@ const ProductDetailSwiper = (props) => {
     if (images != undefined) {
       return images.map((i, key) => {
         return (
-          <SwiperSlide key={key}>
+          <SwiperSlide
+            key={key}
+            className={key == 0 ? "swiper-slide-thumb-active" : ""}
+          >
             <img src={i} alt="" />
           </SwiperSlide>
         );
@@ -47,7 +50,7 @@ const ProductDetailSwiper = (props) => {
           direction={"vertical"}
           onSwiper={setThumbsSwiper}
           spaceBetween={10}
-          slidesPerView={4}
+          slidesPerView={6}
           freeMode={true}
           watchSlidesProgress={true}
           modules={[FreeMode, Navigation, Thumbs]}

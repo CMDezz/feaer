@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlinePhone } from "react-icons/ai";
 import "./Footer.scss";
 
 const Footer = () => {
+  const [isExpand, setExpand] = useState("");
   return (
     <div className="Footer">
       <div className="FooterContainer">
@@ -19,8 +20,18 @@ const Footer = () => {
           </p>
           <ul className="FooterNavigation">
             <li className="FooterNavigationItem">
-              <p className="FooterNavigationItemTitle">Sản Phẩm</p>
-              <ul className="FooterNavigationItemLinks">
+              <p
+                className="FooterNavigationItemTitle"
+                onClick={() => setExpand("SanPham")}
+              >
+                Sản Phẩm
+              </p>
+              <ul
+                className={
+                  (isExpand == "SanPham" ? "Active " : "") +
+                  "FooterNavigationItemLinks"
+                }
+              >
                 <li className="FooterNavigationItemLink">
                   <a href="#">Sản Phẩm Nam</a>
                 </li>
@@ -36,8 +47,18 @@ const Footer = () => {
               </ul>
             </li>
             <li className="FooterNavigationItem">
-              <p className="FooterNavigationItemTitle">Dịch Vụ Khách Hàng</p>
-              <ul className="FooterNavigationItemLinks">
+              <p
+                className="FooterNavigationItemTitle"
+                onClick={() => setExpand("DichVu")}
+              >
+                Dịch Vụ Khách Hàng
+              </p>
+              <ul
+                className={
+                  (isExpand == "DichVu" ? "Active " : "") +
+                  "FooterNavigationItemLinks"
+                }
+              >
                 <li className="FooterNavigationItemLink">
                   <a href="#">Hỏi Đáp - FAQs</a>
                 </li>
@@ -59,8 +80,18 @@ const Footer = () => {
               </ul>
             </li>
             <li className="FooterNavigationItem">
-              <p className="FooterNavigationItemTitle">Mạng Xã Hội</p>
-              <ul className="FooterNavigationItemLinks">
+              <p
+                className="FooterNavigationItemTitle"
+                onClick={() => setExpand("MangXaHoi")}
+              >
+                Mạng Xã Hội
+              </p>
+              <ul
+                className={
+                  (isExpand == "MangXaHoi" ? "Active " : "") +
+                  "FooterNavigationItemLinks"
+                }
+              >
                 <li className="FooterNavigationItemLink">
                   <a href="#">Shopee</a>
                 </li>
@@ -82,8 +113,18 @@ const Footer = () => {
               </ul>
             </li>
             <li className="FooterNavigationItem">
-              <p className="FooterNavigationItemTitle">Về Feaer</p>
-              <ul className="FooterNavigationItemLinks">
+              <p
+                className="FooterNavigationItemTitle"
+                onClick={() => setExpand("About")}
+              >
+                Về Feaer
+              </p>
+              <ul
+                className={
+                  (isExpand == "About" ? "Active " : "") +
+                  "FooterNavigationItemLinks"
+                }
+              >
                 <li className="FooterNavigationItemLink">
                   <a href="#">Câu Chuyện Về FEAER</a>
                 </li>

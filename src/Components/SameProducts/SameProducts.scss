@@ -1,6 +1,6 @@
 .SameProducts {
     margin: 10px auto;
-    max-width: 1980px;
+    max-width: 1440px;
     &Title {
         font-size: 30px;
         text-align: center;
@@ -55,7 +55,7 @@
                 -webkit-align-items: center;
                 align-items: center;
                 @media (min-width: 1441px) and (max-width: 1980px) {
-                    height: 630px;
+                    height: 530px;
                 }
             }
 

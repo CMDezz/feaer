@@ -59,7 +59,7 @@ const Homepage = () => {
       <Collection dataCollection={collection}></Collection>
       <Features dataFeatures={Features1}></Features>
       <Features dataFeatures={Features2}></Features>
-      {/* <CategoryList dataCategory={HomepageData.category}></CategoryList> */}
+      <CategoryList dataCategory={HomepageData.category}></CategoryList>
     </div>
   );
 };

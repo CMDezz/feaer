@@ -5,6 +5,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: nowrap;
+    margin-bottom: 20px;
     .swiper {
         width: 100%;
     }
@@ -39,7 +40,7 @@
             font-size: 20px;
             padding: 0;
 
-            @media (max-width: 540px) {
+            @media (max-width: 767px) {
                 font-size: 16px;
                 margin-top: 10px;
                 margin-bottom: 10px;
@@ -47,7 +48,7 @@
         }
         &Desc {
             color: white;
-            @media (max-width: 540px) {
+            @media (max-width: 767px) {
                 font-size: 12px;
             }
         }

@@ -57,8 +57,8 @@ const Homepage = () => {
         isLoading={isLoading}
       ></TabProductList>
       <Collection dataCollection={collection}></Collection>
-      {/* <Features dataFeatures={Features1}></Features> */}
-      {/* <Features dataFeatures={Features2}></Features> */}
+      <Features dataFeatures={Features1}></Features>
+      <Features dataFeatures={Features2}></Features>
       {/* <CategoryList dataCategory={HomepageData.category}></CategoryList> */}
     </div>
   );

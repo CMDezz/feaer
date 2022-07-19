@@ -1,47 +1,64 @@
-.Footer{
+.Footer {
     background-color: #131313;
-    &Container{
-        width: 1400px;
+    &Container {
+        max-width: 1980px;
         margin: 0 auto;
         display: flex;
         align-items: center;
         gap: 50px;
+        padding: 0 40px;
     }
-    a,p{
+    a,
+    p {
         color: white;
         text-decoration: none;
     }
-    &Logo{
+    &Logo {
         width: 70px;
         height: 70px;
         display: block;
     }
-    &Desc{
-        padding: 40px 0; 
+    &Desc {
+        padding: 40px 0;
         margin: 0;
         font-size: 13px;
     }
-    &Info{
+    &Info {
         display: flex;
         flex-direction: column;
     }
-    &Navigation{
+    &Navigation {
         margin: 0;
         display: flex;
         gap: 50px;
         padding-bottom: 40px;
-        justify-content: space-between;
-        &ItemTitle{
+        justify-content: stretch;
+        @media (max-width: 992px) {
+            gap: 25px;
+        }
+        @media (max-width: 767px) {
+            flex-wrap: wrap;
+        }
+        &Item {
+            flex-grow: 1;
+        }
+        &ItemTitle {
             font-size: 16px;
             font-weight: 500;
+            @media (max-width: 992px) {
+                font-size: 14px;
+            }
         }
         &ItemLink {
             padding: 5px 0;
-            a{
+            a {
                 display: flex;
                 align-items: center;
                 font-size: 13px;
-                &:hover{
+                @media (max-width: 992px) {
+                    font-size: 12px;
+                }
+                &:hover {
                     text-decoration: underline;
                 }
             }

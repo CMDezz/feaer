@@ -1,12 +1,21 @@
 .Collection {
-    width: 1400px;
+    max-width: 1980px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: nowrap;
+    .swiper {
+        width: 100%;
+    }
+
+    @media screen and (min-width: 992px) {
+        .swiper {
+            min-width: 992px;
+        }
+    }
     &Item {
-        width: 50%;
+        // width: 50%;
         display: flex;
         &Img {
             width: 50%;
@@ -19,15 +28,28 @@
             padding: 10px 30px;
             display: flex;
             flex-direction: column;
+            width: 50%;
+            @media (max-width: 540px) {
+                padding: 5px 15px;
+            }
         }
         &Title {
             font-weight: 500;
             color: white;
             font-size: 20px;
             padding: 0;
+
+            @media (max-width: 540px) {
+                font-size: 16px;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
         }
         &Desc {
             color: white;
+            @media (max-width: 540px) {
+                font-size: 12px;
+            }
         }
         &BtnViewDetail {
             color: white;
@@ -38,6 +60,10 @@
             font-size: 14px;
             padding: 10px 20px;
             border-radius: 5px;
+            @media (max-width: 540px) {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
             &:hover {
                 color: black;
                 background: white;

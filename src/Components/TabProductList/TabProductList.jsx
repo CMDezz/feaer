@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ProductList from "../ProductList/ProductList";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { Link } from "react-router-dom";
+import "./TabProductList.scss";
 
 const TabProductList = (props) => {
   const [activatedTab, setActivatedTab] = useState(1);

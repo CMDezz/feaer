@@ -49,6 +49,7 @@ const Product = (props) => {
           spaceBetween={50}
           slidesPerView={1}
           pagination={{ clickable: true }}
+          className="ProductSlideSwiper"
         >
           {renderProduct()}
           <div className="ProductShowMore"></div>

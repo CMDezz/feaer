@@ -4,6 +4,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        @media (max-width: 767px) {
+            margin-top: 10px;
+        }
         &Item {
             flex-basis: 18%;
             text-align: center;
@@ -15,6 +18,20 @@
 
             &:hover {
                 cursor: pointer;
+            }
+            @media (max-width: 1280px) {
+                flex-basis: 28%;
+                font-size: 18px;
+            }
+            @media (max-width: 767px) {
+                font-size: 16px;
+                padding: 5px 15px;
+                margin-bottom: 5px;
+            }
+            @media (max-width: 570px) {
+                flex-basis: 30%;
+                font-size: 8px;
+                padding: 5px 5px;
             }
         }
         &Item.active {
@@ -30,7 +47,12 @@
         display: block;
         width: fit-content;
         margin: 0 auto;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        @media (max-width: 767px) {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
 
         &:hover {
             background-color: black;

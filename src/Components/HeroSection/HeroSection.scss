@@ -1,17 +1,17 @@
-.HeroSection{
+.HeroSection {
     max-height: 80vh;
     max-width: 1980px;
     position: relative;
     margin: 0 auto;
     z-index: 1;
-    img{
+    img {
         max-height: 80vh;
         height: 100%;
         width: 100%;
         object-fit: cover;
         display: block;
     }
-    &Promo{
+    &Promo {
         z-index: 2;
         position: absolute;
         bottom: 0;
@@ -22,18 +22,32 @@
         justify-content: center;
         align-items: center;
         gap: 50px;
+        @media (max-width: 991px) {
+            gap: 30px;
+        }
+        @media (max-width: 767px) {
+            gap: 15px;
+        }
     }
-    &PromoItem{
+    &PromoItem {
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 23px;
         gap: 10px;
         color: white;
-        svg{
+        @media (max-width: 991px) {
+            font-size: 15px;
+        }
+        @media (max-width: 767px) {
+            display: none;
+        }
+        svg {
             color: white;
             font-size: 40px;
+            @media (max-width: 991px) {
+                font-size: 28px;
+            }
         }
     }
-
 }

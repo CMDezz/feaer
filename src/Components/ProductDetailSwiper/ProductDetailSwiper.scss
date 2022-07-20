@@ -1,16 +1,36 @@
 .ProductDetailSwiper {
+    @media (max-width: 992px) {
+        padding: 0 20px;
+    }
     .ProductDetailSwiperSlider {
         width: 90%;
         height: 630px;
         display: flex;
         flex-direction: row-reverse;
+        @media (max-width: 992px) {
+            width: 100%;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 767px) {
+            height: 480px;
+            gap: 15px;
+        }
+        @media (max-width: 480px) {
+            height: 380px;
+            gap: 10px;
+        }
         .mySwiper2 {
             width: 80%;
             height: 100%;
+            @media (max-width: 992px) {
+                width: 90%;
+            }
         }
         .mySwiper {
             width: 13%;
             height: 100%;
+
             .swiper-slide {
                 opacity: 0.4;
                 max-height: 90px;

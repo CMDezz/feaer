@@ -59,7 +59,7 @@ const ProductDetailSwiper = (props) => {
           {renderProductDetailSlider(props.data)}
         </Swiper>
       </div>
-      <div className="ProductDetailInfo"></div>
+      {/* <div className="ProductDetailInfo"></div> */}
     </div>
   );
 };

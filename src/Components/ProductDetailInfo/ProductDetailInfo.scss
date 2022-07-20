@@ -1,14 +1,35 @@
 .ProductDetailInfo {
+    @media (max-width: 992px) {
+        padding: 20px 20px;
+        background-color: #f2f2f2;
+    }
     &Basic {
         width: 100%;
         display: flex;
         justify-content: space-between;
+        .toRight {
+            @media (max-width: 992px) {
+                margin-top: 5px;
+            }
+            @media (max-width: 767px) {
+                p {
+                    font-size: 12px;
+                }
+            }
+        }
     }
     &Name {
         color: #292d32;
         font-size: 24px;
         line-height: 1.5;
         margin-bottom: 10px;
+        @media (max-width: 992px) {
+            font-size: 21px;
+            margin: 0 0 10px 0;
+        }
+        @media (max-width: 767px) {
+            font-size: 18px;
+        }
     }
     &Price {
         margin-bottom: 10px;
@@ -21,28 +42,54 @@
             color: #be2c15;
             font-weight: 400;
             margin-right: 10px;
+            @media (max-width: 992px) {
+                font-size: 21px;
+            }
+            @media (max-width: 767px) {
+                font-size: 18px;
+            }
         }
         &Sale + &Base {
             font-size: 20px;
             color: #7f7f7f;
             font-weight: 400;
             text-decoration: line-through;
+            @media (max-width: 992px) {
+                font-size: 18px;
+            }
+            @media (max-width: 767px) {
+                font-size: 16px;
+            }
         }
     }
     &Sale {
         font-size: 14px;
+        @media (max-width: 767px) {
+            font-size: 12px;
+        }
+
         .status {
             font-size: 14px;
             color: #be2c15;
+
+            @media (max-width: 767px) {
+                font-size: 12px;
+            }
         }
     }
     &Id {
         font-size: 18px;
         margin-bottom: 10px;
         font-weight: 500;
+        @media (max-width: 992px) {
+            font-size: 16px;
+        }
         span {
             font-size: 16px;
             font-weight: 400;
+            @media (max-width: 992px) {
+                font-size: 15px;
+            }
         }
     }
     &Desc {
@@ -50,10 +97,16 @@
             font-size: 18px;
             margin-bottom: 10px;
             font-weight: 500;
+            @media (max-width: 992px) {
+                font-size: 16px;
+            }
         }
         .content {
             font-size: 16px;
             margin-bottom: 10px;
+            @media (max-width: 992px) {
+                font-size: 15px;
+            }
         }
     }
     &Sizes {
@@ -61,6 +114,9 @@
             font-size: 18px;
             margin-bottom: 10px;
             font-weight: 500;
+            @media (max-width: 992px) {
+                font-size: 16px;
+            }
         }
     }
     &Size {
@@ -72,6 +128,9 @@
         transition: border 0.3s;
         width: 40px;
         text-align: center;
+        @media (max-width: 992px) {
+            font-size: 13px;
+        }
         &:hover {
             cursor: pointer;
             border: 1px solid #be2c15;
@@ -92,8 +151,16 @@
             font-weight: 500;
             font-size: 18px;
             margin-bottom: 10px;
+            @media (max-width: 992px) {
+                font-size: 16px;
+            }
         }
         &Item {
+            @media (max-width: 480px) {
+                span {
+                    font-size: 12px;
+                }
+            }
             svg {
                 margin-right: 10px;
             }
@@ -108,6 +175,7 @@
     }
 
     &Quantity {
+        background-color: white;
         input {
             display: inline-block;
             padding: 7px 15px;
@@ -117,6 +185,9 @@
             border: 1px solid #7f7f7f;
             border-right: none;
             border-left: none;
+            @media (max-width: 992px) {
+                font-size: 16px;
+            }
             &:focus {
                 outline: none;
             }
@@ -133,6 +204,9 @@
             display: inline-block;
             border: 1px solid #7f7f7f;
             font-size: 18px;
+            @media (max-width: 992px) {
+                font-size: 16px;
+            }
             &:hover {
                 cursor: pointer;
             }
@@ -158,6 +232,9 @@
         border-radius: 5px;
         font-weight: 400;
         transition: all 0.3s;
+        @media (max-width: 992px) {
+            font-size: 16px;
+        }
         &:hover {
             background-color: #be2c15;
             color: white;

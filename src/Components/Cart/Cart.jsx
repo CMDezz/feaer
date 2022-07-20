@@ -95,77 +95,81 @@ const Cart = (props) => {
       <p className="CartNumOfProducts">{sCart.length} sản phẩm</p>
       <div className="CartInfo">
         <div className="CartProducts">{handleCartProducts(sCart)}</div>
-        <div className="CartTotals">
-          <div className="CartTotalsContent">
-            <p className="CartTotalsNote">
-              * Mọi thông tin sẽ được chúng tôi bảo mật
-            </p>
-            <div className="CartTotalsShipping">
-              <p className="CartTotalsShippingTitle">
-                Chọn phương thức vận chuyển:{" "}
+        {sCart.length > 0 ? (
+          <div className="CartTotals">
+            <div className="CartTotalsContent">
+              <p className="CartTotalsNote">
+                * Mọi thông tin sẽ được chúng tôi bảo mật
               </p>
-              <div
-                className="CartTotalsShippingBox"
-                onChange={() => setShippingMethod("Standard")}
-              >
-                <input
-                  type="radio"
-                  className="CartTotalsShippingRadio CartTotalsShippingStandard"
-                  name="ShippingOption"
-                  id="ShippingStandard"
-                  value={0}
-                  defaultChecked={shippingMethod == "Standard"}
-                />
-                <label
-                  className="CartTotalsShippingLabel CartTotalsShippingStardardLabel"
-                  htmlFor="ShippingStandard"
+              <div className="CartTotalsShipping">
+                <p className="CartTotalsShippingTitle">
+                  Chọn phương thức vận chuyển:{" "}
+                </p>
+                <div
+                  className="CartTotalsShippingBox"
+                  onChange={() => setShippingMethod("Standard")}
                 >
-                  Vận chuyển thường :<span> 0 VND</span>
-                </label>
-              </div>
-              <div
-                className="CartTotalsShippingBox"
-                onChange={() => setShippingMethod("Fast")}
-              >
-                <input
-                  type="radio"
-                  className="CartTotalsShippingRadio CartTotalsShippingFast"
-                  name="ShippingOption"
-                  id="ShippingFast"
-                  value={15000}
-                  defaultChecked={shippingMethod == "Fast"}
-                />
-                <label
-                  className="CartTotalsShippingLabel CartTotalsShippingFastLabel"
-                  htmlFor="ShippingFast"
+                  <input
+                    type="radio"
+                    className="CartTotalsShippingRadio CartTotalsShippingStandard"
+                    name="ShippingOption"
+                    id="ShippingStandard"
+                    value={0}
+                    defaultChecked={shippingMethod == "Standard"}
+                  />
+                  <label
+                    className="CartTotalsShippingLabel CartTotalsShippingStardardLabel"
+                    htmlFor="ShippingStandard"
+                  >
+                    Vận chuyển thường :<span> 0 VND</span>
+                  </label>
+                </div>
+                <div
+                  className="CartTotalsShippingBox"
+                  onChange={() => setShippingMethod("Fast")}
                 >
-                  Vận chuyển nhanh: <span>+15.000 VND</span>
-                </label>
+                  <input
+                    type="radio"
+                    className="CartTotalsShippingRadio CartTotalsShippingFast"
+                    name="ShippingOption"
+                    id="ShippingFast"
+                    value={15000}
+                    defaultChecked={shippingMethod == "Fast"}
+                  />
+                  <label
+                    className="CartTotalsShippingLabel CartTotalsShippingFastLabel"
+                    htmlFor="ShippingFast"
+                  >
+                    Vận chuyển nhanh: <span>+15.000 VND</span>
+                  </label>
+                </div>
               </div>
+              <p className="CartTotalsTempPrice">
+                Tạm tính: <span>{numToPrice(tempPrice)}</span>
+              </p>
+              <p className="CartTotalsShippingFee">
+                Phí vận chuyển: <span>{numToPrice(handleShippingFee())}</span>
+              </p>
+              <p className="CartTotalsTotalPrice">
+                Tổng tiền: <span>{numToPrice(handleTotalPrice())}</span>
+              </p>
             </div>
-            <p className="CartTotalsTempPrice">
-              Tạm tính: <span>{numToPrice(tempPrice)}</span>
-            </p>
-            <p className="CartTotalsShippingFee">
-              Phí vận chuyển: <span>{numToPrice(handleShippingFee())}</span>
-            </p>
-            <p className="CartTotalsTotalPrice">
-              Tổng tiền: <span>{numToPrice(handleTotalPrice())}</span>
-            </p>
+            <div className="CartTotalsActions">
+              <Link
+                to="/checkout/shipping"
+                className="CartTotalsCheckout"
+                onClick={(e) => handleToCheckout(e)}
+              >
+                TIẾN HÀNH THANH TOÁN
+              </Link>
+              <Link to="/" className="CartTotalsContinue">
+                TIẾP TỤC MUA SẮM
+              </Link>
+            </div>
           </div>
-          <div className="CartTotalsActions">
-            <Link
-              to="/checkout/shipping"
-              className="CartTotalsCheckout"
-              onClick={(e) => handleToCheckout(e)}
-            >
-              TIẾN HÀNH THANH TOÁN
-            </Link>
-            <Link to="/" className="CartTotalsContinue">
-              TIẾP TỤC MUA SẮM
-            </Link>
-          </div>
-        </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

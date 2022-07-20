@@ -2,6 +2,7 @@
     max-width: 1090px;
     margin: 0 auto;
     min-height: 80vh;
+    padding: 0 20px;
     &Title {
         font-size: 20px;
         font-weight: 500;
@@ -16,6 +17,10 @@
         display: flex;
         justify-content: center;
         gap: 30px;
+        @media (max-width: 992px) {
+            flex-direction: column;
+            gap: 0px;
+        }
     }
     &Products {
         margin-top: 20px;
@@ -24,10 +29,18 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
+        @media (max-width: 992px) {
+            width: 100%;
+        }
     }
     &Totals {
         margin-top: 20px;
         width: calc(40% - 15px);
+        @media (max-width: 992px) {
+            width: 100%;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
         &Content {
             background-color: #f2f2f2;
             padding: 20px 25px;
@@ -44,6 +57,12 @@
             margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
+            @media (max-width: 767px) {
+                font-size: 14px;
+            }
+            @media (max-width: 480px) {
+                font-size: 12px;
+            }
         }
         &Shipping {
             margin-bottom: 10px;
@@ -53,6 +72,12 @@
                 font-size: 16px;
                 font-weight: 500;
                 margin-bottom: 10px;
+                @media (max-width: 767px) {
+                    font-size: 14px;
+                }
+                @media (max-width: 480px) {
+                    font-size: 12px;
+                }
             }
 
             &Label {
@@ -62,6 +87,12 @@
                 justify-content: space-between;
                 &:hover {
                     cursor: pointer;
+                }
+                @media (max-width: 767px) {
+                    font-size: 14px;
+                }
+                @media (max-width: 480px) {
+                    font-size: 12px;
                 }
             }
             &Radio {
@@ -97,6 +128,12 @@
                     color: black;
                     font-size: 16px;
                 }
+                @media (max-width: 767px) {
+                    font-size: 14px;
+                }
+                @media (max-width: 480px) {
+                    font-size: 12px;
+                }
             }
             .CartTotalsContinue {
                 font-weight: 400;
@@ -110,6 +147,12 @@
                 font-weight: 500;
                 &:hover {
                     font-size: 16px;
+                }
+                @media (max-width: 767px) {
+                    font-size: 14px;
+                }
+                @media (max-width: 480px) {
+                    font-size: 12px;
                 }
             }
         }

@@ -1,5 +1,6 @@
 .ProductByCategoryPage {
     max-width: 1980px;
+    margin: 0 auto;
     .BackgroundBanner {
         background-image: url("../../../public/assets/img/background-banner-ve.jpeg");
         height: 380px;
@@ -11,11 +12,29 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        @media (max-width: 1240px) {
+            height: 280px;
+        }
+        @media (max-width: 1240px) {
+            height: 200px;
+        }
+        @media (max-width: 480px) {
+            height: 250px;
+        }
         &Title {
             font-size: 76px;
             color: white;
             font-weight: 400;
             text-align: center;
+            @media (max-width: 1240px) {
+                font-size: 66px;
+            }
+            @media (max-width: 767px) {
+                font-size: 56px;
+            }
+            @media (max-width: 480px) {
+                height: 46px;
+            }
         }
     }
     &Actions {
@@ -34,6 +53,12 @@
                 font-size: 18px;
                 &:hover {
                     text-decoration: underline;
+                }
+                @media (max-width: 767px) {
+                    font-size: 15px;
+                }
+                @media (max-width: 480px) {
+                    font-size: 14px;
                 }
             }
         }

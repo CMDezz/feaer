@@ -12,6 +12,8 @@ import { useSelector } from "react-redux";
 
 const Header = () => {
   const ref = useRef(null);
+  const ref2 = useRef(null);
+
   const cart = useSelector((state) => state.shop.cart);
   const [keyword, setKeyword] = useState("");
   const [isActive, setActive] = useState("");
@@ -33,8 +35,14 @@ const Header = () => {
   }
   let handleOC = (e) => {
     if (ref && !ref.current.contains(e.target)) {
-      console.log("outside");
+      console.log("1");
       setExpand(false);
+      document.body.classList.remove("no-scroll");
+    }
+  };
+  let handleOC2 = (e) => {
+    if (ref2 && !ref2.current.contains(e.target)) {
+      console.log("2");
       setSearchActive(false);
       document.body.classList.remove("no-scroll");
     }
@@ -357,9 +365,9 @@ const Header = () => {
       </ul>
       <div
         className={(isSearchActive ? "Active " : "") + "HeaderSearchBar"}
-        onClick={(e) => handleOC(e)}
+        onClick={(e) => handleOC2(e)}
       >
-        <div className="HeaderSearchBarBox" ref={ref}>
+        <div className="HeaderSearchBarBox" ref={ref2}>
           <input
             type="text"
             placeholder="TÌM KIẾM"

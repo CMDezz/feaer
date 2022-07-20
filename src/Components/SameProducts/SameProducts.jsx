@@ -73,11 +73,21 @@ const SameProducts = (props) => {
         <div className="SameProductsSlide">
           <Swiper
             spaceBetween={20}
-            slidesPerView={4}
+            slidesPerView={2}
             className="SameProductSwiper"
             //   navigation={true}
             modules={[Navigation]}
             noSwiping={true}
+            breakpoints={{
+              767: {
+                // width: 768,
+                slidesPerView: 3,
+              },
+              1120: {
+                // width: 768,
+                slidesPerView: 4,
+              },
+            }}
             navigation={{
               nextEl: ".SameProduct-button-next",
               prevEl: ".SameProduct-button-prev",

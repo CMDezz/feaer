@@ -1,7 +1,11 @@
 .PaymentPage {
     display: flex;
-    max-width: 1090px;
+    max-width: 1120px;
     margin: 0 auto;
     gap: 30px;
-    margin-top: 30px;
+    padding: 0 20px;
+    @media (max-width: 992px) {
+        flex-direction: column;
+        gap: 0;
+    }
 }

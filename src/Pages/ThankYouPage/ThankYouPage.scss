@@ -6,20 +6,36 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    @media (max-width: 767px) {
+        min-height: 350px;
+    }
     svg {
         font-size: 80px;
+        @media (max-width: 767px) {
+            font-size: 50px;
+        }
     }
     &Title {
         font-size: 40px;
+        @media (max-width: 767px) {
+            font-size: 30px;
+        }
     }
     &Desc {
         max-width: 500px;
         margin-top: 10px;
         margin-bottom: 10px;
+        @media (max-width: 767px) {
+            font-size: 14px;
+            width: 90%;
+        }
         a {
             color: black;
             font-weight: 500;
             text-decoration: none;
+            @media (max-width: 767px) {
+                font-size: 14px;
+            }
             &:hover {
                 text-decoration: underline;
             }
@@ -37,6 +53,9 @@
         border: 1px solid black;
         font-weight: 400;
         transition: all 0.3s;
+        @media (max-width: 767px) {
+            font-size: 14px;
+        }
         &:hover {
             background-color: white;
             color: black;

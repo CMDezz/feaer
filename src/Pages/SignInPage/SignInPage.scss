@@ -24,6 +24,9 @@
         width: 460px;
         background-color: #f7f7f7;
         padding: 50px;
+        @media (max-width: 480px) {
+            padding: 20px;
+        }
     }
     &BoxLogin {
         display: flex;
@@ -31,6 +34,9 @@
         &Title {
             font-size: 23px;
             margin-bottom: 10px;
+            @media (max-width: 767px) {
+                font-size: 20px;
+            }
         }
         input {
             width: 100%;
@@ -42,6 +48,9 @@
             font-size: 17px;
             outline: none;
             padding: 5px 10px;
+            @media (max-width: 767px) {
+                font-size: 14px;
+            }
             &:focus {
                 outline: none;
                 background-color: white;
@@ -70,6 +79,9 @@
             &:hover {
                 text-decoration: none;
                 font-size: 16px;
+                @media (max-width: 767px) {
+                    font-size: 13px;
+                }
                 background-color: white;
                 color: black;
             }
@@ -83,6 +95,9 @@
             text-align: center;
             font-weight: 400;
             margin-bottom: 10px;
+            @media (max-width: 767px) {
+                font-size: 15px;
+            }
         }
         a {
             width: 100%;
@@ -97,6 +112,9 @@
             align-items: center;
             text-align: center;
             justify-content: center;
+            @media (max-width: 767px) {
+                font-size: 15px;
+            }
             svg {
                 margin-right: 20px;
             }
@@ -140,6 +158,9 @@
                 font-size: 17px;
                 outline: none;
                 padding: 5px 10px;
+                @media (max-width: 767px) {
+                    font-size: 14px;
+                }
                 &:focus {
                     outline: none;
                     background-color: white;
@@ -150,6 +171,9 @@
                 text-decoration: none;
                 display: block;
                 margin-bottom: 10px;
+                @media (max-width: 767px) {
+                    font-size: 14px;
+                }
                 &:hover {
                     text-decoration: underline;
                 }
@@ -168,6 +192,9 @@
                 border: 1px solid black;
                 transition: all 0.3s;
                 margin-bottom: 10px;
+                @media (max-width: 767px) {
+                    font-size: 14px;
+                }
                 &:hover {
                     text-decoration: none;
                     font-size: 16px;
@@ -189,6 +216,9 @@
         .ForgotTitle {
             font-size: 23px;
             margin-bottom: 10px;
+            @media (max-width: 767px) {
+                font-size: 20px;
+            }
         }
         .ForgotForm {
             input {
@@ -200,6 +230,9 @@
                 border: 1px solid hsl(0, 0%, 80%);
                 font-size: 17px;
                 outline: none;
+                @media (max-width: 767px) {
+                    font-size: 13px;
+                }
                 padding: 5px 10px;
                 &:focus {
                     outline: none;
@@ -212,6 +245,9 @@
                 line-height: 12px;
                 margin-bottom: 10px;
                 display: block;
+                @media (max-width: 767px) {
+                    font-size: 11px;
+                }
             }
         }
         .ForgotButtons {
@@ -227,6 +263,9 @@
                 border: 1px solid black;
                 transition: all 0.3s;
                 margin-bottom: 10px;
+                @media (max-width: 767px) {
+                    font-size: 14px;
+                }
                 &:hover {
                     text-decoration: none;
                     font-size: 16px;

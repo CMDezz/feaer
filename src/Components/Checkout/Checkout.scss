@@ -1,9 +1,14 @@
 .Checkout {
     max-width: 1090px;
     margin: 0 auto;
+    padding: 0 20px;
     &Box {
         display: flex;
         gap: 30px;
+        @media (max-width: 992px) {
+            flex-direction: column;
+            gap: 0px;
+        }
     }
     &Title {
         font-size: 18px;

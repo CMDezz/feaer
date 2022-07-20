@@ -25,6 +25,12 @@
         &Content {
             font-size: 18px;
             font-weight: 500;
+            @media (max-width: 767px) {
+                font-size: 16px;
+            }
+            @media (max-width: 480px) {
+                font-size: 14px;
+            }
         }
         .deleteFromCart {
             padding: 5px 10px;
@@ -41,6 +47,12 @@
         font-size: 18px;
         font-weight: 400;
         margin-bottom: 10px;
+        @media (max-width: 767px) {
+            font-size: 16px;
+        }
+        @media (max-width: 480px) {
+            font-size: 14px;
+        }
     }
     &Price {
         margin-bottom: 10px;
@@ -49,17 +61,35 @@
         span {
             font-size: 18px;
             margin-right: 5px;
+            @media (max-width: 767px) {
+                font-size: 16px;
+            }
+            @media (max-width: 480px) {
+                font-size: 14px;
+            }
         }
         &Sale,
         &Base {
             font-size: 18px;
             margin-right: 10px;
             color: #be2c15;
+            @media (max-width: 767px) {
+                font-size: 16px;
+            }
+            @media (max-width: 480px) {
+                font-size: 14px;
+            }
         }
         &Sale + &Base {
             font-size: 16px;
             color: #7f7f7f;
             text-decoration: line-through;
+            @media (max-width: 767px) {
+                font-size: 14px;
+            }
+            @media (max-width: 480px) {
+                font-size: 12px;
+            }
         }
     }
     &QuantityBox {
@@ -83,6 +113,12 @@
             padding-top: 5px;
             padding-bottom: 5px;
             font-size: 16px;
+            @media (max-width: 767px) {
+                font-size: 14px;
+            }
+            @media (max-width: 480px) {
+                font-size: 12px;
+            }
 
             &:focus {
                 outline: none;

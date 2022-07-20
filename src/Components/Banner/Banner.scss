@@ -1,25 +1,28 @@
-.Banner{
+.Banner {
     width: 100%;
-    &Slider{
+    @media (max-width: 767px) {
+        display: none;
+    }
+    &Slider {
         display: block;
     }
-    &List{
+    &List {
         display: flex;
         flex-wrap: nowrap;
         list-style: none;
     }
-    &Item{
+    &Item {
         display: none;
         width: 100%;
         height: 35px;
     }
-    &Image{
+    &Image {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
     }
-    .BannerItem.active{
+    .BannerItem.active {
         display: block;
     }
 }

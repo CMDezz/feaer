@@ -37,3 +37,9 @@ export const emptyCart = () => {
     type: actionTypes.EMPTY_CART,
   };
 };
+
+export const loadCart = () => {
+  return {
+    type: actionTypes.LOAD_CART,
+  };
+};

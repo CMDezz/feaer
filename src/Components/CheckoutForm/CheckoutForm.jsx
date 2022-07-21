@@ -1,28 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./CheckoutForm.scss";
 import AddressData from "./Addressdata";
 import Select from "react-select";
 import CategoryList from "../CategoryList/CategoryList";
 
-const CheckoutForm = () => {
+const CheckoutForm = (props) => {
   //   let [defaultDistrictValue, setDefaultDistrictValue] = useState(null);
   //   let [defaultWardValue, setDefaultWardValue] = useState(null);
 
-  // let
   let [districtsList, setDistrictsList] = useState([{}]);
   let [wardsList, setWardList] = useState([{}]);
-  let [cityPicked, setCityPicked] = useState("");
-  let [districtPicked, setDistrictPicked] = useState("");
-  let [wardPicked, setWardPicked] = useState("");
 
-  //validate
-  let [email, setEmail] = useState("");
-  let [phone, setPhone] = useState("");
-  let [firstName, setFirstName] = useState("");
-  let [lastName, setLastName] = useState("");
-  let [address, setAddress] = useState("");
+  //create info
+  let [orderForm, setOrderForm] = useState({
+    CustomerEmail: "",
+    CustomerPhone: "",
+    CustomerFirstName: "",
+    CustomerLastName: "",
+    District: "",
+    Ward: "",
+    City: "",
+    Address: "",
+    Note: "",
+  });
 
-  let cityOptions = AddressData.map((city) => {
+  let cityOptions = AddressData.map((city, k) => {
     return {
       value: city.code,
       label: city.name,
@@ -31,36 +33,36 @@ const CheckoutForm = () => {
   let handleCitySelect = (city) => {
     //find city  - get District
     let Districts = AddressData.find((c) => c.code == city.value).districts;
-    let DistrictOptions = Districts.map((dis) => {
+    let DistrictOptions = Districts.map((dis, k) => {
       return {
         value: dis.id,
         label: dis.name,
       };
     });
     setDistrictsList(DistrictOptions);
-    setCityPicked(city);
-    setDistrictPicked("");
-    setWardPicked("");
+    setOrderForm({ ...orderForm, City: city, District: "", Ward: "" });
   };
+  useEffect(() => {
+    props.handleOrderForm(orderForm);
+  }, [orderForm]);
 
   let handleDistrictSelect = (e) => {
-    setDistrictPicked(e);
+    setOrderForm({ ...orderForm, District: e, Ward: "" });
     let Districts = AddressData.find(
-      (c) => c.code == cityPicked.value
+      (c) => c.code == orderForm.City.value
     ).districts;
     let Wards = Districts.find((d) => d.id == e.value).wards;
-    let WardsOptions = Wards.map((ward) => {
+    let WardsOptions = Wards.map((ward, k) => {
       return {
         value: ward.id,
         label: ward.name,
       };
     });
     setWardList(WardsOptions);
-    setWardPicked("");
   };
 
   let handleWardSelect = (e) => {
-    setWardPicked(e);
+    setOrderForm({ ...orderForm, Ward: e });
   };
 
   return (
@@ -80,10 +82,16 @@ const CheckoutForm = () => {
                 type="email"
                 className="CheckoutFormInput CheckoutFormEmail"
                 name="CheckoutFormEmail"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={orderForm.CustomerEmail}
+                onChange={(e) =>
+                  setOrderForm({ ...orderForm, CustomerEmail: e.target.value })
+                }
               />
-              {email == "" ? <p className="warn">*Không thể trống</p> : ""}
+              {orderForm.CustomerEmail == "" ? (
+                <p className="warn">*Không thể trống</p>
+              ) : (
+                ""
+              )}
             </div>
             <div className="CheckoutFormBoxInput">
               <label
@@ -96,10 +104,16 @@ const CheckoutForm = () => {
                 type="tel"
                 className="CheckoutFormInput CheckoutFormPhone"
                 name="CheckoutFormPhone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                value={orderForm.CustomerPhone}
+                onChange={(e) =>
+                  setOrderForm({ ...orderForm, CustomerPhone: e.target.value })
+                }
               />
-              {phone == "" ? <p className="warn">*Không thể trống</p> : ""}
+              {orderForm.CustomerPhone == "" ? (
+                <p className="warn">*Không thể trống</p>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>
@@ -119,10 +133,19 @@ const CheckoutForm = () => {
                 className="CheckoutFormInput CheckoutFormLastName"
                 name="CheckoutFormLastName"
                 id="CheckoutFormLastNameInput"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                value={orderForm.CustomerLastName}
+                onChange={(e) =>
+                  setOrderForm({
+                    ...orderForm,
+                    CustomerLastName: e.target.value,
+                  })
+                }
               />
-              {firstName == "" ? <p className="warn">*Không thể trống</p> : ""}
+              {orderForm.CustomerLastName == "" ? (
+                <p className="warn">*Không thể trống</p>
+              ) : (
+                ""
+              )}
             </div>
 
             <div className="CheckoutFormBoxInput">
@@ -137,10 +160,19 @@ const CheckoutForm = () => {
                 className="CheckoutFormInput CheckoutFormFirstName"
                 name="CheckoutFormFirstName"
                 id="CheckoutFormFirstNameInput"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                value={orderForm.CustomerFirstName}
+                onChange={(e) =>
+                  setOrderForm({
+                    ...orderForm,
+                    CustomerFirstName: e.target.value,
+                  })
+                }
               />
-              {lastName == "" ? <p className="warn">*Không thể trống</p> : ""}
+              {orderForm.CustomerFirstName == "" ? (
+                <p className="warn">*Không thể trống</p>
+              ) : (
+                ""
+              )}
             </div>
 
             <div className="CheckoutFormBoxInput">
@@ -156,9 +188,13 @@ const CheckoutForm = () => {
                 id="CheckoutFormCitySelect"
                 onChange={(e) => handleCitySelect(e)}
                 options={cityOptions}
-                value={cityPicked}
+                value={orderForm.City}
               />
-              {cityPicked == "" ? <p className="warn">*Không thể trống</p> : ""}
+              {orderForm.City == "" ? (
+                <p className="warn">*Không thể trống</p>
+              ) : (
+                ""
+              )}
             </div>
 
             <div className="CheckoutFormBoxInput">
@@ -175,9 +211,9 @@ const CheckoutForm = () => {
                 // value={defaultDistrictValue}
                 options={districtsList}
                 onChange={(e) => handleDistrictSelect(e)}
-                value={districtPicked}
+                value={orderForm.District}
               />
-              {districtPicked == "" ? (
+              {orderForm.District == "" ? (
                 <p className="warn">*Không thể trống</p>
               ) : (
                 ""
@@ -198,9 +234,13 @@ const CheckoutForm = () => {
                 // value={defaultWardValue}
                 options={wardsList}
                 onChange={(e) => handleWardSelect(e)}
-                value={wardPicked}
+                value={orderForm.Ward}
               />
-              {wardPicked == "" ? <p className="warn">*Không thể trống</p> : ""}
+              {orderForm.Ward == "" ? (
+                <p className="warn">*Không thể trống</p>
+              ) : (
+                ""
+              )}
             </div>
 
             <div className="CheckoutFormBoxInput">
@@ -215,10 +255,19 @@ const CheckoutForm = () => {
                 className="CheckoutFormInput CheckoutFormAddress"
                 name="CheckoutFormAddress"
                 id="CheckoutFormAddressInput"
-                onChange={(e) => setAddress(e.target.value)}
-                value={address}
+                onChange={(e) =>
+                  setOrderForm({
+                    ...orderForm,
+                    Address: e.target.value,
+                  })
+                }
+                value={orderForm.Address}
               />
-              {address == "" ? <p className="warn">*Không thể trống</p> : ""}
+              {orderForm.Address == "" ? (
+                <p className="warn">*Không thể trống</p>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>
@@ -236,6 +285,13 @@ const CheckoutForm = () => {
               id="CheckoutFormNoteInput"
               cols="30"
               rows="5"
+              value={orderForm.Note}
+              onChange={(e) =>
+                setOrderForm({
+                  ...orderForm,
+                  Note: e.target.value,
+                })
+              }
             ></textarea>
           </div>
         </div>

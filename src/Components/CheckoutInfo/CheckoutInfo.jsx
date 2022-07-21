@@ -30,10 +30,11 @@ const CheckoutInfo = (props) => {
       e.preventDefault();
     }
   };
+
   let handleCheckoutInfoProducts = () => {
-    return Products.map((p) => {
+    return Products.map((p, k) => {
       return (
-        <div className="CheckoutInfoProduct">
+        <div key={k} className="CheckoutInfoProduct">
           <div className="CheckoutInfoProductImage">
             <img src={p.Image[0]} alt="" />
             <span className="CheckoutInfoProductQty">{p.qty}</span>
@@ -41,7 +42,7 @@ const CheckoutInfo = (props) => {
           <div className="CheckoutInfoProductDetail">
             <p className="CheckoutInfoProductName">{p.Name}</p>
             <p className="CheckoutInfoProductSize">Size: {p.sizePicked}</p>
-            <p className="CheckoutInfoProductPrice">
+            <div className="CheckoutInfoProductPrice">
               <span>Giá: </span>
               {p.Discount && p.Discount != "" ? (
                 <p className="CheckoutInfoProductPriceSale">
@@ -53,7 +54,7 @@ const CheckoutInfo = (props) => {
               <p className="CheckoutInfoProductPriceBase">
                 {numToPrice(p.Price)}
               </p>
-            </p>
+            </div>
           </div>
         </div>
       );

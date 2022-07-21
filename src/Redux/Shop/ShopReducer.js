@@ -59,6 +59,10 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         shippingFee: 0,
         cartTotal: 0,
       };
+    case actionTypes.LOAD_CART:
+      return {
+        ...state,
+      };
     default:
       return state;
   }

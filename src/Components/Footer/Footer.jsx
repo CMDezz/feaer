@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlinePhone } from "react-icons/ai";
 import "./Footer.scss";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const [isExpand, setExpand] = useState("");
@@ -143,6 +144,16 @@ const Footer = () => {
             </li>
             <li className="FooterNavigationItem">
               <p className="FooterNavigationItemTitle">Ý Kiến Đóng Góp</p>
+              <ul
+                className={
+                  (isExpand == "About" ? "Active " : "") +
+                  "FooterNavigationItemLinks"
+                }
+              >
+                <li className="FooterNavigationItemLink">
+                  <Link to="/contactPage">Liên hệ chúng tôi</Link>
+                </li>
+                </ul>
             </li>
           </ul>
         </div>

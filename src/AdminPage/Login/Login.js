@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import '../App.css'
+import './../Styles/App.scss'
+import './../Styles/Admin.scss'
 // import '../Styles/Admin.css'
-import bg from '../../../assets/login-bg.jpg'
+import bg from './login-bg.jpg'
 import Axios from 'axios' 
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { withRouter } from 'react-router-dom'
 import Div100vh from 'react-div-100vh';
+import {useNavigate } from 'react-router-dom'
 
 function Login(props) { 
+    const navigate = useNavigate ()
+    const baseUrl = process.env.REACT_APP_API_URL;
 
     const [arrSuccess, setArrSuccess] = useState([]);
     const [arrErr, setArrErr] = useState([]); 
@@ -28,29 +31,29 @@ function Login(props) {
     
     const handleOnSubmit = (event) => {
         event.preventDefault(); 
-        // Axios.post('http://localhost:4000/users/login', {
-        //     loginEmail: email,
-        //     loginPassword: password
-        // })
-        // .then(res => {
-        //     res = {data:{token:'',user:{}}}
-        //     setArrSuccess(["Login success!"]) 
-        //     setArrErr([]);
-        //     localStorage.setItem('token', res.data.token);
-        //     localStorage.setItem('user-id', res.data.user._id);
-        //     props.history.push('/admin/dashboard')
-        // })
-        // .catch(err => {
-        //     let res = {data:{token:'',user:{}}}
-        //     err={response:{}}
-        //     setArrErr([err.response.data]);
-        //     setArrSuccess([]) 
-        //     setArrSuccess(["Login success!"]) 
-        //     setArrErr([]);
-        //     localStorage.setItem('token', res.data.token);
-        //     localStorage.setItem('user-id', res.data.user._id);
-        //     props.history.push('/admin/dashboard')
-        // }) 
+        Axios.post(baseUrl+'/user/signInAdmin', {
+            Mail: email,
+            Password: password
+        })
+        .then(res => {
+            console.log('res ne',res)
+            setArrSuccess(["Login success!"]) 
+            setArrErr([]);
+            localStorage.setItem('token', res.data.Token);
+            localStorage.setItem('user-id', res.data.User._id);
+            navigate('/admin/dashboard')
+        })
+        .catch(err => {
+            let res = {data:{token:'',user:{}}}
+            err={response:{}}
+            setArrErr([err.response.data]);
+            setArrSuccess([]) 
+            setArrSuccess(["Login success!"]) 
+            setArrErr([]);
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('user-id', res.data.user._id);
+            navigate('/admin/dashboard')
+        }) 
     }
 
     let uniqueErr, uniqueSuccess = [];
@@ -125,7 +128,7 @@ function Login(props) {
                                     setPassword(event.target.value)
                                 }}
                             />
-                            <button type="submit" className="btn">LOGIN</button>
+                            <button type="submit" className="btn">Đăng nhập</button>
                         </form>
                     </div>
                     <div className="login-right">
@@ -138,4 +141,4 @@ function Login(props) {
         </div>
     )
 }
-export default withRouter(Login)
+export default Login

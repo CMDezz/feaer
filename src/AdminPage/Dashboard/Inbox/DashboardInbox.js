@@ -8,17 +8,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 const ENDPOINT = "127.0.0.1:8000";
-const adminId = '6448aa754a3d5e97f2f37df7'
 const userId = '6448aa7d48d7d1de445c9f84'
 const threadId = "644a21811f84cffcf5de1743"
 export default function DashboardInbox(props) {
+  const adminId = localStorage.getItem('user-id')
   const [allChatData, setAllChatData] = useState([]);
   const [constAllChatData, setConstAllChatData] = useState([]);
   const [roomId, setRoomId] = useState(0);
+  const messageRef = useRef([]);
+
+  const [roomTarget, setRoomTarget] = useState(0);
   const [roomIndex, setRoomIndex] = useState(0);
   const [chatInput, setChatInput] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [socket, setSocket] = useState(null);
+  const [totalSocket, setTotalSocket] = useState(null);
   const [dataState, setDataState] = useState([]);
   // const baseApiUrl = process.env.REACT_APP_CHAT_URL;
   // const socket = socketIOClient(ENDPOINT);
@@ -41,19 +45,39 @@ export default function DashboardInbox(props) {
   }, [roomId]);
 
   useEffect(()=>{
-    let url = 'http://127.0.0.1:8000/chat?id=6448aa754a3d5e97f2f37df7'
+    let url = 'http://127.0.0.1:8000/chat?id='+adminId
     console.log('REACT_APP_CHAT_URL ',url)
     fetch(url)
     .then(res=>res.json())
     .then(res=>{
       console.log('res ne',res)
-      if (Boolean(res.length)) setRoomId(res[0].sessionId)
+      if (Boolean(res.length)) {
+        setRoomId(res[0].sessionId)
+        setRoomTarget(res[0].userInfo['_id'])
+
+      }
       setAllChatData(res)
       setConstAllChatData(res)
-    }).catch(err=>console.log('err ',err))
+      
+      return res
+    })
+    .then((res)=>{
+      console.log('id from res ',res[0].sessionId)
+      console.log('id rooom, ',roomId)
+      const _totalSocket = new WebSocket(
+        "ws://" + ENDPOINT + "/ws/chat/"
+      );
+
+
+      setTotalSocket(_totalSocket)
+      if (messageRef?.current) messageRef?.current?.scrollIntoView({ behavior: "smooth" })
+    })
+    .catch(err=>console.log('err ',err))
 
     return ()=>{
       setRoomId(0)
+      setRoomTarget(0)
+      // totalSocket && totalSocket.close()
     }
   },[])
 
@@ -62,7 +86,8 @@ export default function DashboardInbox(props) {
       console.log('er')
         socket.onmessage = function (e) {
             const data = JSON.parse(e.data);
-            setDuLieu(data);
+            // setDuLieu(data);
+            
             // document.querySelector('#chat-log').value += (data.message + '\n');
           };
       
@@ -70,14 +95,28 @@ export default function DashboardInbox(props) {
           setSocket(socket);
     }
 
-  }, [socket]);
+  }, [socket,messageRef?.current,totalSocket]);
+
+  useEffect(() => {
+    if (roomId && totalSocket) {
+      totalSocket.onmessage = function (e) {
+        console.log('id rooom but onmessage',roomId)
+        const data = JSON.parse(e.data);
+        if (data.thread_id == roomId) return;
+        setDuLieu(data);
+      };
+      setTotalSocket(totalSocket)
+    }
+
+  }, [totalSocket,roomId,socket]);
   const setDuLieu = (data) => {
       console.log('sert du lieu ne ',data)
+      console.log('allChatData ',allChatData)
       let _modeldata = {
         sessionId: data.thread_id, //tên phòng,
-        userInfo: {}, //
-        chatName: "",
-        time: undefined, //ngày update,
+        userInfo: data.userInfo, //
+        chatName: data.chatName,
+        time: data.time, //ngày update,
         chatContent: [{ fromAdmin: data['sent_by'] == adminId , text: data.message }],
       };
       // setAllChatData([...allChatData,_modeldata])
@@ -99,6 +138,10 @@ export default function DashboardInbox(props) {
       } else {
         setAllChatData([...allChatData, _modeldata]);
         setConstAllChatData([...constAllChatData, _modeldata]);
+      }
+      if (messageRef && messageRef.current) {
+        // console.log('messageRef?.current', messageRef.current.scrollIntoView)
+        messageRef.current.scrollIntoView({ behavior: "smooth",block:'end' })
       }
     }
 
@@ -156,18 +199,20 @@ export default function DashboardInbox(props) {
     //         }
     //         )
     // }, 100)
+    let _data = {
+      message: chatInput,
+      sent_by: adminId,
+      send_to: roomTarget,
+      thread_id:roomId ,
+    }
     socket && socket.send(
-      JSON.stringify({
-        message: chatInput,
-        sent_by: adminId,
-        send_to: userId,
-        thread_id:threadId ,
-      })
+      JSON.stringify(_data)
     );
+    setDuLieu(_data)
     setChatInput('')
+    // if (messageRef?.current) messageRef?.current?.scrollIntoView({ behavior: "smooth" })
   };
 
-  const messageRef = useRef([]);
 
   const filterOnSearch = (value) => {
     const search = [];
@@ -256,6 +301,7 @@ export default function DashboardInbox(props) {
                   }
                   onClick={() => {
                     setRoomId(item.sessionId);
+                    setRoomTarget(item.userInfo['_id']);
                     setRoomIndex(index);
                     console.log('clcikckckc ',item)
                     // setTimeout(() => {

@@ -15,7 +15,8 @@ import SearchResultPage from "./Pages/SearchResultPage/SearchResultPage";
 import SignInPage from "./Pages/SignInPage/SignInPage";
 import React, { useState, useEffect } from "react";
 import CollectionPage from "./Pages/CollectionPage/CollectionPage";
-import AdminPage from "./AdminPage/Dashboard/Dashboard";
+import AdminPageLogin from "./AdminPage/Login/Login";
+import AdminPageDashboard from "./AdminPage/Dashboard/Dashboard";
 import NotFound from "./Components/NotFound/NotFound";
 import CommonRoute from "./CommonRouteComp";
 function App() {
@@ -113,7 +114,8 @@ function App() {
 
           <Route exact path="/contactPage" element={<CommonRoute comp={<ContactPage/>}/>} ></Route>
           {/* admin Pages  */}
-          <Route exact path="/admin" element={<AdminPage></AdminPage>}></Route>
+          <Route exact path="/admin" element={<AdminPageLogin/>}></Route>
+          <Route exact path="/admin/dashboard" element={<AdminPageDashboard/>}></Route>
           <Route path="*" element={< CommonRoute comp={<NotFound/>}/>} />
 
           {/* Contact page */}

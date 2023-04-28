@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import ProductDetailPage from "./Pages/ProductDetailPage/ProductDetailPage";
 import ProductByCategoryPage from "./Pages/ProductByCategoryPage/ProductByCategoryPage";
 import CartPage from "./Pages/CartPage/CartPage";
+import ContactPage from "./Pages/ContactPage";
 import CheckoutPage from "./Pages/CheckoutPage/CheckoutPage";
 import PaymentPage from "./Pages/PaymentPage/PaymentPage";
 import ThankYouPage from "./Pages/ThankYouPage/ThankYouPage";
@@ -110,9 +111,12 @@ function App() {
             element={<CommonRoute comp={<CollectionPage/>}/>}
           ></Route>
 
+          <Route exact path="/contactPage" element={<CommonRoute comp={<ContactPage/>}/>} ></Route>
           {/* admin Pages  */}
           <Route exact path="/admin" element={<AdminPage></AdminPage>}></Route>
           <Route path="*" element={< CommonRoute comp={<NotFound/>}/>} />
+
+          {/* Contact page */}
         </Routes>
 
       </Router>

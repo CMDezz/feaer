@@ -17,10 +17,12 @@ const Header = () => {
   const cart = useSelector((state) => state.shop.cart);
   const [keyword, setKeyword] = useState("");
   const [isActive, setActive] = useState("");
+  const [currentUser, setCurrentUser] = useState({});
   const [isSearchActive, setSearchActive] = useState(false);
+  const baseUrl = process.env.REACT_APP_API_URL;
 
   const [expand, setExpand] = useState(false);
-
+  const user = JSON.parse(localStorage.getItem('feaer_login_info'))
   const navigate = useNavigate();
   // let elmOffset = 0;
 
@@ -48,6 +50,80 @@ const Header = () => {
     }
   };
 
+  useEffect(() => {
+    if (!user || !user.Token) {
+      setCurrentUser({})
+      return;
+    }
+    apiGetUser()
+  }, [user?.Token,user?.User?._id])
+  const apiGetUser = async ()=>{
+    let token = user.Token
+    let userId = user.User?._id
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+        , 'Authorization': 'Token ' + token
+      },
+    };
+      let resp = await fetch(baseUrl + '/user/getUserInfo?id=' + userId, requestOptions)
+        .then(res => res.json())
+        .then(res => {
+          console.log('res ne ', res)
+          if (!res._id) {
+            setCurrentUser({})
+            return
+          }
+          let newUser = { Token: token, User: res }
+          setCurrentUser({...newUser})
+          localStorage.setItem('feaer_login_info', JSON.stringify(newUser))
+          return
+        })
+        .catch(err => console.log('err ', err))
+    
+  }
+  const SignOut = ()=>{
+    let token = user.Token
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+        , 'Authorization': 'Token ' + token
+      },
+    };
+    (async () => {
+      let resp = await fetch(baseUrl + '/user/signOut', requestOptions)
+        .then(res => res.json())
+        .then(res => {
+          setCurrentUser({})
+          localStorage.removeItem('feaer_login_info')
+          return
+        })
+        .catch(err => console.log('err ', err))
+    })()
+  }
+
+  const renderLogin = () => {
+    console.log('current user', currentUser)
+    if (!currentUser || !currentUser.Token || !currentUser.User?._id) {
+      return <Link to="/signin" className="HeaderNavigateItemLink">
+        <span>Đăng nhập</span>
+        <AiOutlineUser></AiOutlineUser>
+      </Link>
+    }
+    return <>
+      <div className="dropdown">
+        <span href='#' className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {currentUser.User.Mail.split('@')[0]}
+        </span>
+        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a className="dropdown-item" href="#">Trang thông tin</a>
+          <a className="dropdown-item" href="#" onClick={SignOut}>Đăng xuất</a>
+        </div>
+      </div>
+    </>
+  }
   return (
     <div className="Header">
       <ul className="HeaderMenu">
@@ -218,7 +294,6 @@ const Header = () => {
             </ul>
           </li>
           <li
-            className="HeaderMenuBarItem"
             className={
               (isActive == "Nữ" ? "active " : "") + "HeaderMenuBarItem"
             }
@@ -344,10 +419,7 @@ const Header = () => {
           </Link>
         </li>
         <li className="HeaderNavigateItem">
-          <Link to="/signin" className="HeaderNavigateItemLink">
-            <span>Đăng nhập</span>
-            <AiOutlineUser></AiOutlineUser>
-          </Link>
+          {renderLogin()}
         </li>
         {/* <li className="HeaderNavigateItem">
           <Link to="/product/product-list-by-cate/" className="HeaderNavigateItemLink">

@@ -72,3 +72,7 @@ body.swal2-shown {
 .App{
   position: relative;
 }
+a:hover{
+  text-decoration: inherit;
+  color:inherit
+}

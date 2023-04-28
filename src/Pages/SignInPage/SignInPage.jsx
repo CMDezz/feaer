@@ -3,8 +3,10 @@ import "./SignInPage.scss";
 import { Link } from "react-router-dom";
 import { FaFacebook } from "react-icons/fa";
 import { AiFillGoogleCircle } from "react-icons/ai";
+import Hooks from './Hooks'
 const SignInPage = () => {
   let [actionActive, setActionActive] = useState("signin");
+  const {SignUp,SignIn} = Hooks()
   return (
     <div className="SignInPage">
       <div className="SignInPageContainer">
@@ -17,13 +19,13 @@ const SignInPage = () => {
         >
           <div className="SignInPageBoxLogin">
             <h3 className="SignInPageBoxLoginTitle">ĐĂNG NHẬP</h3>
-            <form className="SignInPageForm">
+            <form className="SignInPageForm" id='SignInPageForm' onSubmit={SignIn}>
               <div className="SignInPageBoxInput">
                 <input
                   autoComplete="off"
                   type="text"
                   id="email"
-                  name="email"
+                  name="Mail"
                   placeholder="Nhập email của bạn"
                 />
               </div>
@@ -32,7 +34,7 @@ const SignInPage = () => {
                   autoComplete="off"
                   type="password"
                   id="password"
-                  name="password"
+                  name="Password"
                   placeholder="Nhập mật khẩu"
                 />
               </div>
@@ -50,9 +52,8 @@ const SignInPage = () => {
               >
                 Đăng ký tài khoản mới ngay
               </Link>
-              <Link to="#" type="submit" className="SignInBtn">
-                Đăng Nhập
-              </Link>
+              <button type='submit'  className="SignInBtn" form="SignInPageForm" >Đăng Nhập</button>
+
             </form>
           </div>
           <div className="SignInPageBoxAnotherLogin">
@@ -76,15 +77,15 @@ const SignInPage = () => {
         >
           <div className="SignUpContainer">
             <h3 className="SignUpTitle">ĐĂNG KÝ</h3>
-            <form className="SignUpForm">
-              <input type="text" placeholder="Nhập email" />
-              <input type="password" placeholder="Nhập mật khẩu" />
-              <input type="password" placeholder="Xác nhận mật khẩu" />
+            <form className="SignUpForm" id="SignUpForm"  onSubmit={SignUp}>
+              <input name='Mail' type="text" placeholder="Nhập email" />
+              <input name='Password' type="password" placeholder="Nhập mật khẩu" />
+              <input name='RePassword' type="password" placeholder="Xác nhận mật khẩu" />
             </form>
             <div className="SignUpButtons">
-              <Link to="#" className="SignUpBtn">
-                Đăng Ký
-              </Link>
+              <button type='submit'  className="SignUpBtn" form="SignUpForm" >Đăng Ký</button>
+                
+              
               <Link
                 to="#"
                 className="BackBtn"

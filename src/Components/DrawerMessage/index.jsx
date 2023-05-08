@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Drawer, Space, Input, Button, Row, Col } from "antd";
 import "./Styles/index.scss";
+import {Link} from 'react-router-dom'
 function DrawerMessage(props) {
   const { onClose, open } = props;
   const [socket, setSocket] = useState(null);
@@ -10,14 +11,25 @@ function DrawerMessage(props) {
   const [constAllChatData, setConstAllChatData] = useState({});
   const messageRef = useRef([]);
   const adminId = "6448aa754a3d5e97f2f37df7";
+  const [infoUser, setInfoUser] = useState({});
 
   useEffect(() => {
     if (open && socket == null) {
-      let socket = new WebSocket(
-        "ws://" + ENDPOINT + "/ws/chat/" + "644b475d9d4c9df98487b57b" + "/"
-      );
-
-      setSocket(socket);
+        console.log('hehe ')
+      let storage = JSON.parse(localStorage.getItem("feaer_login_info")) || {};
+      console.log('hehe ',storage)
+      console.log('hehe ',storage.Token)
+      if (storage.Token) {
+        let socket = new WebSocket(
+          "ws://" + ENDPOINT + "/ws/chat/" + "644b475d9d4c9df98487b57b" + "/"
+        );
+        setSocket(socket);
+        setInfoUser(storage)
+      }else{
+        setInfoUser({})
+      }
+      console.log('sotrag ',storage)
+      
     }
   }, [open]);
 
@@ -82,6 +94,11 @@ function DrawerMessage(props) {
       open={open}
       key={"right"}
     >
+        {console.log('infoUser ',infoUser)}
+        {
+            !infoUser.Token?
+                <a href='/signin'>Bấm vào đây để chuyển đến trang đăng nhập</a>
+            :
       <div className="wrapperMessageClient">
         <div className="ChatContent">
           <div className="boxchat-contents">
@@ -192,6 +209,7 @@ function DrawerMessage(props) {
           </Row>
         </div>
       </div>
+        }
     </Drawer>
   );
 }

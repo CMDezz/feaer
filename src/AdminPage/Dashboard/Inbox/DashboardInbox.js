@@ -86,7 +86,8 @@ export default function DashboardInbox(props) {
       console.log('er')
         socket.onmessage = function (e) {
             const data = JSON.parse(e.data);
-            // setDuLieu(data);
+            console.log('data frojm  socket ',data)
+            setDuLieu(data);
             
             // document.querySelector('#chat-log').value += (data.message + '\n');
           };
@@ -100,8 +101,8 @@ export default function DashboardInbox(props) {
   useEffect(() => {
     if (roomId && totalSocket) {
       totalSocket.onmessage = function (e) {
-        console.log('id rooom but onmessage',roomId)
         const data = JSON.parse(e.data);
+        console.log('data frojm total socket ',data)
         if (data.thread_id == roomId) return;
         setDuLieu(data);
       };
@@ -110,8 +111,6 @@ export default function DashboardInbox(props) {
 
   }, [totalSocket,roomId,socket]);
   const setDuLieu = (data) => {
-      console.log('sert du lieu ne ',data)
-      console.log('allChatData ',allChatData)
       let _modeldata = {
         sessionId: data.thread_id, //tên phòng,
         userInfo: data.userInfo, //
@@ -124,15 +123,12 @@ export default function DashboardInbox(props) {
       let index = allChatData.findIndex(
         (chat) => chat.sessionId == data.thread_id
       );
-        console.log('allChatData ',allChatData)
-        console.log('index ',index)
       if (index > -1) {
         let cloneData = [...allChatData];
         cloneData[index].chatContent = [
           ...cloneData[index].chatContent,
           { text: data.message,fromAdmin: data['sent_by'] == adminId },
         ];
-        console.log("cloneData ne ", cloneData);
         setAllChatData([...cloneData]);
         setConstAllChatData([...cloneData]);
       } else {
@@ -208,7 +204,7 @@ export default function DashboardInbox(props) {
     socket && socket.send(
       JSON.stringify(_data)
     );
-    setDuLieu(_data)
+    // setDuLieu(_data)
     setChatInput('')
     // if (messageRef?.current) messageRef?.current?.scrollIntoView({ behavior: "smooth" })
   };

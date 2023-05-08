@@ -19,8 +19,12 @@ import AdminPageLogin from "./AdminPage/Login/Login";
 import AdminPageDashboard from "./AdminPage/Dashboard/Dashboard";
 import NotFound from "./Components/NotFound/NotFound";
 import CommonRoute from "./CommonRouteComp";
+import {FloatButton,Drawer} from 'antd'
+import { MessageOutlined } from '@ant-design/icons';
+import DrawerMessage from "./Components/DrawerMessage";
 function App() {
   // const [isLoading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
 
   // function fakeRequest() {
   //   return new Promise((resolve) => setTimeout(() => resolve(), 500));
@@ -39,7 +43,12 @@ function App() {
   // if (isLoading) {
   //   return null;
   // }
-
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const closeDrawer = () => {
+    setOpen(false);
+  };
   return (
     <div className="App">
       <Router>
@@ -122,6 +131,14 @@ function App() {
         </Routes>
 
       </Router>
+      <FloatButton
+      icon={<MessageOutlined />}
+      description="Chat"
+      shape="square"
+      style={{ right: 24 }}
+      onClick={showDrawer}
+    />
+    <DrawerMessage onClose={closeDrawer} open={open} />
     </div>
   );
 }

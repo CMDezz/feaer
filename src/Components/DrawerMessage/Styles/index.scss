@@ -1,0 +1,265 @@
+.wrapperMessageClient{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    .boxchat-left {
+        width: 270px;
+        height: 100%; 
+        display: flex;
+        flex-direction: column;
+    }
+    .boxchat-list {
+        flex-grow: 1;
+        width: 100%; 
+        padding-right: 20px;  
+        overflow-y: scroll; 
+    }
+    .ChatContent{
+        margin-bottom: 0;
+        margin-top: auto;
+    }
+    /* width */
+    .boxchat-list::-webkit-scrollbar {
+        display: none !important; 
+    }
+    /* Track */
+    .boxchat-list::-webkit-scrollbar-track {
+        display: none !important; 
+    }
+    /* Handle */
+    .boxchat-list::-webkit-scrollbar-thumb {
+        display: none !important; 
+    }
+    
+    .boxchat-item {
+        margin: 10px 0;
+        height: 64px;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    .boxchat-item:last-child {
+        margin-bottom: 0;
+    }
+    
+    .boxchat-avt {
+        margin-right: 10px;
+    }
+    .boxchat-avt img {
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+    }
+    .boxchat-name {
+        font-size: 16px;
+        text-transform: capitalize;
+        font-family: sans-serif;
+    }
+    
+    .boxchat-first {
+        width: 100%;
+    }
+    .boxchat-first p {
+        font-size: 14px;
+        color: #777;
+        font-family: sans-serif;
+        margin-bottom: 2px;
+    }
+    .boxchat-first p:first-child {
+        /* Add ... if text is full */
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        max-width: 120px;
+        overflow: hidden;
+        margin-right: 5px;
+    }
+    .boxchat-first p:last-child {
+        max-width: 50px;
+        text-align: right;
+    }
+    .boxchat-item:hover {
+        background-color: #eee;
+    }
+    .boxchat-item-active {
+        background-color: #eee;
+    }
+    .boxchat-main {
+        flex-grow: 1;
+        height: 100%;
+        border-left: 1px #ddd solid;
+    }
+    .boxchat-box {
+        width: 100%;
+        height: 90%;
+        padding-left: 20px;
+    }
+    .boxchat-box-info {
+        display: flex;
+        height: 36px;
+        margin-bottom: 10px;
+    }
+    .boxchat-box-avt {
+        height: 100%;
+        margin-bottom: 20px;
+        justify-content: flex-start;
+        margin-right: 10px;
+    }
+    .boxchat-box-avt img {
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+    }
+    .boxchat-contents {
+        // border-top: 1px #ddd solid;
+    }
+    .boxchat-contents-item {
+        margin-top: 10px;
+    }
+    .boxchat-search {  
+        width: 100%;
+        padding-right: 20px;
+        margin-bottom: 10px;
+    }
+    .boxchat-search input {
+        width: 100%;
+        height: 36px;
+        outline: none;
+        border: 1px #ddd solid;
+        border-radius: 10px;
+        padding: 0 10px;
+    }
+    .boxchat-type {
+        height: 50px;
+        width: 100%;
+        padding-left: 20px;
+    }
+    .boxchat-type-form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+    .boxchat-type input {
+        outline: none;
+        border: 1px #ddd solid;
+        padding: 0 10px;
+        width: 90%;
+        height: 70%;
+        border-radius: 10px;
+        margin-right: 5px;
+    }
+    .boxchat-type button {
+        width: 10%;
+        height: 70%;
+        border: none;
+        background-color: #111;
+        border-radius: 10px;
+        cursor: pointer;
+        color: #FFF;
+    }
+    
+    .box-chat-admintext {
+        margin: 3px 0;
+        clear: right;
+        position: relative;
+        width: max-content;
+    }
+    .box-chat-admintext p {
+        font-size: 14px;
+        margin: 0;
+        border-radius: 15px;
+        padding: 5px 8px;
+        width: max-content;
+        color: #FFF;
+        background-color: #0e0e0e;
+        font-family: sans-serif;
+    }
+    .box-chat-clienttext {
+        margin: 3px 0;
+        text-align: right;
+        float: right;
+        clear: right;
+        position: relative;
+    }
+    .box-chat-clienttext p {
+        font-size: 14px;
+        border-radius: 15px;
+        padding: 5px 8px;
+        text-align: right;
+        width: max-content;
+        background-color: #eeecec;
+        font-family: sans-serif;
+    }
+    .time-tooltip {
+        background-color: #111;
+        color: #FFF;
+        border-radius: 2px;
+        padding: 0 20px;
+        position: absolute;
+        top: 0;
+        right: calc(100% + 10px);
+        width: max-content;
+        height: 100%;
+    }
+    .time-tooltip p {
+        font-size: 10px;
+        background-color: #111;
+    }
+    .time-tooltip::after {
+        content: " ";
+        position: absolute;
+        top: 35%;
+        right: -10px;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent transparent black;
+    }
+    .time-tooltip-client {
+        background-color: #111;
+        color: #FFF;
+        border-radius: 2px;
+        padding: 0 20px;
+        position: absolute;
+        top: 0;
+        left: calc(100% + 10px);
+        width: max-content;
+        height: 100%;
+    }
+    .time-tooltip-client p {
+        font-size: 10px;
+        background-color: #111;
+    }
+    .time-tooltip-client::after {
+        content: " ";
+        position: absolute;
+        top: 35%;
+        left: -5px;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent black transparent transparent ;
+    }
+    
+    .boxchat-contents {
+        height: 90%;
+        overflow-y: scroll;
+        margin: 5px;
+    }
+    
+    /* width */
+    .boxchat-contents::-webkit-scrollbar {
+        display: none !important;
+      }
+    /* Track */
+    .boxchat-contents::-webkit-scrollbar-track {
+        display: none !important;
+    }
+    /* Handle */
+    .boxchat-contents::-webkit-scrollbar-thumb {
+    display: none !important;
+    }
+    
+}

@@ -126,24 +126,6 @@ function DrawerMessage(props) {
                   }
                   return (
                     <div ref={messageRef} key={index} className="chat-list">
-                      {item.fromAdmin !== true && (
-                        <div
-                          className="box-chat-clienttext"
-                          onMouseEnter={() => {
-                            setOpenTimeTooltip(item.time);
-                          }}
-                          onMouseLeave={() => {
-                            setOpenTimeTooltip("");
-                          }}
-                        >
-                          <p>{item.text}</p>
-                          {openTimeTooltip === item.time && (
-                            <div className="time-tooltip-client flex-center">
-                              <p>{chatTime}</p>
-                            </div>
-                          )}
-                        </div>
-                      )}
                       {item.fromAdmin === true && (
                         <div
                           className="box-chat-admintext"
@@ -162,6 +144,24 @@ function DrawerMessage(props) {
                           )}
                         </div>
                       )}
+                      {item.fromAdmin !== true && (
+                        <div
+                          className="box-chat-clienttext"
+                          onMouseEnter={() => {
+                            setOpenTimeTooltip(item.time);
+                          }}
+                          onMouseLeave={() => {
+                            setOpenTimeTooltip("");
+                          }}
+                        >
+                          <p>{item.text}</p>
+                          {openTimeTooltip === item.time && (
+                            <div className="time-tooltip-client flex-center">
+                              <p>{chatTime}</p>
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   );
                 })}
@@ -172,7 +172,7 @@ function DrawerMessage(props) {
         <div className="chatActions mt-2">
           <Row
             direction="horizontal"
-            style={{ width: "100%",margin:0 }}
+            style={{ width: "100%", margin: 0 }}
             gutter={[16, 16]}
           >
             <Col style={{ flex: 1 }}>

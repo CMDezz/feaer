@@ -4,6 +4,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
 export default function DashboardProductCreate(props) {
+    const baseUrl = process.env.REACT_APP_API_URL;
 
     const createForm = useRef();
     const cateInput = useRef();
@@ -15,7 +16,7 @@ export default function DashboardProductCreate(props) {
     const [cate, setCate] = useState([])
     const [cateValue, setCateValue] = useState("")
     const [size, setSize] = useState([])
-    const [sex, setSex] = useState("")
+    const [sex, setSex] = useState("629ef31f85deb3c935243765")
     const [file, setFile] = useState([])
     const [productGroupCate, setProductGroupCate] = useState("")
     const [productGroupCateList, setProductGroupCateList] = useState([])
@@ -49,8 +50,16 @@ export default function DashboardProductCreate(props) {
         }
     }
 
-    const handleOnChange = (event) => {
-        setInputValue({...inputValue, [event.target.name]: event.target.value})
+    const handleOnChange = (event,isSize=false) => {
+        console.log('event.target.name ',event.target.name)
+        console.log('event.target.value ',event.target.value)
+        if (isSize){
+            let clone = inputValue['SizeAndStock'] ?inputValue['SizeAndStock'] : {S:'',M:'',L:''};
+            let size = {...clone,[event.target.name]: event.target.value};
+            setInputValue({...inputValue, "SizeAndStock": size})
+        }else{
+            setInputValue({...inputValue, [event.target.name]: event.target.value})
+        }
     }
     
     // useEffect(()=> {
@@ -69,35 +78,69 @@ export default function DashboardProductCreate(props) {
     //         }) 
     // },[])
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault()
-        const config = {
+        const imgurrConfig = {
             headers: {
-                'content-type': 'multipart/form-data'
+                'content-type': 'multipart/form-data',
+                'Authorization':'Client-ID 5a823def27c9647',
+                'Accept':'*',
+                'Access-Control-Allow-Origin':'*'                
             }
         }
 
-        const formData = new FormData();
+        const uploadImage = async()=>{
+            let resultLink = ''
+            const imageArr = Array.from(file);
+            // await  imageArr.forEach(async image => {
+            //     console.log('image ',image)
+                const _imageForm = new FormData()
+                _imageForm.append('image', imageArr[0]);
+                await axios.post('https://api.imgur.com/3/upload',_imageForm,imgurrConfig)
+                    .then(res=>{
+                        console.log('res nay ',res)
+                        resultLink = (res.data.data.link)
+                    })
+            return resultLink
+            
+        }
+        let imgLink = ''
+        if (file.length){
+            imgLink = await uploadImage()
+        }
 
-        const imageArr = Array.from(file);
-        imageArr.forEach(image => {
-            formData.append('productImg', image);
-        });
+        console.log('imgLink ',imgLink)
+        let model = {
+            Name:inputValue.Name,
+            Price:inputValue.Price,
+            FinalPrice:inputValue.Price,
+            Category:inputValue.Category,
+            SizeAndStock:inputValue.SizeAndStock ?? {S:0,M:0,L:0},
+            Desc:inputValue.Desc,
+            Sex:{"_id":sex},
+            Image:imgLink?[imgLink]:[],
+            ImageDetail:imgLink?[imgLink]:[],
+        }
+        console.log('model ne ',model)
+        // const imageArr = Array.from(file);
+        // imageArr.forEach(image => {
+        //     formData.append('productImg', image);
+        // });
 
-        formData.append("productName", inputValue.name);
-        formData.append("productSale", inputValue.sale);
-        formData.append("productPrice", inputValue.price);
-        formData.append("productCate", cateValue);
-        formData.append("productGroupCate", productGroupCate);
-        formData.append("productSize", size);
-        formData.append("productDes", inputValue.des);
-        formData.append("productSex", sex);
-        formData.append("productDate", new Date());
-        // axios.post('http://localhost:4000/products', formData, config)
-        // .then(()=>{
-        //     props.setCloseCreateFunc(false);
-        //     props.setToastFunc(true);
-        // })
+        // formData.append("productName", inputValue.name);
+        // formData.append("productSale", inputValue.sale);
+        // formData.append("productPrice", inputValue.price);
+        // formData.append("productCate", cateValue);
+        // formData.append("productGroupCate", productGroupCate);
+        // formData.append("productSize", size);
+        // formData.append("productDes", inputValue.des);
+        // formData.append("productSex", sex);
+        // formData.append("productDate", new Date());
+        axios.post(`${baseUrl}/product/createNewProduct`, model)
+        .then(()=>{
+            props.setCloseCreateFunc(false);
+            props.setToastFunc(true);
+        })
     }
 
     const addNewCate = () => {
@@ -130,7 +173,7 @@ export default function DashboardProductCreate(props) {
             <div className="create-box"> 
                 <div className="create-box-title flex">
                     <div className="create-box-title-text">
-                        Product infomation
+                        Thông tin sản phẩm
                     </div>
                     <div  
                         className="create-box-title-close flex-center"
@@ -143,13 +186,13 @@ export default function DashboardProductCreate(props) {
                 </div>
                 <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm}>
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Name</div>
+                        <div className="dashboard-left flex">Tên</div>
                         <div className="dashboard-right">
-                            <input type="text" name="name" onChange={handleOnChange} required></input>
+                            <input type="text" name="Name" onChange={handleOnChange} required></input>
                         </div>
                     </div>
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Images </div>
+                        <div className="dashboard-left flex">Hình ảnh </div>
                         <div className="dashboard-right">
                             <input 
                                 onChange={(event) => {
@@ -164,7 +207,7 @@ export default function DashboardProductCreate(props) {
                                     })
                                 }}
                                 type="file"
-                                name="productImg"
+                                name="Image"
                                 className="noborder"
                                 multiple="multiple"
                                 style={{height: '50px'}}
@@ -192,12 +235,12 @@ export default function DashboardProductCreate(props) {
                         </div>
                     </div>
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Defaut price </div>
+                        <div className="dashboard-left flex">Giá </div>
                         <div className="dashboard-right">
-                            <input type="number" name="price" placeholder="USD" onChange={handleOnChange} required></input>
+                            <input type="number" name="Price" placeholder="Nhập giá" onChange={handleOnChange} required></input>
                         </div>
                     </div>
-                    <div className="create-box-row flex">
+                    {/* <div className="create-box-row flex">
                         <div className="dashboard-left flex">Sale off </div>
                         <div className="dashboard-right flex-center">
                             <input type="number" placeholder="%" style={{ width: "100px"}} onChange={handleOnChange} name="sale" required></input>
@@ -206,8 +249,8 @@ export default function DashboardProductCreate(props) {
                             <label>To: </label>
                             <input type="date"  name="todate" onChange={handleOnChange} placeholder="dd/mm/yyyy" pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"/>
                         </div>
-                    </div>
-                    <div className="create-box-row flex">
+                    </div> */}
+                    {/* <div className="create-box-row flex">
                         <div className="dashboard-left flex">Category group</div>
                         <div className="dashboard-right flex-center">
                             <select style={{ width: "350px"}} 
@@ -236,8 +279,8 @@ export default function DashboardProductCreate(props) {
                                 Add
                             </div>
                         </div>
-                    </div>
-                    <div className="create-box-row flex">
+                    </div> */}
+                    {/* <div className="create-box-row flex">
                         <div className="dashboard-left flex">Category </div>
                         <div className="dashboard-right flex-center">
                             <select style={{ width: "350px"}} 
@@ -266,47 +309,43 @@ export default function DashboardProductCreate(props) {
                                 Add
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Sex </div>
+                        <div className="dashboard-left flex">Giới tính </div>
                         <div className="dashboard-right flex">
                             <select style={{ width: "200px"}} 
                                 onChange={(event) => {setSex(event.target.value)}}
                                 value={sex}
                                 required>
                                 <option></option>
-                                <option>Man</option>
-                                <option>Woman</option>
+                                <option value='629ef31f85deb3c935243765'>Nam</option>
+                                    <option value='629ef31c85deb3c935243763'>Nữ</option>
                             </select>
                         </div>
                     </div>
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Size </div>
+                        <div className="dashboard-left flex">Size and stock</div>
                         <div className="dashboard-right flex">
-                            <div 
-                                className={isCheckedSmall ? "size-check isChecked" : "size-check"}
-                                id="1" 
-                                onClick={checkedSize}>Small</div>
-                            <div 
-                                className={isCheckedMedium ? "size-check isChecked" : "size-check"}
-                                id="2" 
-                                onClick={checkedSize}>Medium</div>
-                            <div 
-                                className={isCheckedLarge ? "size-check isChecked" : "size-check"}
-                                id="3" 
-                                onClick={checkedSize}>Large</div>
+                            {
+                                ['S','M','L'].map(size=>{
+                                    return <div className='d-flex justify-content-center align-items-center'> 
+                                        <strong>{size}</strong>
+                                        <input type='number'  name={size} onChange={(e)=>handleOnChange(e,true)}/>
+                                    </div>
+                                })
+                            }
                         </div>
                     </div>
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Description </div>
+                        <div className="dashboard-left flex">Mô tả </div>
                         <div className="dashboard-right">
-                            <input type="text" name="des" onChange={handleOnChange} required></input>
+                            <input type="text" name="Desc" onChange={handleOnChange} required></input>
                         </div>
                     </div>
 
                     <div className="flex-center" style={{marginTop: '40px'}}>
-                    <button className="create-box-btn btn">
-                        Add product
+                    <button className="create-box-btn btn" type='submit'>
+                        Thêm
                     </button>
                 </div>
                 </form>

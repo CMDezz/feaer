@@ -10,7 +10,7 @@ function DrawerMessage(props) {
   const [allChatData, setAllChatData] = useState({ chatContent: [] });
   const [constAllChatData, setConstAllChatData] = useState({});
   const messageRef = useRef([]);
-  const adminId = "6448aa754a3d5e97f2f37df7";
+  const adminId = "64648cfdb99f6f1d5d67759f";
   const [infoUser, setInfoUser] = useState({});
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function DrawerMessage(props) {
       console.log('hehe ',storage.Token)
       if (storage.Token) {
         let socket = new WebSocket(
-          "ws://" + ENDPOINT + "/ws/chat/" + "644b475d9d4c9df98487b57b" + "/"
+          "ws://" + ENDPOINT + "/ws/chat/" + "64648e225ce04e256e225d2d" + "/"
         );
         setSocket(socket);
         setInfoUser(storage)
@@ -54,7 +54,7 @@ function DrawerMessage(props) {
     let _data = {
       message: message,
       sent_by: "644b453fd7d5cf8cefe520f5",
-      send_to: "6448aa754a3d5e97f2f37df7",
+      send_to: adminId,
       thread_id: "644b475d9d4c9df98487b57b",
     };
     socket && socket.send(JSON.stringify(_data));

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
+import {Select} from 'antd'
 
 export default function DashboardProductEdit(props) {
 
@@ -15,6 +16,7 @@ export default function DashboardProductEdit(props) {
     const [cate, setCate] = useState([])
     const [file, setFile] = useState([])
     const product = props.product
+    const baseUrl = process.env.REACT_APP_API_URL;
 
 
     const [productImg, setProductImg] = useState([])
@@ -22,10 +24,10 @@ export default function DashboardProductEdit(props) {
     const [productSale, setProductSale] = useState(0)
     const [productPrice, setProductPrice] = useState(0)
     const [productDes, setProductDes] = useState("")
-    const [productCate, setProductCate] = useState("")
+    const [productCate, setProductCate] = useState([])
     const [productGroupCate, setProductGroupCate] = useState("")
     const [productGroupCateList, setProductGroupCateList] = useState([])
-    const [productSize, setProductSize] = useState([])
+    const [productSize, setProductSize] = useState({})
     const [productSex, setProductSex] = useState([])
 
     const checkedSize = (event) => {
@@ -71,42 +73,43 @@ export default function DashboardProductEdit(props) {
         setInputValue({...inputValue, [event.target.name]: event.target.value})
     }
     
-    // useEffect(()=> { 
-    //     if (product) {
-    //         setProductName(product.productName)
-    //         setProductImg(product.productImg)
-    //         setProductSale(product.productSale)
-    //         setProductPrice(product.productPrice)
-    //         setProductDes(product.productDes)
-    //         setProductCate(product.productCate)
-    //         setProductSex(product.productSex)
-    //         setProductSize(product.productSize)
-    //         setProductGroupCate(product.productGroupCate)
-    //         axios.get(`http://localhost:4000/category`)
-    //             .then(res => {
-    //                 setCate(res.data)
-    //             }
-    //         )
-    //         axios.get(`http://localhost:4000/products`)
-    //             .then(res => {
-    //                 const test = Object.values(res.data.reduce((a, {productGroupCate}) => {
-    //                     a[productGroupCate] = a[productGroupCate] || {productGroupCate};
-    //                     return a;
-    //                 }, Object.create(null)));
-    //                 setProductGroupCateList(test)
-    //             }
-    //         )
-    //         if (product.productSize) {
-    //             for (let i of product.productSize) {
-    //                 if(i === "Small") setIsCheckedSmall(true)
-    //                 if(i === "Medium") setIsCheckedMedium(true)
-    //                 if(i === "Large") setIsCheckedLarge(true)
-    //             }
-    //         }
-    //     }
-    // },[product])
+    useEffect(()=> { 
+        if (product) {
+            setProductName(product.Name)
+            setProductImg(product.Image)
+            setProductSale(product.Discount?product.Discount.Value:0)
+            setProductPrice(product.Price)
+            setProductDes(product.Desc)
+            setProductCate(product.Category?product.Category:[])
+            setProductSex(product.Sex?product.Sex._id:'')
+            setProductSize(Object.keys(product.SizeAndStock)?.length ?product.SizeAndStock  : {S:'',M:'',L:''})
+            // setProductGroupCate(product.productGroupCate)
+            axios.get(`${baseUrl}/category`)
+                .then(res => {
+                    setCate(res.data)
+                }
+            )
+            // axios.get(`${baseUrl}/products`)
+            //     .then(res => {
+            //         const test = Object.values(res.data.reduce((a, {productGroupCate}) => {
+            //             a[productGroupCate] = a[productGroupCate] || {productGroupCate};
+            //             return a;
+            //         }, Object.create(null)));
+            //         setProductGroupCateList(test)
+            //     }
+            // )
+            // if (product.productSize) {
+            //     for (let i of product.productSize) {
+            //         if(i === "Small") setIsCheckedSmall(true)
+            //         if(i === "Medium") setIsCheckedMedium(true)
+            //         if(i === "Large") setIsCheckedLarge(true)
+            //     }
+            // }
+            console.log('product ',product)
+        }
+    },[product])
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault()
         const config = {
             headers: {
@@ -114,30 +117,78 @@ export default function DashboardProductEdit(props) {
             }
         }
 
+        const imgurrConfig = {
+            headers: {
+                'content-type': 'multipart/form-data',
+                'Authorization':'Client-ID 5a823def27c9647',
+                'Accept':'*',
+                'Access-Control-Allow-Origin':'*'                
+            }
+        }
+
+        // axios.post('https://api.imgur.com/3/image',,config)
         const formData = new FormData();
 
-        const imageArr = Array.from(file);
-        imageArr.forEach(image => {
-            formData.append('productImg', image);
-        });
+        
+        const uploadImage = async()=>{
+            let resultLink = ''
+            const imageArr = Array.from(file);
+            // await  imageArr.forEach(async image => {
+            //     console.log('image ',image)
+                const _imageForm = new FormData()
+                _imageForm.append('image', imageArr[0]);
+                await axios.post('https://api.imgur.com/3/upload',_imageForm,imgurrConfig)
+                    .then(res=>{
+                        console.log('res nay ',res)
+                        resultLink = (res.data.data.link)
+                    })
+            return resultLink
+            
+        }
+        let imgLink = ''
+        if (file.length){
+            imgLink = await uploadImage()
+        }
+        console.log('imgLink ',imgLink)
+        let model = {
+            Name:productName,
+            id:product._id,
+            Price:productPrice,
+            FinalPrice:productPrice,
+            Category:productCate,
+            SizeAndStock:productSize,
+            // ImageDetail:product.ImageDetail?.length ? [...product.ImageDetail,imgLink]:[]
+            Desc:productDes,
+            Sex:{"_id":productSex},
+            updatedAt:new Date(),
+            Image:imgLink?[...productImg,imgLink]:productImg,
+        }
+        // formData.append("Name", productName);
+        // formData.append("id", product._id);
+        // // formData.append("productSale", productSale);
+        // formData.append("Price", productPrice);
+        // formData.append("Category", productCate);
+        // formData.append("SizeAndStock", JSON.stringify(productSize));
+        // formData.append("Desc", productDes);
+        // formData.append("Sex", productSex);
+        // formData.append("updatedAt", new Date());
+        // formData.append("Image", JSON.stringify([...product.Image,imgLink]));
 
-        formData.append("productName", productName);
-        formData.append("productSale", productSale);
-        formData.append("productPrice", productPrice);
-        formData.append("productCate", productCate);
-        formData.append("productGroupCate", productGroupCate);
-        formData.append("productSize", productSize);
-        formData.append("productDes", productDes);
-        formData.append("productSex", productSex);
-        formData.append("productDate", new Date());
-        // axios.post(`http://localhost:4000/products/update/${product._id}`, formData, config)
-        // .then(()=>{
-        //     props.setCloseEditFunc(false);
-        //     props.setToastFunc(true);
-        // })
-        // .catch((err)=>{
-        //     console.log(err)
-        // })
+        axios.put(`${baseUrl}/product/editProduct`, model)
+        .then(()=>{
+            props.setCloseEditFunc(false);
+            props.setToastFunc(true);
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+    const onChangeSize = (e)=>{
+        let name = e.target.name;
+        let value = e.target.value;
+        let _productSize = {...productSize}
+        _productSize[name] = value;
+        setProductSize(_productSize)
     }
 
     const addNewCate = () => {
@@ -174,7 +225,7 @@ export default function DashboardProductEdit(props) {
             <div className="create-box">
                 <div className="create-box-title flex">
                     <div className="create-box-title-text">
-                        Product infomation
+                        Thông tin sản phẩm
                     </div>
                     <div 
                         className="create-box-title-close flex-center"
@@ -188,7 +239,7 @@ export default function DashboardProductEdit(props) {
                 { product && 
                     <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm}>
                         <div className="create-box-row flex">
-                            <div className="dashboard-left flex">Name</div>
+                            <div className="dashboard-left flex">Tên</div>
                             <div className="dashboard-right">
                                 <input 
                                     type="text" name="name" 
@@ -200,7 +251,7 @@ export default function DashboardProductEdit(props) {
                             </div>
                         </div>
                         <div className="create-box-row flex">
-                            <div className="dashboard-left flex">Images </div>
+                            <div className="dashboard-left flex">Hình </div>
                             <div className="dashboard-right">
                                 <input 
                                     onChange={(event) => {
@@ -242,7 +293,7 @@ export default function DashboardProductEdit(props) {
                             </div>
                         </div>
                         <div className="create-box-row flex">
-                            <div className="dashboard-left flex">Defaut price </div>
+                            <div className="dashboard-left flex">Giá cơ bản </div>
                             <div className="dashboard-right">
                                 <input 
                                     type="number" name="price" 
@@ -254,10 +305,10 @@ export default function DashboardProductEdit(props) {
                                 ></input>
                             </div>
                         </div>
-                        <div className="create-box-row flex">
-                            <div className="dashboard-left flex">Sale off </div>
-                            <div className="dashboard-right flex-center">
-                                <input 
+                        {/* <div className="create-box-row flex"> */}
+                            {/* <div className="dashboard-left flex">Khuyến mãi </div>
+                            <div className="dashboard-right flex-center"> */}
+                                {/* <input 
                                     type="number" placeholder="%" 
                                     style={{ width: "100px"}} 
                                     name="sale" 
@@ -265,15 +316,15 @@ export default function DashboardProductEdit(props) {
                                     onChange={(event)=>{
                                         setProductSale(event.target.value)
                                     }}
-                                    required></input>
-                                <label>From: </label>
+                                    required></input> */}
+                                {/* <label>From: </label>
                                 <input type="date"  name="fromdate" onChange={handleOnChange} placeholder="dd/mm/yyyy" pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"/>
                                 <label>To: </label>
-                                <input type="date"  name="todate" onChange={handleOnChange} placeholder="dd/mm/yyyy" pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"/>
-                            </div>
-                        </div>
-                        <div className="create-box-row flex">
-                            <div className="dashboard-left flex">Category group</div>
+                                <input type="date"  name="todate" onChange={handleOnChange} placeholder="dd/mm/yyyy" pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"/> */}
+                            {/* </div> */}
+                        {/* </div> */}
+                        {/* <div className="create-box-row flex">
+                            <div className="dashboard-left flex">Thể loại</div>
                             <div className="dashboard-right flex-center">
                                 <select style={{ width: "350px"}} 
                                     onChange={(event) => {setProductGroupCate(event.target.value)}}
@@ -305,23 +356,37 @@ export default function DashboardProductEdit(props) {
                                     Add
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="create-box-row flex">
-                            <div className="dashboard-left flex">Category </div>
+                            <div className="dashboard-left flex">Thể loại </div>
+                            {console.log('----------product cate',productCate)}
                             <div className="dashboard-right flex-center">
-                                <select style={{ width: "350px"}} 
+
+                                <Select
+                                mode="multiple"
+                                placeholder="Chọn thể loại"
+                                onChange={(value,options) => {console.log('vslue ',value);setProductCate(value)}}
+                                defaultValue={[...productCate]}
+                                value={productCate}
+                                // defaultValue={productCate}
+                                // style={{ width: '100%' }}
+                                options={props.category}
+                                fieldNames={{label:'Name',value:'_id'}}
+                                style={{minWidth:'50%'}}
+                                />
+                                {/* <select style={{ width: "350px"}} 
                                     onChange={(event) => {setProductCate(event.target.value)}}
                                     value={productCate}
                                 >
                                     <option></option>
-                                    { cate.length > 0 &&
-                                        cate.map((item, index) => {
+                                    { props.category.length > 0 &&
+                                        props.category.map((item, index) => {
                                             return(
-                                                <option key={index}>{item.cateName}</option>
+                                                <option key={item._id}>{item.Name}</option>
                                             )
                                         })
                                     }
-                                </select>
+                                </select> */}
                                 <input type="text" name="cate" placeholder="New category?" style={{  margin:'0 10px'}} onChange={handleOnChange} ref={cateInput}></input>
                                 <div className="btn" style={{
                                     fontSize: '14px',
@@ -338,22 +403,31 @@ export default function DashboardProductEdit(props) {
                             </div>
                         </div>
                         <div className="create-box-row flex">
-                            <div className="dashboard-left flex">Sex </div>
+                            <div className="dashboard-left flex">Giới tính </div>
                             <div className="dashboard-right flex">
                                 <select style={{ width: "200px"}} 
                                     onChange={(event) => {setProductSex(event.target.value)}}
                                     value={productSex}
                                     required>
                                     <option></option>
-                                    <option>Man</option>
-                                    <option>Woman</option>
+                                    <option value='629ef31f85deb3c935243765'>Nam</option>
+                                    <option value='629ef31c85deb3c935243763'>Nữ</option>
                                 </select>
                             </div>
                         </div>
                         <div className="create-box-row flex">
                             <div className="dashboard-left flex">Size </div>
                             <div className="dashboard-right flex">
-                                <div 
+                                {console.log('size ',productSize)}
+                                {
+                                    (Object.keys(productSize).length?Object.keys(productSize):['S','M','L']).map(size=>{
+                                        return <div className='d-flex justify-content-center align-items-center'> 
+                                            <strong>{size}</strong>
+                                            <input type='number' value={productSize?productSize[size]:''} name={size} onChange={onChangeSize}/>
+                                        </div>
+                                    })
+                                }
+                                {/* <div 
                                     className={isCheckedSmall ? "size-check isChecked" : "size-check"}
                                     id="1" 
                                     onClick={checkedSize}>Small</div>
@@ -364,11 +438,11 @@ export default function DashboardProductEdit(props) {
                                 <div 
                                     className={isCheckedLarge ? "size-check isChecked" : "size-check"}
                                     id="3" 
-                                    onClick={checkedSize}>Large</div>
+                                    onClick={checkedSize}>Large</div> */}
                             </div>
                         </div>
                         <div className="create-box-row flex">
-                            <div className="dashboard-left flex">Description </div>
+                            <div className="dashboard-left flex">Mô tả </div>
                             <div className="dashboard-right">
                                 <input 
                                     type="text" 
@@ -382,7 +456,7 @@ export default function DashboardProductEdit(props) {
 
                         <div className="flex-center" style={{marginTop: '40px'}}>
                             <button className="create-box-btn btn">
-                                Update product
+                                Cập nhập
                             </button>
                         </div>
                     </form>

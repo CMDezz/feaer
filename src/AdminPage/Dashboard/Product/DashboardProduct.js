@@ -7,16 +7,16 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 export default function DashboardProduct(props) {
 
     const table = [
-        "Name",
-        "Images",
-        "Price",
-        "Sale",
-        "Sold",
+        "Tên",
+        "Hình",
+        "Giá",
+        "Giảm giá",
+        "Đã bán",
         // "Category",    
         // "Size",
-        "Date",    
-        "Rating",
-        "Action"
+        "Cập nhập",    
+        "Đánh giá",
+        "Thao tác"
     ]
 
     return (

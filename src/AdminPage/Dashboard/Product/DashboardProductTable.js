@@ -4,9 +4,11 @@ import './../../Styles/Dashboard.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import moment from 'moment'
 import classNames from 'classnames'
 
 export default function DashboardProductTable(props) {
+    const baseUrl = process.env.REACT_APP_API_URL;
 
     const [products, setProducts] = useState([])
     // const [searchInput, setSearchInput] = useState("")
@@ -17,12 +19,13 @@ export default function DashboardProductTable(props) {
     const [isSortBySold, setIsSortBySold] = useState(false)
     
     useEffect(()=>{
-        // axios.get(`http://localhost:4000/products`)
-        //     .then(res => {
-        //         setProducts(res.data)
-        //         setConstProducts(res.data)
-        //     }
-        // )
+        axios.get(baseUrl+'/product')
+            .then(res => {
+                console.log('res ',res)
+                setProducts(res.data)
+                setConstProducts(res.data)
+            }
+        )
     },[props.isChange]) 
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -47,6 +50,8 @@ export default function DashboardProductTable(props) {
     const indexOfLast = currentPage * itemsPerPage;
     const indexOfFirst = indexOfLast - itemsPerPage;
     const current = products.slice(indexOfFirst, indexOfLast);
+    console.log('current ',current)
+    console.log('products ',products)
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(products.length / itemsPerPage); i++) {
         pageNumbers.push(i);
@@ -103,12 +108,10 @@ export default function DashboardProductTable(props) {
     }
 
     const deleteOnClick = (event) => {
-        // axios.post(`http://localhost:4000/products/delete/:${event.target.id}`, {
-        //     productId: event.target.id
-        // })
-        // setProducts(products.filter((item)=>{
-        //     return item._id !== event.target.id
-        // }))
+        axios.delete(`${baseUrl}/product/deleteProduct?id=${event.target.id}`)
+        setProducts(products.filter((item)=>{
+            return item._id !== event.target.id
+        }))
     }
 
     const searchOnSubmit = (event) =>{
@@ -262,58 +265,59 @@ export default function DashboardProductTable(props) {
                             </tr>
                             {
                                 current.map((item, index) => {
-                                    const date = new Date(item.productDate)
-                                    const day = date.getDate();
-                                    const month = date.getMonth() + 1;
-                                    const year = date.getFullYear();
-                                    const shortedDate = day + '/' + month + '/' + year;
+                                    // const date = new Date(item.productDate)
+                                    // const day = date.getDate();
+                                    // const month = date.getMonth() + 1;
+                                    // const year = date.getFullYear();
+                                    // const shortedDate = day + '/' + month + '/' + year;
                                     //Counting star vote
-                                    const ratingList = item.productVote.map(a => a.ratingStar); // get all rating
+                                    // const ratingList = item.productVote.map(a => a.ratingStar); // get all rating
                                     
-                                    const totalRating = ratingList.reduce((a, b) => a + b, 0);
+                                    // const totalRating = ratingList.reduce((a, b) => a + b, 0);
 
-                                    var averageRating = 0;
-                                    if (totalRating === 0) {
-                                        averageRating = 0
-                                    } else {
-                                        averageRating = totalRating/Number(ratingList.length);
-                                    }
+                                    // var averageRating = 0;
+                                    // if (totalRating === 0) {
+                                    //     averageRating = 0
+                                    // } else {
+                                    //     // averageRating = totalRating/Number(ratingList.length);
+                                    // }
 
                                     return (
                                         <tr key={index}>
                                             <td className="table-name table-mobile-productname">
-                                                <p>{item.productName}</p>
+                                                <p>{item.Name}</p>
                                             </td>
                                             <td className="table-mobile-productimages" style={{display: 'flex'}}>
                                                 <img 
-                                                    src={item.productImg[0]} 
+                                                    src={item.Image[0]} 
                                                     width="70px" height="80px"
                                                     style={{padding: '5px 0'}}
                                                     alt=""
                                                 />
                                             </td>
                                             <td>
-                                                <p>{item.productPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</p>
+                                                <p>{item.Price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</p>
                                             </td>
-                                            { item.productSale > 0 &&
+                                            { item.Discount &&
                                                 <td className="table-mobile-productsale">
-                                                    <p style={{color: 'green'}}>{item.productSale}%</p>
+                                                    <p style={{color: 'green'}}>{item.Discount.Value}%</p>
                                                 </td>
                                             }
-                                            { item.productSale === 0 &&
+                                            { !item.Discount  &&
                                                 <td className="table-mobile-productsale">
                                                     <p style={{color: 'red'}}>No sale</p>
                                                 </td>
                                             }
                                             <td className="table-mobile-productsold">
-                                                <p>{item.productSold}</p>
+                                                <p>{item.TotalSold ?? 0}</p>
                                             </td>
                                             <td className="table-mobile-productdate">
-                                                <p>{shortedDate}</p>
+                                                <p>{moment(item.updatedAt).format('DD/MM/YYYY')}</p>
                                             </td>
                                             <td className="star-rating">
                                                 <div className="star-rating-list flex">
-                                                    <p className={ 
+                                                    product rate
+                                                    {/* <p className={ 
                                                         averageRating > 0 ? "star-color star" :"star"
                                                     }>★</p>
                                                     <p className={ 
@@ -327,7 +331,7 @@ export default function DashboardProductTable(props) {
                                                     }>★</p>
                                                     <p className={ 
                                                         averageRating > 4 ? "star-color star" :"star"
-                                                    }>★</p>
+                                                    }>★</p> */}
                                                 </div>
                                             </td>
                                             <td>

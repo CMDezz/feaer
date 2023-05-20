@@ -33,6 +33,7 @@ export default function DashboardInbox(props) {
   useEffect(() => {
     if (roomId) {
       console.log('connected to room  ',roomId)
+      socket && socket.close();
       const chatSocket = new WebSocket(
         "ws://" + ENDPOINT + "/ws/chat/" + roomId + "/"
       );
@@ -50,7 +51,6 @@ export default function DashboardInbox(props) {
     fetch(url)
     .then(res=>res.json())
     .then(res=>{
-      console.log('res ne',res)
       if (Boolean(res.length)) {
         setRoomId(res[0].sessionId)
         setRoomTarget(res[0].userInfo['_id'])
@@ -62,13 +62,10 @@ export default function DashboardInbox(props) {
       return res
     })
     .then((res)=>{
-      console.log('id from res ',res[0].sessionId)
-      console.log('id rooom, ',roomId)
+      totalSocket && totalSocket.close()
       const _totalSocket = new WebSocket(
         "ws://" + ENDPOINT + "/ws/chat/"
       );
-
-
       setTotalSocket(_totalSocket)
       if (messageRef?.current) messageRef?.current?.scrollIntoView({ behavior: "smooth" })
     })
@@ -77,16 +74,14 @@ export default function DashboardInbox(props) {
     return ()=>{
       setRoomId(0)
       setRoomTarget(0)
-      // totalSocket && totalSocket.close()
+      totalSocket && totalSocket.close()
     }
   },[])
 
   useEffect(() => {
     if (roomId && socket) {
-      console.log('er')
         socket.onmessage = function (e) {
             const data = JSON.parse(e.data);
-            console.log('data frojm  socket ',data)
             setDuLieu(data);
             
             // document.querySelector('#chat-log').value += (data.message + '\n');
@@ -99,17 +94,20 @@ export default function DashboardInbox(props) {
   }, [socket,messageRef?.current,totalSocket]);
 
   useEffect(() => {
+    console.log('ahahah')
     if (roomId && totalSocket) {
       totalSocket.onmessage = function (e) {
         const data = JSON.parse(e.data);
-        console.log('data frojm total socket ',data)
+        console.log('--roomId  ',roomId)
+        console.log('--data.thread_id  ',data.thread_id)
         if (data.thread_id == roomId) return;
         setDuLieu(data);
       };
+      totalSocket.onclose = function (e) {};
       setTotalSocket(totalSocket)
     }
 
-  }, [totalSocket,roomId,socket]);
+  }, [totalSocket]);
   const setDuLieu = (data) => {
       let _modeldata = {
         sessionId: data.thread_id, //tên phòng,
@@ -174,7 +172,6 @@ export default function DashboardInbox(props) {
 
   const sendChatInput = (event) => {
     event.preventDefault();
-    console.log('gui mess ',chatInput)
     if (chatInput === "") {
       return;
     }
@@ -299,7 +296,6 @@ export default function DashboardInbox(props) {
                     setRoomId(item.sessionId);
                     setRoomTarget(item.userInfo['_id']);
                     setRoomIndex(index);
-                    console.log('clcikckckc ',item)
                     // setTimeout(() => {
                     //   if (messageRef.current)
                     //     messageRef.current.scrollIntoView({

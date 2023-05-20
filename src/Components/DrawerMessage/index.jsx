@@ -12,19 +12,35 @@ function DrawerMessage(props) {
   const messageRef = useRef([]);
   const adminId = "6448aa754a3d5e97f2f37df7";
   const [infoUser, setInfoUser] = useState({});
+  const [currentThread, setCurrentThread] = useState({});
+  const baseUrl = process.env.REACT_APP_CHAT_URL;
 
   useEffect(() => {
     if (open && socket == null) {
-        console.log('hehe ')
       let storage = JSON.parse(localStorage.getItem("feaer_login_info")) || {};
-      console.log('hehe ',storage)
-      console.log('hehe ',storage.Token)
       if (storage.Token) {
-        let socket = new WebSocket(
-          "ws://" + ENDPOINT + "/ws/chat/" + "644b475d9d4c9df98487b57b" + "/"
-        );
-        setSocket(socket);
-        setInfoUser(storage)
+        //get threads id 
+        fetch(baseUrl + '?id='+storage.User._id)
+        .then(res=>res.json())
+        .then(res=>{
+          console.log('res ne',res)
+          setCurrentThread(res[0])
+          return res[0]
+        })
+        .then((res)=>{
+          console.log('res ne 2 ',res)
+          //connecto to a thread
+          let socket = new WebSocket(
+            "ws://" + ENDPOINT + "/ws/chat/" + res.sessionId + "/"
+          );
+          setSocket(socket);
+          setInfoUser(storage)
+        })
+        .catch(err=>{
+          console.log('err',err)
+        })
+
+
       }else{
         setInfoUser({})
       }
@@ -53,9 +69,9 @@ function DrawerMessage(props) {
     }
     let _data = {
       message: message,
-      sent_by: "644b453fd7d5cf8cefe520f5",
-      send_to: "6448aa754a3d5e97f2f37df7",
-      thread_id: "644b475d9d4c9df98487b57b",
+      sent_by: infoUser.User?._id,
+      send_to: adminId,
+      thread_id: currentThread.sessionId,
     };
     socket && socket.send(JSON.stringify(_data));
     setMessage("");
@@ -102,7 +118,7 @@ function DrawerMessage(props) {
       <div className="wrapperMessageClient">
         <div className="ChatContent">
           <div className="boxchat-contents">
-            {window.innerWidth > 700 && (
+            {/* {window.innerWidth > 700 && ( */}
               <div className="flex-col chat-box-list">
                 {sortDateChat.chatContent.map((item, index) => {
                   const date = new Date(item.time);
@@ -183,7 +199,7 @@ function DrawerMessage(props) {
                   );
                 })}
               </div>
-            )}
+            {/* )} */}
           </div>
         </div>
         <div className="chatActions mt-2">

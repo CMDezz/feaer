@@ -10,7 +10,7 @@ function DrawerMessage(props) {
   const [allChatData, setAllChatData] = useState({ chatContent: [] });
   const [constAllChatData, setConstAllChatData] = useState({});
   const messageRef = useRef([]);
-  const adminId = "6448aa754a3d5e97f2f37df7";
+  const adminId = "64648cfdb99f6f1d5d67759f";
   const [infoUser, setInfoUser] = useState({});
   const [currentThread, setCurrentThread] = useState({});
   const baseUrl = process.env.REACT_APP_CHAT_URL;
@@ -19,28 +19,33 @@ function DrawerMessage(props) {
     if (open && socket == null) {
       let storage = JSON.parse(localStorage.getItem("feaer_login_info")) || {};
       if (storage.Token) {
-        //get threads id 
-        fetch(baseUrl + '?id='+storage.User._id)
-        .then(res=>res.json())
-        .then(res=>{
-          console.log('res ne',res)
-          setCurrentThread(res[0])
-          return res[0]
-        })
-        .then((res)=>{
-          console.log('res ne 2 ',res)
-          //connecto to a thread
-          let socket = new WebSocket(
-            "ws://" + ENDPOINT + "/ws/chat/" + res.sessionId + "/"
-          );
-          setSocket(socket);
-          setInfoUser(storage)
-        })
-        .catch(err=>{
-          console.log('err',err)
-        })
+        //get threads id  //confict
+        // fetch(baseUrl + '?id='+storage.User._id)
+        // .then(res=>res.json())
+        // .then(res=>{
+        //   console.log('res ne',res)
+        //   setCurrentThread(res[0])
+        //   return res[0]
+        // })
+        // .then((res)=>{
+        //   console.log('res ne 2 ',res)
+        //   //connecto to a thread
+        //   let socket = new WebSocket(
+        //     "ws://" + ENDPOINT + "/ws/chat/" + res.sessionId + "/"
+        //   );
+        //   setSocket(socket);
+        //   setInfoUser(storage)
+        // })
+        // .catch(err=>{
+        //   console.log('err',err)
+        // })
 
 
+        let socket = new WebSocket(
+          "ws://" + ENDPOINT + "/ws/chat/" + "64648e225ce04e256e225d2d" + "/"
+        );
+        setSocket(socket);
+        setInfoUser(storage)
       }else{
         setInfoUser({})
       }
@@ -69,9 +74,12 @@ function DrawerMessage(props) {
     }
     let _data = {
       message: message,
-      sent_by: infoUser.User?._id,
+      // sent_by: infoUser.User?._id,
+      // send_to: adminId,
+      // thread_id: currentThread.sessionId, //confict
+      sent_by: "644b453fd7d5cf8cefe520f5",
       send_to: adminId,
-      thread_id: currentThread.sessionId,
+      thread_id: "644b475d9d4c9df98487b57b",
     };
     socket && socket.send(JSON.stringify(_data));
     setMessage("");

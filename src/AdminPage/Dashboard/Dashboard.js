@@ -11,6 +11,8 @@ import { withRouter } from 'react-router-dom'
 const ENDPOINT = "http://localhost:4000";
 
 function Dashboard(props) {
+    const baseUrl = process.env.REACT_APP_API_URL;
+
     const menuItems = [
         {
             id: "1",
@@ -139,6 +141,7 @@ function Dashboard(props) {
     const setOpenEditFunc = (event) => {
         document.body.style.overflow = 'hidden';
         setOpenEdit(true)
+        console.log('--- ',event.target)
         setProductId(event.target.id)
     }
     

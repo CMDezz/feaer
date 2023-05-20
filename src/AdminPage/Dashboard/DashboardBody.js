@@ -26,6 +26,7 @@ import DashboardSubscriberEdit from './Subscriber/DashboardSubscriberEdit';
 import DashboardSubscriber from './Subscriber/DashboardSubscriber';
 
 export default function DashboardBody(props) {
+    const baseUrl = process.env.REACT_APP_API_URL;
 
     const tabId = props.tabId;
     const [toast, setToast] = useState(false)
@@ -36,6 +37,7 @@ export default function DashboardBody(props) {
     const [order, setOrder] = useState({})
     const [collection, setCollection] = useState({})
     const [email, setEmail] = useState([])
+    const [category, setCategory] = useState([])
 
     const setToastFunc = (bool) => {
         setIsChange(true)
@@ -49,12 +51,22 @@ export default function DashboardBody(props) {
     }
     
     useEffect(()=> {
-        // Axios.get(`http://localhost:4000/products/${props.productId}`)
-        //     .then(res => {
-        //         res ={data:{}}
-        //         setProduct(res.data)
-        //     } 
-        // )
+        Axios.get(`${baseUrl}/product/getProductById?id=${props.productId}`)
+            .then(res => {
+                console.log('res product ',res)
+                setProduct(res.data)
+            } 
+        )
+        Axios.get(`${baseUrl}/collection`)
+            .then(res => {
+                setCollection(res.data)
+            } 
+        )
+        Axios.get(`${baseUrl}/category`)
+            .then(res => {
+                setCategory(res.data)
+            } 
+        )
         // Axios.get(`http://localhost:4000/news/${props.productId}`)
         //     .then(res => {
         //         res ={data:{}}
@@ -124,6 +136,8 @@ export default function DashboardBody(props) {
                     setCloseEditFunc={props.setCloseEditFunc}
                     setToastFunc={setToastFunc}
                     product={product}
+                    category={category}
+                    collection={collection}
                 />
             }
             { (props.openCreate && tabId === "5") &&

@@ -5,21 +5,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import classNames from 'classnames'
-
+import moment from 'moment'
 export default function DashboardUserTable(props) {
 
     const [order, setOrder] = useState([])
     const [isSortByName, setIsSortByName] = useState(false)
     const [isSortByTotal, setIsSortByTotal] = useState(false)
     const [constOrder, setConstOrder] = useState([])
-    
+    const baseUrl = process.env.REACT_APP_API_URL;
+
     useEffect(()=>{
-        // axios.get(`http://localhost:4000/order`)
-        //     .then(res => {
-        //         setOrder(res.data)
-        //         setConstOrder(res.data)
-        //     }
-        // )
+        axios.get(`${baseUrl}/order`)
+            .then(res => {
+                console.log('resdata ',res.data)
+                setOrder(res.data)
+                setConstOrder(res.data)
+            }
+        )
     },[props.isChange]) 
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -101,13 +103,12 @@ export default function DashboardUserTable(props) {
 
     const deleteOnClick = (event) => {
         const id = event.target.id
-        // axios.post(`http://localhost:4000/order/delete/:${event.target.id}`, {
-        //     id: id
-        // }).then(()=>{
-        //     setOrder(order.filter((item)=>{
-        //         return item._id !== id
-        //     }))
-        // })
+        console.log('id ne',id)
+        axios.delete(`${baseUrl}/order/deleteOrder?id=${id}`).then(()=>{
+            setOrder(order.filter((item)=>{
+                return item._id !== id
+            }))
+        })
     }
 
     const searchOnSubmit = (event) =>{
@@ -175,6 +176,10 @@ export default function DashboardUserTable(props) {
             }
         }
     }
+    let numToPrice = (x=0) => {
+        x = x?x:0
+        return x.toLocaleString("it-IT", { style: "currency", currency: "VND" });
+      };
 
     return (
         <div className="topfive flex-col" style={{width: '100%'}}>
@@ -187,18 +192,18 @@ export default function DashboardUserTable(props) {
                 </div>
                 <div className="topfive-content flex-col">
                     <div className="dashboard-addnew flex">
-                        <div 
+                        {/* <div 
                             className="dashboard-addnew-btn btn"
                             onClick={props.setOpenCreateFunc}
-                        >Add new</div>
+                        >Add new</div> */}
                         <div className="dashboard-addnew-search">
-                            <form 
+                            {/* <form 
                                 onSubmit={searchOnSubmit}
                             >
                                 <input type="text" placeholder="Search records"
                                     onChange={searchOnChange}
                                 ></input>
-                            </form>
+                            </form> */}
                         </div>
                     </div>
                     <table className="dashboard-table" style={{tableLayout: 'fixed'}}>
@@ -235,8 +240,8 @@ export default function DashboardUserTable(props) {
                                             <td className="mobile-table-orderinfo">
                                                 <ul style={{margin: '10px 0'}}>
                                                     <li className="flex">
-                                                        <p style={{marginRight: '5px', fontWeight: 'bold'}}>#{item.orderId}</p> 
-                                                        <p className="mobile-table-name">by {item.orderName}</p>
+                                                        {/* <p style={{marginRight: '5px', fontWeight: 'bold'}}>#{item._id}</p>  */}
+                                                        <p className="mobile-table-name">Khách: {item.FirstName +' '+ item.LastName}</p>
                                                     </li>
                                                 </ul>    
                                             </td>
@@ -244,35 +249,31 @@ export default function DashboardUserTable(props) {
                                                 <div className="flex" style={{alignItems: 'center',margin: '10px 0'}}>
                                                     <p 
                                                         style={{wordWrap: 'break-word', WebkitLineClamp: '3'}}
-                                                    >{item.orderAddress}, {item.orderHuyen}, {item.orderTinh}</p>
+                                                    >{item.Address}, {item.Ward}, {item.District} ,{item.City}</p>
                                                 </div> 
                                             </td>
                                             <td>
-                                                <p>{day}-{month}-{year}</p>
+                                                <p>{moment(item.updateAt).format('DD-MM-YYYY HH:mm')}</p>
                                             </td>
                                             <td className="mobile-table-paymentmethod">
-                                                <p style={{textTransform: 'capitalize'}}>{item.orderPaymentMethod}</p>
+                                                <a href='#' style={{textTransform: 'capitalize'}}>Xem chi tiết</a>
                                             </td>
                                             <td>
-                                                {   typeof(totalItem) === 'number' &&
-                                                        <div key={index} className="flex" style={{justifyContent: 'space-between'}}>
-                                                            {/* <p style={{margin: '10px 0', width: '100%', WebkitLineClamp: '2'}}>{virtualArr.productName}</p> */}
-                                                            <p style={{margin: '10px 0', width: '50px', marginLeft: '20px'}}>{totalItem}</p>
-                                                        </div>
+                                                {  numToPrice(item.TotalPrice)
                                                 }
                                             </td>
                                             <td className="mobile-table-totalmoney">
-                                                <p>{item.orderTotal} đ</p>
+                                                {item.Note}
                                             </td>
                                             <td>
                                                 <div className="action-table flex">
-                                                    <div 
+                                                    {/* <div 
                                                         className="action-item flex-center action-green"
                                                         onClick={props.setOpenEditFunc}
                                                         id={item._id}
                                                         >
                                                         <FontAwesomeIcon style={{pointerEvents: 'none'}} icon={faPencilAlt}/>
-                                                    </div>
+                                                    </div> */}
                                                     <div 
                                                         className="action-item flex-center action-red"
                                                         onClick={deleteOnClick}

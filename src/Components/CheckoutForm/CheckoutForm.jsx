@@ -3,13 +3,19 @@ import "./CheckoutForm.scss";
 import AddressData from "./Addressdata";
 import Select from "react-select";
 import CategoryList from "../CategoryList/CategoryList";
+import axios from "axios";
+import {useNavigate} from 'react-router-dom'
+import {useSelector} from 'react-redux'
 
 const CheckoutForm = (props) => {
   //   let [defaultDistrictValue, setDefaultDistrictValue] = useState(null);
   //   let [defaultWardValue, setDefaultWardValue] = useState(null);
-
+  let Products = props.data;
+  const navigate = useNavigate()
   let [districtsList, setDistrictsList] = useState([{}]);
   let [wardsList, setWardList] = useState([{}]);
+  const baseUrl = process.env.REACT_APP_API_URL;
+  let shippingType = useSelector((state) => state.shop.shippingType);
 
   //create info
   let [orderForm, setOrderForm] = useState({
@@ -65,9 +71,50 @@ const CheckoutForm = (props) => {
     setOrderForm({ ...orderForm, Ward: e });
   };
 
+  let handleTempPrice = () => {
+    let tempPrice = 0;
+    Products.map((p) => {
+      tempPrice += p.FinalPrice * p.qty;
+    });
+    return tempPrice;
+  };
+  let handleShippingFee = () => {
+    if (shippingType == "Standard") return 0;
+    if (shippingType == "Fast") return 15000;
+  };
+  let handleTotalPrice = () => {
+    return handleTempPrice() + handleShippingFee();
+  };
+
+  let onSubmitHanlder =(e)=>{
+    e.preventDefault();
+    console.log('submit ',Products)
+    let _model ={
+      Products:JSON.stringify(Products),
+      // Products:JSON.stringify(Products.map(x=>({_id:x._id,qty:x.qty,size:x.sizePicked}))),
+      TotalPrice:handleTotalPrice(),
+      Email:orderForm.CustomerEmail,
+      Phone:orderForm.CustomerPhone,
+      LastName:orderForm.CustomerLastName,
+      FirstName:orderForm.CustomerFirstName,
+      City:orderForm.City.label,
+      Ward:orderForm.Ward.label,
+      District:orderForm.District.label,
+      Address:orderForm.Address,
+      Note:orderForm.Note,
+    }
+    axios.post(baseUrl+'/order/createNewOrder',_model)
+    .then(res=>{
+          let url = window.location.pathname == "/checkout/shipping"
+              ? "/checkout/payment"
+              : "/checkout/thankyou"
+              navigate('/checkout/thankyou')
+    })
+  }
+
   return (
     <div className="CheckoutForm">
-      <form action="" className="CheckoutFormBox">
+      <form onSubmit={onSubmitHanlder} action="" className="CheckoutFormBox" id='CheckoutFormBox'>
         <div className="CheckoutFormContact">
           <h4 className="CheckoutFormContactTitle">THÔNG TIN LIÊN HỆ</h4>
           <div className="CheckoutFormContactBox">

@@ -55,7 +55,9 @@ function DrawerMessage(props) {
   }, [open]);
 
   useEffect(() => {
+    console.log('2')
     if (socket != null) {
+      console.log('1')
       socket.onmessage = function (e) {
         const data = JSON.parse(e.data);
         console.log("data frojm asdasdasdasd socket ", data);
@@ -77,9 +79,9 @@ function DrawerMessage(props) {
       // sent_by: infoUser.User?._id,
       // send_to: adminId,
       // thread_id: currentThread.sessionId, //confict
-      sent_by: "644b453fd7d5cf8cefe520f5",
+      sent_by: infoUser.User._id,
       send_to: adminId,
-      thread_id: "644b475d9d4c9df98487b57b",
+      thread_id: currentThread.sessionId,
     };
     socket && socket.send(JSON.stringify(_data));
     setMessage("");

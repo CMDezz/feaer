@@ -28,6 +28,8 @@ const CheckoutInfo = (props) => {
     let warnArr = document.getElementsByClassName("warn");
     if (warnArr.length > 0) {
       e.preventDefault();
+    }else{
+
     }
   };
 
@@ -78,17 +80,19 @@ const CheckoutInfo = (props) => {
         </p>
       </div>
       <div className="CheckoutInfoActions">
-        <Link
-          to={
-            window.location.pathname == "/checkout/shipping"
-              ? "/checkout/payment"
-              : "/checkout/thankyou"
-          }
+        {/* <a
+          // to={
+          //   window.location.pathname == "/checkout/shipping"
+          //     ? "/checkout/payment"
+          //     : "/checkout/thankyou"
+          // }
           className="CheckoutInfoActionsNext"
           onClick={(e) => handleNext(e)}
         >
           TIẾP THEO
-        </Link>
+        </a> */}
+        <button form='CheckoutFormBox' type="submit">Tiếp theo</button>
+
         <Link to="/cart" className="CheckoutInfoActionsBack">
           QUAY LẠI
         </Link>

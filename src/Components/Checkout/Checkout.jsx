@@ -26,7 +26,7 @@ const Checkout = (props) => {
     <div className="Checkout">
       <h3 className="CheckoutTitle">NHẬP THÔNG TIN ĐƠN HÀNG</h3>
       <div className="CheckoutBox">
-        <CheckoutForm handleOrderForm={handleOrderForm}></CheckoutForm>
+        <CheckoutForm data={cart} handleOrderForm={handleOrderForm}></CheckoutForm>
         <CheckoutInfo data={cart}></CheckoutInfo>
       </div>
     </div>

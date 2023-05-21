@@ -20,13 +20,13 @@ export default function DashboardOrder(props) {
             ])
         } else {
             setTable([
-                "Order Info",
-                "ShippingInfo",
-                "Date",
-                "PaymentMethod",
-                "Items",
-                "Total Money",
-                "Action"
+                "Mã đơn hàng",
+                "Địa chỉ",
+                "Ngày tạo",
+                "Sản phẩm",
+                "Tổng tiền",
+                "Ghi chú",
+                "Thao tác",
             ])
         }
         function handleResize() {

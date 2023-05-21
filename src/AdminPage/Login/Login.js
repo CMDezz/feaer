@@ -44,15 +44,15 @@ function Login(props) {
             navigate('/admin/dashboard')
         })
         .catch(err => {
-            let res = {data:{token:'',user:{}}}
-            err={response:{}}
-            setArrErr([err.response.data]);
-            setArrSuccess([]) 
-            setArrSuccess(["Login success!"]) 
-            setArrErr([]);
-            localStorage.setItem('token', res.data.token);
-            localStorage.setItem('user-id', res.data.user._id);
-            navigate('/admin/dashboard')
+            // let res = {data:{token:'',user:{}}}
+            // err={response:{}}
+            setArrErr([err.response.data.message]);
+            // setArrSuccess([]) 
+            // setArrSuccess(["Login success!"]) 
+            // setArrErr([]);
+            // localStorage.setItem('token', res.data.token);
+            // localStorage.setItem('user-id', res.data.user._id);
+            // navigate('/admin/dashboard')
         }) 
     }
 

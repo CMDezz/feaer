@@ -20,32 +20,32 @@ function DrawerMessage(props) {
       let storage = JSON.parse(localStorage.getItem("feaer_login_info")) || {};
       if (storage.Token) {
         //get threads id  //confict
-        // fetch(baseUrl + '?id='+storage.User._id)
-        // .then(res=>res.json())
-        // .then(res=>{
-        //   console.log('res ne',res)
-        //   setCurrentThread(res[0])
-        //   return res[0]
-        // })
-        // .then((res)=>{
-        //   console.log('res ne 2 ',res)
-        //   //connecto to a thread
-        //   let socket = new WebSocket(
-        //     "ws://" + ENDPOINT + "/ws/chat/" + res.sessionId + "/"
-        //   );
-        //   setSocket(socket);
-        //   setInfoUser(storage)
-        // })
-        // .catch(err=>{
-        //   console.log('err',err)
+        fetch(baseUrl + '?id='+storage.User._id)
+        .then(res=>res.json())
+        .then(res=>{
+          console.log('res ne',res)
+          setCurrentThread(res[0])
+          return res[0]
+        })
+        .then((res)=>{
+          console.log('res ne 2 ',res)
+          //connecto to a thread
+          let socket = new WebSocket(
+            "ws://" + ENDPOINT + "/ws/chat/" + res.sessionId + "/"
+          );
+          setSocket(socket);
+          setInfoUser(storage)
+        })
+        .catch(err=>{
+          console.log('err',err)})
         // })
 
 
-        let socket = new WebSocket(
-          "ws://" + ENDPOINT + "/ws/chat/" + "64648e225ce04e256e225d2d" + "/"
-        );
-        setSocket(socket);
-        setInfoUser(storage)
+        // let socket = new WebSocket(
+        //   "ws://" + ENDPOINT + "/ws/chat/" + "64648e225ce04e256e225d2d" + "/"
+        // );
+        // setSocket(socket);
+        // setInfoUser(storage)
       }else{
         setInfoUser({})
       }
